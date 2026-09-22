@@ -67,12 +67,12 @@ body{
   flex-shrink:0;
 }
 
-/* İÇERİK */
+/* ANA İÇERİK */
 .container{
   padding:15px 12px;
 }
 
-/* ODA SEKMELERİ */
+/* ODA BÖLÜMLERİ */
 .room-tabs{
   display:flex;
   gap:10px;
@@ -95,7 +95,7 @@ body{
 
 .room-tab:first-child{
   background:linear-gradient(135deg,#7b61ff,#9b7cff);
-  color:white;
+  color:#fff;
 }
 
 /* AKTİF KULLANICILAR */
@@ -140,7 +140,7 @@ body{
   width:13px;
   height:13px;
   background:#25c76f;
-  border:2px solid white;
+  border:2px solid #fff;
   border-radius:50%;
   position:relative;
   margin:-15px 3px 0 auto;
@@ -154,158 +154,32 @@ body{
   text-overflow:ellipsis;
 }
 
-/* B
-  <!-- ANA İÇERİK -->
-
-<main class="container">
-
-  <!-- ODA BÖLÜMLERİ -->
-  <div class="room-tabs">
-
-    <div class="room-tab" onclick="openRoom('video')">
-      🎥 Video Odası
-    </div>
-
-    <div class="room-tab" onclick="openRoom('chat')">
-      💬 Sohbet Odası
-    </div>
-
-  </div>
-
-
-  <!-- AKTİF KULLANICILAR -->
-  <div class="section-title">
-    Aktif Kullanıcılar
-  </div>
-
-  <div class="users">
-
-    <div class="user">
-      <div class="avatar">👨</div>
-      <div class="online"></div>
-      <div class="username">Mert</div>
-    </div>
-
-    <div class="user">
-      <div class="avatar">👩</div>
-      <div class="online"></div>
-      <div class="username">Elif</div>
-    </div>
-
-    <div class="user">
-      <div class="avatar">👨</div>
-      <div class="online"></div>
-      <div class="username">Can</div>
-    </div>
-
-    <div class="user">
-      <div class="avatar">👩</div>
-      <div class="online"></div>
-      <div class="username">Zeynep</div>
-    </div>
-
-    <div class="user">
-      <div class="avatar">👨</div>
-      <div class="online"></div>
-      <div class="username">Emir</div>
-    </div>
-
-  </div>
-
-
-  <!-- REKLAM BANNER -->
-  <div class="banner">
-
-    <div>
-      <h2>Power Chatt</h2>
-
-      <p>
-        Yeni insanlarla tanış,
-        sohbet et ve odalara katıl.
-      </p>
-
-      <button onclick="showAd()">
-        Hemen Katıl
-      </button>
-    </div>
-
-  </div>
-
-</main>
-
-
-<!-- ALT MENÜ -->
-
-<nav class="bottom-nav">
-
-  <div class="nav-item active" onclick="selectNav(this)">
-    <span class="nav-icon">🏠</span>
-    Ana Sayfa
-  </div>
-
-  <div class="nav-item" onclick="selectNav(this)">
-    <span class="nav-icon">🖼️</span>
-    Anılar
-  </div>
-
-  <div class="nav-item" onclick="selectNav(this)">
-    <span class="nav-icon">🚪</span>
-    Odalar
-  </div>
-
-  <div class="nav-item" onclick="selectNav(this)">
-    <span class="nav-icon">💬</span>
-    Mesajlar
-  </div>
-
-  <div class="nav-item" onclick="selectNav(this)">
-    <span class="nav-icon">👤</span>
-    Ben
-  </div>
-
-</nav>
-
-
-<script>
-
-function searchUser(){
-  const name = prompt("Kullanıcı ara:");
-  if(name){
-    alert(name + " için arama yapılıyor...");
-  }
+/* BANNER */
+.banner{
+  width:100%;
+  min-height:190px;
+  margin-top:20px;
+  border-radius:18px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#17152c,#6c45d9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+  padding:25px;
+  box-shadow:0 5px 18px rgba(0,0,0,.12);
 }
 
-function showCup(){
-  alert("🏆 Kupa bölümü");
+.banner h2{
+  font-size:26px;
+  margin-bottom:8px;
 }
 
-function openRoom(type){
-
-  if(type === "video"){
-    alert("🎥 Video Odası açılıyor...");
-  }
-
-  if(type === "chat"){
-    alert("💬 Sohbet Odası açılıyor...");
-  }
-
+.banner p{
+  font-size:14px;
+  opacity:.9;
 }
 
-function showAd(){
-  alert("Power Chatt'a hoş geldin!");
-}
-
-function selectNav(element){
-
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(item => item.classList.remove("active"));
-
-  element.classList.add("active");
-
-}
-
-</script>
-
-</body>
-</html>
+.banner button{
+  margin-top:18px
