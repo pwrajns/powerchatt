@@ -1,21 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Power Chatt</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box}
 
 body{
-  background:#09090d;
-  color:white;
+  margin:0;
+  background:#090a10;
+  color:#fff;
   font-family:Arial,sans-serif;
 }
 
@@ -23,37 +19,190 @@ body{
   max-width:480px;
   min-height:100vh;
   margin:auto;
-  background:#101016;
-  position:relative;
-  padding-bottom:75px;
+  background:#11131c;
+  padding-bottom:80px;
 }
 
-/* ÜST BAR */
-.header{
-  height:65px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
-  background:#15151d;
-  border-bottom:1px solid #292934;
-}
-
-.logo{
-  font-size:24px;
+header{
+  padding:18px;
+  text-align:center;
+  font-size:25px;
   font-weight:bold;
 }
 
-.logo span{
-  color:#9b5cff;
+.logo{
+  color:#8b5cf6;
 }
 
-.coin{
-  background:#211b32;
-  border:1px solid #7045b8;
+.page{
+  display:none;
+  padding:15px;
+}
+
+.page.active{
+  display:block;
+}
+
+.hero{
+  background:linear-gradient(135deg,#7c3aed,#ec4899);
+  padding:22px;
   border-radius:20px;
-  padding:8px 13px;
-  font-size:14px;
+  margin-bottom:15px;
 }
 
-/* İ
+.hero h1{
+  margin:0 0 8px;
+}
+
+.card{
+  background:#1a1d29;
+  border-radius:16px;
+  padding:15px;
+  margin:10px 0;
+}
+
+.room{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#8b5cf6,#ec4899);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+
+button{
+  border:0;
+  border-radius:12px;
+  padding:11px 16px;
+  background:#7c3aed;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:12px;
+  background:#242735;
+  color:#fff;
+  margin:8px 0;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.game{
+  background:#1a1d29;
+  padding:20px;
+  border-radius:16px;
+  text-align:center;
+}
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:480px;
+  height:68px;
+  background:#181a25;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:10;
+}
+
+.nav{
+  background:none;
+  color:#aaa;
+  padding:8px;
+  font-size:13px;
+}
+
+.nav.active{
+  color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <span class="logo">Power</span> Chatt
+</header>
+
+<section id="home" class="page active">
+
+  <div class="hero">
+    <h1>Power Chatt</h1>
+    <p>Yeni insanlarla tanış, sohbet et ve eğlen.</p>
+    <button onclick="showPage('rooms')">Sohbete Başla</button>
+  </div>
+
+  <div class="card">
+    <h3>🔥 Popüler Odalar</h3>
+    <div class="room">
+      <div class="avatar">💬</div>
+      <div>
+        <b>Türkiye Sohbet</b>
+        <br>
+        <small>Aktif kullanıcılar</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🌍 Ülkeler</h3>
+    <p>🇹🇷 Türkiye</p>
+    <p>🇦🇿 Azerbaycan</p>
+  </div>
+
+</section>
+
+<section id="rooms" class="page">
+
+  <h2>💬 Odalar</h2>
+
+  <div class="card">
+    <div class="room">
+      <div class="avatar">🇹🇷</div>
+      <div>
+        <b>Türkiye Odası</b>
+        <br>
+        <small>Genel sohbet</small>
+      </div>
+      <button onclick="alert('Odaya katıldın!')">Katıl</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="room">
+      <div class="avatar">🇦🇿</div>
+      <div>
+        <b>Azerbaycan Odası</b>
+        <br>
+        <small>Genel sohbet</small>
+      </div>
+      <button onclick="alert('Odaya katıldın!')">Katıl</button>
+    </div>
+  </div>
+
+</section>
+
+<section id="games
