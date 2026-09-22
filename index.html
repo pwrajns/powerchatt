@@ -329,3 +329,75 @@ body{
 <nav class="bottom-nav">
 
   <div class="nav-item active" onclick="selectNav(this
+    <span class="nav-icon">🏠</span>
+    Ana Sayfa
+  </div>
+
+  <div class="nav-item" onclick="selectNav(this)">
+    <span class="nav-icon">🖼️</span>
+    Anılar
+  </div>
+
+  <div class="nav-item" onclick="selectNav(this)">
+    <span class="nav-icon">🚪</span>
+    Odalar
+  </div>
+
+  <div class="nav-item" onclick="selectNav(this)">
+    <span class="nav-icon">💬</span>
+    Mesajlar
+  </div>
+
+  <div class="nav-item" onclick="selectNav(this)">
+    <span class="nav-icon">👤</span>
+    Ben
+  </div>
+
+</nav>
+
+<script>
+
+function searchUser(){
+  const name = prompt("Kullanıcı ara:");
+
+  if(name){
+    alert(name + " için arama yapılıyor...");
+  }
+}
+
+function showCup(){
+  alert("🏆 Kupa bölümü");
+}
+
+function openRoom(type){
+
+  if(type === "video"){
+    alert("🎥 Video Odası açılıyor...");
+  }
+
+  if(type === "chat"){
+    alert("💬 Sohbet Odası açılıyor...");
+  }
+
+}
+
+function showAd(){
+  alert("Power Chatt'a hoş geldin!");
+}
+
+function selectNav(element){
+
+  document
+    .querySelectorAll(".nav-item")
+    .forEach(item => {
+      item.classList.remove("active");
+    });
+
+  element.classList.add("active");
+
+}
+
+</script>
+
+</body>
+</html>
