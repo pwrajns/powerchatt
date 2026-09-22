@@ -183,3 +183,149 @@ body{
 
 .banner button{
   margin-top:18px
+  padding:11px 22px;
+  border-radius:25px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* ALT MENÜ */
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:70px;
+  background:#fff;
+  border-top:1px solid #e5e5e5;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:50;
+}
+
+.nav-item{
+  flex:1;
+  text-align:center;
+  font-size:11px;
+  color:#777;
+  cursor:pointer;
+}
+
+.nav-icon{
+  display:block;
+  font-size:21px;
+  margin-bottom:4px;
+}
+
+.nav-item.active{
+  color:#6847dc;
+  font-weight:bold;
+}
+
+/* MOBİL */
+@media(max-width:420px){
+  .category{
+    font-size:13px;
+    padding:8px 5px;
+  }
+
+  .banner{
+    min-height:175px;
+  }
+
+  .banner h2{
+    font-size:23px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+  <div class="top-row">
+
+    <button class="category active">Önerilen</button>
+    <button class="category">Yakınlarda</button>
+    <button class="category">Yeni Kullanıcılar</button>
+    <button class="category">Popüler</button>
+
+    <button class="icon-btn" onclick="searchUser()">🔍</button>
+    <button class="icon-btn" onclick="showCup()">🏆</button>
+
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="room-tabs">
+
+    <div class="room-tab" onclick="openRoom('video')">
+      🎥 Video Odası
+    </div>
+
+    <div class="room-tab" onclick="openRoom('chat')">
+      💬 Sohbet Odası
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    Aktif Kullanıcılar
+  </div>
+
+  <div class="users">
+
+    <div class="user">
+      <div class="avatar">👨</div>
+      <div class="online"></div>
+      <div class="username">Mert</div>
+    </div>
+
+    <div class="user">
+      <div class="avatar">👩</div>
+      <div class="online"></div>
+      <div class="username">Elif</div>
+    </div>
+
+    <div class="user">
+      <div class="avatar">👨</div>
+      <div class="online"></div>
+      <div class="username">Can</div>
+    </div>
+
+    <div class="user">
+      <div class="avatar">👩</div>
+      <div class="online"></div>
+      <div class="username">Zeynep</div>
+    </div>
+
+    <div class="user">
+      <div class="avatar">👨</div>
+      <div class="online"></div>
+      <div class="username">Emir</div>
+    </div>
+
+  </div>
+
+  <div class="banner">
+    <div>
+      <h2>Power Chatt</h2>
+
+      <p>
+        Yeni insanlarla tanış,
+        sohbet et ve odalara katıl.
+      </p>
+
+      <button onclick="showAd()">
+        Hemen Katıl
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<nav class="bottom-nav">
+
+  <div class="nav-item active" onclick="selectNav(this
