@@ -157,3 +157,323 @@ input{
 .game-icon{
   font-size:38px;
   margin-bottom:8
+px;
+}
+
+.game button{
+  margin-top:8px;
+  width:100%;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:480px;
+  height:75px;
+  background:#151722;
+  border-top:1px solid #292c3a;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:100;
+}
+
+.nav-btn{
+  background:transparent;
+  color:#888;
+  padding:8px 12px;
+  font-size:13px;
+}
+
+.nav-btn.active{
+  color:#a855f7;
+}
+
+.nav-icon{
+  display:block;
+  font-size:23px;
+  margin-bottom:3px;
+}
+
+.chat-box{
+  background:#1a1d29;
+  border-radius:16px;
+  padding:15px;
+  margin-top:12px;
+}
+
+.message{
+  background:#242735;
+  padding:10px 13px;
+  border-radius:12px;
+  margin:8px 0;
+}
+
+.profile{
+  text-align:center;
+  padding:20px;
+}
+
+.profile .avatar{
+  margin:0 auto 12px;
+}
+
+.badge{
+  display:inline-block;
+  background:#7c3aed;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.hidden{
+  display:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="logo">Power Chatt</div>
+</header>
+
+<section id="home" class="page active">
+
+  <div class="hero">
+    <h1>Power Chatt'a Hoş Geldin</h1>
+    <p>Yeni insanlarla tanış, sohbet et ve eğlen.</p>
+    <button onclick="showPage('rooms')">Sohbete Başla</button>
+  </div>
+
+  <div class="card">
+    <h3>🔥 Popüler Odalar</h3>
+
+    <div class="room">
+      <div class="avatar">🎤</div>
+      <div class="room-info">
+        <b>Türkiye Sohbet</b>
+        <small>124 kişi aktif</small>
+      </div>
+      <button onclick="joinRoom('Türkiye Sohbet')">Katıl</button>
+    </div>
+
+    <div class="room">
+      <div class="avatar">🌙</div>
+      <div class="room-info">
+        <b>Gece Sohbeti</b>
+        <small>86 kişi aktif</small>
+      </div>
+      <button onclick="joinRoom('Gece Sohbeti')">Katıl</button>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="rooms" class="page">
+
+  <div class="card">
+    <h3>💬 Sohbet Odaları</h3>
+
+    <input
+      type="text"
+      id="roomSearch"
+      placeholder="Oda ara..."
+      oninput="searchRooms()"
+    >
+
+    <div id="roomList">
+
+      <div class="room card">
+        <div class="avatar">🇹🇷</div>
+        <div class="room-info">
+          <b>Türkiye</b>
+          <small>245 kişi</small>
+        </div>
+        <button onclick="joinRoom('Türkiye')">Katıl</button>
+      </div>
+
+      <div class="room card">
+        <div class="avatar">🇦🇿</div>
+        <div class="room-info">
+          <b>Azerbaycan</b>
+          <small>118 kişi</small>
+        </div>
+        <button onclick="joinRoom('Azerbaycan')">Katıl</button>
+      </div>
+
+      <div class="room card">
+        <div class="avatar">❤️</div>
+        <div class="room-info">
+          <b>Aşk Sohbeti</b>
+          <small>97 kişi</small>
+        </div>
+        <button onclick="joinRoom('Aşk Sohbeti')">Katıl</button>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<section id="games" class="page">
+
+  <div class="card">
+    <h3>🎮 Oyunlar</h3>
+
+    <div class="grid">
+
+      <div class="game">
+        <div class="game-icon">🚀</div>
+        <b>Roket</b>
+        <br><br>
+        <button onclick="startGame('Roket')">Oyna</button>
+      </div>
+
+      <div class="game">
+        <div class="game-icon">🎯</div>
+        <b>Hedef</b>
+        <br><br>
+        <button onclick="startGame('Hedef')">Oyna</button>
+      </div>
+
+      <div class="game">
+        <div class="game-icon">🎲</div>
+        <b>Zar</b>
+        <br><br>
+        <button onclick="startGame('Zar')">Oyna</button>
+      </div>
+
+      <div class="game">
+        <div class="game-icon">🃏</div>
+        <b>Kart</b>
+        <br><br>
+        <button onclick="startGame('Kart')">Oyna</button>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<section id="profile" class="page">
+
+  <div class="card profile">
+    <div class="avatar">👤</div>
+
+    <h2>Power Chatt Kullanıcısı</h2>
+
+    <span class="badge">Yeni Üye</span>
+
+    <input
+      type="text"
+      placeholder="Kullanıcı adın"
+      id="username"
+    >
+
+    <button onclick="saveProfile()">Profili Kaydet</button>
+  </div>
+
+</section>
+
+<div class="bottom-nav">
+
+  <button class="nav-btn active" onclick="showPage('home',this)">
+    <span class="nav-icon">🏠</span>
+    Ana Sayfa
+  </button>
+
+  <button class="nav-btn" onclick="showPage('rooms',this)">
+    <span class="nav-icon">💬</span>
+    Odalar
+  </button>
+
+  <button class="nav-btn" onclick="showPage('games',this)">
+    <span class="nav-icon">🎮</span>
+    Oyunlar
+  </button>
+
+  <button class="nav-btn" onclick="showPage('profile',this)">
+    <span class="nav-icon">👤</span>
+    Profil
+  </button>
+
+</div>
+
+</div>
+
+<script>
+
+function showPage(pageId, button){
+
+  document.querySelectorAll('.page').forEach(function(page){
+    page.classList.remove('active');
+  });
+
+  document.getElementById(pageId).classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(function(btn){
+    btn.classList.remove('active');
+  });
+
+  if(button){
+    button.classList.add('active');
+  }
+}
+
+function joinRoom(room){
+
+  alert(room + " odasına katıldın!");
+
+}
+
+function startGame(game){
+
+  alert(game + " oyunu açılıyor!");
+
+}
+
+function searchRooms(){
+
+  const search =
+    document.getElementById('roomSearch')
+    .value
+    .toLowerCase();
+
+  document.querySelectorAll('#roomList .room').forEach(function(room){
+
+    const text = room.innerText.toLowerCase();
+
+    room.style.display =
+      text.includes(search) ? 'flex' : 'none';
+
+  });
+
+}
+
+function saveProfile(){
+
+  const username =
+    document.getElementById('username').value;
+
+  if(username.trim() === ''){
+    alert('Lütfen kullanıcı adı yaz.');
+    return;
+  }
+
+  alert('Profil kaydedildi: ' + username);
+
+}
+
+</script>
+
+</body>
+</html>
