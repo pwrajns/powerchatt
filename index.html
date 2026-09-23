@@ -384,7 +384,7 @@ body{
   </div>
 
 </nav>
-<script>
+  <script>
 
 function searchUser(){
   const name = prompt("Kullanıcı ara:");
@@ -413,28 +413,45 @@ function openRoom(type){
 function showAd(){
   alert("Power Chatt'a hoş geldin!");
 }
-function selectNav(element){
 
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(item => {
-      item.classList.remove("active");
-    });
+function selectNav(element, sayfa){
+
+  document.querySelectorAll(".nav-item").forEach(item => {
+    item.classList.remove("active");
+  });
 
   element.classList.add("active");
 
-  const anlar = document.getElementById("anlarPage");
   const anaSayfa = document.querySelector("main.container");
+  const anlar = document.getElementById("anlarPage");
 
-  if(element.innerText.includes("Anılar")){
-    anlar.style.display = "block";
-    anaSayfa.style.display = "none";
-  }else{
-    anlar.style.display = "none";
+  anaSayfa.style.display = "none";
+  anlar.style.display = "none";
+
+  if(sayfa === "ana"){
     anaSayfa.style.display = "block";
   }
 
+  if(sayfa === "anlar"){
+    anlar.style.display = "block";
+  }
+
+  if(sayfa === "odalar"){
+    anaSayfa.style.display = "block";
+    alert("🚪 Odalar bölümü açıldı");
+  }
+
+  if(sayfa === "mesajlar"){
+    alert("💬 Mesajlar bölümü açıldı");
+  }
+
+  if(sayfa === "ben"){
+    alert("👤 Ben bölümü açıldı");
+  }
+
 }
+
 </script>
+  
 </body>
 </html>
