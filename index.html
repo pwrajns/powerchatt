@@ -286,6 +286,21 @@ body{
   </div>
 
 </section>
+  <section id="mesajlarPage" style="display:none; padding:15px 12px;">
+
+  <h2 style="margin-bottom:15px;">💬 Mesajlar</h2>
+
+  <div style="background:#fff;padding:15px;border-radius:15px;margin-bottom:10px;">
+    <b>👩 Elif</b>
+    <p style="margin-top:8px;color:#666;">Merhaba 👋</p>
+  </div>
+
+  <div style="background:#fff;padding:15px;border-radius:15px;">
+    <b>👨 Mert</b>
+    <p style="margin-top:8px;color:#666;">Nasılsın?</p>
+  </div>
+
+</section>
 <main class="container">
 
   <div class="room-tabs">
@@ -442,9 +457,12 @@ function selectNav(element, sayfa){
   }
 
   if(sayfa === "mesajlar"){
-    alert("💬 Mesajlar bölümü açıldı");
-  }
 
+  const mesajlar = document.getElementById("mesajlarPage");
+
+  mesajlar.style.display = "block";
+
+  }
   if(sayfa === "ben"){
     alert("👤 Ben bölümü açıldı");
   }
