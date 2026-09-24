@@ -443,7 +443,7 @@ body{
   </div>
 
 </nav>
-  <script>
+ <script>
 
 function searchUser(){
   const name = prompt("Kullanıcı ara:");
@@ -473,9 +473,27 @@ function showAd(){
   alert("Power Chatt'a hoş geldin!");
 }
 
+function shareMoment(){
+  alert("📸 Anını paylaşma bölümü hazırlanıyor.");
+}
+
+function likeMoment(button){
+
+  const span = button.querySelector("span");
+
+  if(span){
+    span.textContent = Number(span.textContent) + 1;
+  }
+
+}
+
+function commentMoment(){
+  alert("💬 Yorum bölümü hazırlanıyor.");
+}
+
 function selectNav(element, sayfa){
 
-  document.querySelectorAll(".nav-item").forEach(item => {
+  document.querySelectorAll(".nav-item").forEach(function(item){
     item.classList.remove("active");
   });
 
@@ -483,108 +501,11 @@ function selectNav(element, sayfa){
 
   const anaSayfa = document.querySelector("main.container");
   const anlar = document.getElementById("anlarPage");
+  const odalar = document.getElementById("odalarPage");
+  const mesajlar = document.getElementById("mesajlarPage");
 
   anaSayfa.style.display = "none";
   anlar.style.display = "none";
-
-  if(sayfa === "ana"){
-    anaSayfa.style.display = "block";
-  }
-
-  if(sayfa === "anlar"){
-    anlar.style.display = "block";
-  }
-
-  if(sayfa === "odalar"){
-    anaSayfa.style.display = "block";
-    alert("✦ Odalar bölümü açıldı");
-  }
-  function ulkeDegistir(){
-
-  const ulke = document.getElementById("ulkeSec").value;
-
-  const odalar = document.getElementById("odalarPage");
-
-  if(ulke === "tr"){
-
-    odalar.innerHTML = `
-      <h2 style="margin-bottom:15px;">🇹🇷 Türkiye Odaları</h2>
-
-      <div style="background:#fff;padding:18px;border-radius:15px;margin-bottom:12px;">
-        <h3>🇹🇷 Türkiye Sohbet</h3>
-        <p style="margin-top:8px;color:#777;">Türkiye'den kullanıcılarla sohbet et.</p>
-        <button onclick="alert('Türkiye Sohbet odasına katıldın!')">
-          Katıl
-        </button>
-      </div>
-
-      <div style="background:#fff;padding:18px;border-radius:15px;">
-        <h3>🌙 Gece Sohbeti</h3>
-        <p style="margin-top:8px;color:#777;">Gece sohbetine katıl.</p>
-        <button onclick="alert('Gece Sohbeti odasına katıldın!')">
-          Katıl
-        </button>
-      </div>
-    `;
-
-  }
-
-  if(ulke === "az"){
-
-    odalar.innerHTML = `
-      <h2 style="margin-bottom:15px;">🇦🇿 Azərbaycan Odaları</h2>
-
-      <div style="background:#fff;padding:18px;border-radius:15px;margin-bottom:12px;">
-        <h3>🇦🇿 Azərbaycan Sohbet</h3>
-        <p style="margin-top:8px;color:#777;">Azərbaycan istifadəçiləri ilə söhbət et.</p>
-        <button onclick="alert('Azərbaycan Sohbet otağına qoşuldun!')">
-          Qoşul
-        </button>
-      </div>
-
-      <div style="background:#fff;padding:18px;border-radius:15px;">
-        <h3>🌙 Gecə Sohbeti</h3>
-        <p style="margin-top:8px;color:#777;">Gecə söhbətinə qoşul.</p>
-        <button onclick="alert('Gecə Sohbeti otağına qoşuldun!')">
-          Qoşul
-        </button>
-      </div>
-    `;
-
-  }
-
-  }
-
-  if(sayfa === "mesajlar"){
-
-  const mesajlar = document.getElementById("mesajlarPage");
-
-  mesajlar.style.display = "block";
-
-  }
-if(sayfa === "odalar"){
-
-  const odalar = document.getElementById("odalarPage");
-
-  odalar.style.display = "block";
-
-}
-
-
-function dilDegistir(){
-
-  const dil = document.getElementById("dilSec").value;
-
-  if(dil === "tr"){
-    alert("Türkçe seçildi");
-  }
-
-  if(dil === "az"){
-    alert("Azərbaycanca seçildi");
-  }
-
-}
-</script>
-  
+  odalar.style.display = "
 </body>
 </html>
