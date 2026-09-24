@@ -276,7 +276,7 @@ body{
   </button>
 
   <div class="moment-card">
-    <b>👨 Mert</b>
+    <b>👨 Sado</b>
     <small>Az önce</small>
     <p>Bugün çok güzel bir gün 😎</p>
     <div class="moment-photo">📸</div>
@@ -291,12 +291,12 @@ body{
   <h2 style="margin-bottom:15px;">💬 Mesajlar</h2>
 
   <div style="background:#fff;padding:15px;border-radius:15px;margin-bottom:10px;">
-    <b>👩 Elif</b>
+    <b>👩 Zeyno</b>
     <p style="margin-top:8px;color:#666;">Merhaba 👋</p>
   </div>
 
   <div style="background:#fff;padding:15px;border-radius:15px;">
-    <b>👨 Mert</b>
+    <b>👨 Sado</b>
     <p style="margin-top:8px;color:#666;">Nasılsın?</p>
   </div>
 
@@ -499,6 +499,61 @@ function selectNav(element, sayfa){
     anaSayfa.style.display = "block";
     alert("✦ Odalar bölümü açıldı");
   }
+  function ulkeDegistir(){
+
+  const ulke = document.getElementById("ulkeSec").value;
+
+  const odalar = document.getElementById("odalarPage");
+
+  if(ulke === "tr"){
+
+    odalar.innerHTML = `
+      <h2 style="margin-bottom:15px;">🇹🇷 Türkiye Odaları</h2>
+
+      <div style="background:#fff;padding:18px;border-radius:15px;margin-bottom:12px;">
+        <h3>🇹🇷 Türkiye Sohbet</h3>
+        <p style="margin-top:8px;color:#777;">Türkiye'den kullanıcılarla sohbet et.</p>
+        <button onclick="alert('Türkiye Sohbet odasına katıldın!')">
+          Katıl
+        </button>
+      </div>
+
+      <div style="background:#fff;padding:18px;border-radius:15px;">
+        <h3>🌙 Gece Sohbeti</h3>
+        <p style="margin-top:8px;color:#777;">Gece sohbetine katıl.</p>
+        <button onclick="alert('Gece Sohbeti odasına katıldın!')">
+          Katıl
+        </button>
+      </div>
+    `;
+
+  }
+
+  if(ulke === "az"){
+
+    odalar.innerHTML = `
+      <h2 style="margin-bottom:15px;">🇦🇿 Azərbaycan Odaları</h2>
+
+      <div style="background:#fff;padding:18px;border-radius:15px;margin-bottom:12px;">
+        <h3>🇦🇿 Azərbaycan Sohbet</h3>
+        <p style="margin-top:8px;color:#777;">Azərbaycan istifadəçiləri ilə söhbət et.</p>
+        <button onclick="alert('Azərbaycan Sohbet otağına qoşuldun!')">
+          Qoşul
+        </button>
+      </div>
+
+      <div style="background:#fff;padding:18px;border-radius:15px;">
+        <h3>🌙 Gecə Sohbeti</h3>
+        <p style="margin-top:8px;color:#777;">Gecə söhbətinə qoşul.</p>
+        <button onclick="alert('Gecə Sohbeti otağına qoşuldun!')">
+          Qoşul
+        </button>
+      </div>
+    `;
+
+  }
+
+  }
 
   if(sayfa === "mesajlar"){
 
@@ -514,10 +569,21 @@ if(sayfa === "odalar"){
   odalar.style.display = "block";
 
 }
+
+
+function dilDegistir(){
+
+  const dil = document.getElementById("dilSec").value;
+
+  if(dil === "tr"){
+    alert("Türkçe seçildi");
+  }
+
+  if(dil === "az"){
+    alert("Azərbaycanca seçildi");
   }
 
 }
-
 </script>
   
 </body>
