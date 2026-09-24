@@ -16,482 +16,374 @@ body{
   font-family:Arial,sans-serif;
   background:#f5f6fa;
   color:#222;
-  padding-bottom:75px;
+  padding-bottom:80px;
 }
 
-/* ÜST BAR */
-.top{
-  background:#fff;
-  padding:14px 10px 10px;
-  position:sticky;
-  top:0;
-  z-index:20;
-  box-shadow:0 1px 5px rgba(0,0,0,.08);
+button,select{
+  font-family:inherit;
 }
 
-.top-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  overflow-x:auto;
-  scrollbar-width:none;
-}
-
-.top-row::-webkit-scrollbar{
-  display:none;
-}
-
-.category{
-  border:0;
-  background:transparent;
-  padding:8px 7px;
-  white-space:nowrap;
-  font-size:14px;
-  color:#777;
+button{
   cursor:pointer;
 }
 
-.category.active{
-  color:#111;
-  font-weight:bold;
+.top-menu{
+  height:64px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.icon-btn{
-  min-width:38px;
-  height:38px;
+.logo{
+  font-size:21px;
+  font-weight:bold;
+  color:#6847dc;
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+}
+
+.top-actions button{
+  width:40px;
+  height:40px;
   border:0;
   border-radius:50%;
   background:#f1f2f6;
   font-size:18px;
-  cursor:pointer;
-  flex-shrink:0;
 }
 
-/* ANA İÇERİK */
-.container{
+.page{
   padding:15px 12px;
 }
 
-/* ODA BÖLÜMLERİ */
-.room-tabs{
-  display:flex;
-  gap:10px;
-  margin-bottom:15px;
-}
-
-.room-tab{
-  flex:1;
-  min-height:65px;
-  border-radius:14px;
-  border:1px solid #e2e3e8;
+.card{
   background:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 2px 7px rgba(0,0,0,.05);
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
 }
 
-.room-tab:first-child{
-  background:linear-gradient(135deg,#7b61ff,#9b7cff);
-  color:#fff;
-}
-
-/* AKTİF KULLANICILAR */
 .section-title{
-  font-size:18px;
+  font-size:19px;
   font-weight:bold;
-  margin:18px 0 12px;
+  margin-bottom:12px;
 }
 
-  .users{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  width:100%;
-  }
-
-
-.users::-webkit-scrollbar{
-  display:none;
-}
-
-.user{
-  min-width:72px;
-  text-align:center;
-}
-
-.avatar{
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  margin:auto;
-  background:linear-gradient(135deg,#ddd,#aaa);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:26px;
-  border:3px solid #fff;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
-}
-
-.online{
-  width:13px;
-  height:13px;
-  background:#25c76f;
-  border:2px solid #fff;
-  border-radius:50%;
-  position:relative;
-  margin:-15px 3px 0 auto;
-}
-
-.username{
-  margin-top:8px;
-  font-size:12px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* BANNER */
-.banner{
-  width:100%;
-  min-height:190px;
-  margin-top:20px;
-  border-radius:18px;
-  overflow:hidden;
-  background:linear-gradient(135deg,#17152c,#6c45d9);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  color:#fff;
-  padding:25px;
-  box-shadow:0 5px 18px rgba(0,0,0,.12);
-}
-
-.banner h2{
-  font-size:26px;
-  margin-bottom:8px;
-}
-
-.banner p{
-  font-size:14px;
-  opacity:.9;
-}
-
-.banner button{
-  margin-top:18px;
-  padding:11px 22px;
-  border-radius:25px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* ALT MENÜ */
 .bottom-nav{
-  position:fixed !important;
-  left:0 !important;
-  right:0 !important;
-  bottom:0 !important;
-  width:100% !important;
-  height:75px !important;
-  background:#ffffff !important;
-  border-top:2px solid #dddddd !important;
-  display:flex !important;
-  justify-content:space-around !important;
-  align-items:center !important;
-  z-index:99999 !important;
-  visibility:visible !important;
-  opacity:1 !important;
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:78px;
+  background:#fff;
+  border-top:1px solid #ddd;
+  display:flex;
+  z-index:99999;
 }
 
 .nav-item{
-  flex:1 !important;
-  height:75px !important;
-  border:0 !important;
-  background:#ffffff !important;
-  text-align:center !important;
-  font-size:11px !important;
-  color:#777 !important;
-  cursor:pointer !important;
-  display:flex !important;
-  flex-direction:column !important;
-  align-items:center !important;
-  justify-content:center !important;
+  flex:1;
+  border:0;
+  background:#fff;
+  color:#777;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
 }
 
 .nav-icon{
-  display:block !important;
-  font-size:22px !important;
-  margin-bottom:4px !important;
+  font-size:22px;
+  margin-bottom:5px;
 }
 
 .nav-item.active{
-  color:#6847dc !important;
-  font-weight:bold !important;
+  color:#6847dc;
+  font-weight:bold;
 }
 
-/* MOBİL */
-@media(max-width:420px){
-  .category{
-    font-size:13px;
-    padding:8px 5px;
-  }
-
-  .banner{
-    min-height:175px;
-  }
-
-  .banner h2{
-    font-size:23px;
-  }
+.hidden{
+  display:none !important;
 }
 </style>
 </head>
 
 <body>
 
-<header class="top">
-  <div class="top-row">
+<header class="top-menu">
+  <div class="logo">⚡ Power Chatt</div>
 
-    <button class="category active">Önerilen</button>
-    <button class="category">Yakınlarda</button>
-    <button class="category">Yeni Kullanıcılar</button>
-    <button class="category">Popüler</button>
-
-    <button class="icon-btn" onclick="searchUser()">🔍</button>
-    <button class="icon-btn" onclick="showCup()">🏆</button>
-
+  <div class="top-actions">
+    <button onclick="aramaAc()">🔍</button>
+    <button onclick="kupaAc()">🏆</button>
   </div>
 </header>
-<section id="anlarPage" style="display:none; padding:15px 12px;">
 
-  <h2 style="margin-bottom:15px;">🖼️ Anlar</h2>
+<!-- DİL SEÇENEĞİ -->
 
-  <button onclick="shareMoment()"
-    style="background:#6847dc;color:white;border:0;padding:11px 18px;border-radius:22px;margin-bottom:15px;">
-    ➕ Anını Paylaş
-  </button>
+<section class="page">
+  <div class="card">
 
-  <div class="moment-card">
-    <b>👨 Sado</b>
-    <small>Az önce</small>
-    <p>Bugün çok güzel bir gün 😎</p>
-    <div class="moment-photo">📸</div>
+    <div class="section-title">
+      🌐 Dil Seç
+    </div>
 
-    <button onclick="likeMoment(this)">❤️ <span>24</span></button>
-    <button onclick="commentMoment()">💬 5</button>
+    <select id="languageSelect" onchange="dilDegistir()">
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="az">🇦🇿 Azərbaycanca</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="ar">🇸🇦 العربية</option>
+    </select>
+
+  </div>
+</section>
+  <!-- ANA SAYFA -->
+
+<section id="anaPage" class="page">
+
+  <div class="card">
+    <div class="section-title">⚡ Power Chatt'e Hoş Geldiniz</div>
+    <p>Yeni insanlarla tanış, sohbet et ve eğlen.</p>
+  </div>
+
+  <div class="card">
+
+    <div class="section-title">💬 Odalar</div>
+
+    <div style="display:flex;gap:10px;">
+
+      <button
+        onclick="videoOdalariniAc()"
+        style="flex:1;min-height:80px;border:0;border-radius:15px;background:linear-gradient(135deg,#6847dc,#9275ff);color:#fff;font-size:15px;font-weight:bold;"
+      >
+        🎥<br>
+        Video Odaları
+      </button>
+
+      <button
+        onclick="sohbetOdalariniAc()"
+        style="flex:1;min-height:80px;border:1px solid #ddd;border-radius:15px;background:#fff;color:#222;font-size:15px;font-weight:bold;"
+      >
+        🗨️<br>
+        Sohbet Odaları
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="section-title">🔥 Aktif Kullanıcılar</div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+
+      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+        👨 Mert
+      </div>
+
+      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+        👩 Elif
+      </div>
+
+      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+        👨 Can
+      </div>
+
+      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+        👩 Zeynep
+      </div>
+
+      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+        👨 Emir
+      </div>
+
+    </div>
+
   </div>
 
 </section>
-  <section id="mesajlarPage" style="display:none; padding:15px 12px;">
 
-  <h2 style="margin-bottom:15px;">💬 Mesajlar</h2>
+<!-- ANILAR -->
 
-  <div style="background:#fff;padding:15px;border-radius:15px;margin-bottom:10px;">
-    <b>👩 Zeyno</b>
-    <p style="margin-top:8px;color:#666;">Merhaba 👋</p>
+<section id="anlarPage" class="page hidden">
+
+  <div class="card">
+
+    <div class="section-title">📸 Anılar</div>
+
+    <button
+      onclick="anPaylas()"
+      style="width:100%;padding:14px;border:0;border-radius:12px;background:#6847dc;color:#fff;font-size:15px;font-weight:bold;"
+    >
+      ➕ Anını Paylaş
+    </button>
+
   </div>
 
-  <div style="background:#fff;padding:15px;border-radius:15px;">
-    <b>👨 Sado</b>
-    <p style="margin-top:8px;color:#666;">Nasılsın?</p>
+  <div class="card">
+
+    <div style="font-weight:bold;margin-bottom:8px;">
+      👨 Mert
+    </div>
+
+    <p style="margin-bottom:12px;">
+      Bugünden güzel bir an 😊
+    </p>
+
+    <div style="display:flex;gap:8px;">
+
+      <button
+        onclick="anBegen()"
+        style="flex:1;padding:10px;border:1px solid #ddd;border-radius:10px;background:#fff;"
+      >
+        ❤️ Beğen
+      </button>
+
+      <button
+        onclick="anYorum()"
+        style="flex:1;padding:10px;border:1px solid #ddd;border-radius:10px;background:#fff;"
+      >
+        💬 Yorum
+      </button>
+
+    </div>
+
   </div>
 
 </section>
-  <section id="odalarPage" style="display:none; padding:15px 12px;">
 
-  <h2 style="margin-bottom:15px;">🚪 Odalar</h2>
+<!-- ODALAR -->
 
-  <div style="background:#fff;padding:18px;border-radius:15px;margin-bottom:12px;">
-    <h3>🇹🇷 Türkiye Sohbet</h3>
-    <p style="margin-top:8px;color:#777;">Türkiye'den kullanıcılarla sohbet et.</p>
-  </div>
+<section id="odalarPage" class="page hidden">
 
-  <div style="background:#fff;padding:18px;border-radius:15px;margin-bottom:12px;">
-    <h3>🇦🇿 Azerbaycan Sohbet</h3>
-    <p style="margin-top:8px;color:#777;">Azerbaycan'dan kullanıcılarla sohbet et.</p>
-  </div>
+  <div class="card">
 
-  <div style="background:#fff;padding:18px;border-radius:15px;">
-    <h3>🌍 Genel Sohbet</h3>
-    <p style="margin-top:8px;color:#777;">Herkese açık sohbet odası.</p>
-  </div>
+    <div class="section-title">💬 Odalar</div>
 
-  </section>
-<main class="container">
-  <!-- ÜLKE VE DİL SEÇİMİ -->
-<div class="card" style="background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;">
+    <button
+      onclick="sohbetOdalariniAc()"
+      style="width:100%;padding:15px;margin-bottom:10px;border:0;border-radius:12px;background:#6847dc;color:#fff;font-size:16px;"
+    >
+      🇹🇷 Türkiye Sohbet
+    </button>
 
-  <h3 style="margin-bottom:10px;">🌍 Ülke Seç</h3>
+    <button
+      onclick="sohbetOdalariniAc()"
+      style="width:100%;padding:15px;margin-bottom:10px;border:1px solid #ddd;border-radius:12px;background:#fff;font-size:16px;"
+    >
+      🇦🇿 Azerbaycan Sohbet
+    </button>
 
-  <select id="ulkeSec" onchange="ulkeDegistir()"
-    style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:15px;">
-
-    <option value="tr">🇹🇷 Türkiye</option>
-    <option value="az">🇦🇿 Azerbaycan</option>
-
-  </select>
-
-  <h3 style="margin:15px 0 10px;">🗣️ Dil Seç</h3>
-
-  <select id="dilSec" onchange="dilDegistir()"
-    style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:15px;">
-
-    <option value="tr">Türkçe</option>
-    <option value="az">Azərbaycanca</option>
-
-  </select>
-
-</div>
-
-  <div class="room-tabs">
-
-    <div class="room-tab" onclick="openRoom('video')">
-      🎥 Video Odası
-    </div>
-
-    <div class="room-tab" onclick="openRoom('chat')">
-      💬 Sohbet Odası
-    </div>
+    <button
+      onclick="sohbetOdalariniAc()"
+      style="width:100%;padding:15px;border:1px solid #ddd;border-radius:12px;background:#fff;font-size:16px;"
+    >
+      🌙 Gece Sohbeti
+    </button>
 
   </div>
 
-  <div class="section-title">
-    Aktif Kullanıcılar
-  </div>
+</section>
 
-  <div class="users">
+<!-- MESAJLAR -->
 
-    <div class="user">
-      <div class="avatar">👨</div>
-      <div class="online"></div>
-      <div class="username">Mert</div>
+<section id="mesajlarPage" class="page hidden">
+
+  <div class="card">
+
+    <div class="section-title">💬 Mesajlar</div>
+
+    <div style="padding:14px;background:#f5f6fa;border-radius:12px;margin-bottom:10px;">
+      👩 Elif
+      <br>
+      <small>Merhaba 👋</small>
     </div>
 
-    <div class="user">
-      <div class="avatar">👩</div>
-      <div class="online"></div>
-      <div class="username">Elif</div>
-    </div>
-
-    <div class="user">
-      <div class="avatar">👨</div>
-      <div class="online"></div>
-      <div class="username">Can</div>
-    </div>
-
-    <div class="user">
-      <div class="avatar">👩</div>
-      <div class="online"></div>
-      <div class="username">Zeynep</div>
-    </div>
-
-    <div class="user">
-      <div class="avatar">👨</div>
-      <div class="online"></div>
-      <div class="username">Emir</div>
+    <div style="padding:14px;background:#f5f6fa;border-radius:12px;">
+      👨 Mert
+      <br>
+      <small>Nasılsın?</small>
     </div>
 
   </div>
 
-  <div class="banner">
-    <div>
-      <h2>Power Chatt</h2>
+</section>
 
-      <p>
-        Yeni insanlarla tanış,
-        sohbet et ve odalara katıl.
+<!-- BEN -->
+
+<section id="benPage" class="page hidden">
+
+  <div class="card">
+
+    <div class="section-title">👤 Ben</div>
+
+    <div style="text-align:center;padding:20px;">
+
+      <div style="font-size:55px;">👤</div>
+
+      <h3 style="margin:10px 0;">
+        Power Chatt Kullanıcısı
+      </h3>
+
+      <p style="color:#777;">
+        Profilini düzenle
       </p>
 
-      <button onclick="showAd()">
-        Hemen Katıl
-      </button>
     </div>
+
+    <button
+      style="width:100%;padding:14px;margin-top:10px;border:0;border-radius:12px;background:#6847dc;color:#fff;font-size:15px;"
+      onclick="alert('Profil düzenleme bölümü açılacak.')"
+    >
+      ✏️ Profili Düzenle
+    </button>
+
   </div>
 
-</main>
+</section>
 
+<!-- ALT MENÜ BURAYA GELECEK -->
+  <!-- ALT MENÜ -->
 
 <nav class="bottom-nav">
 
-  <div class="nav-item active" onclick="selectNav(this,'ana')">
+  <button class="nav-item active" onclick="selectNav(this,'ana')">
     <span class="nav-icon">🏠</span>
     Ana Sayfa
-  </div>
+  </button>
 
-  <div class="nav-item" onclick="selectNav(this,'anlar')">
-    <span class="nav-icon">🖼️</span>
-    Anlar
-  </div>
+  <button class="nav-item" onclick="selectNav(this,'anlar')">
+    <span class="nav-icon">📸</span>
+    Anılar
+  </button>
 
-  <div class="nav-item" onclick="selectNav(this,'odalar')">
-    <span class="nav-icon">🚪</span>
-    Odalar
-  </div>
-
-  <div class="nav-item" onclick="selectNav(this,'mesajlar')">
+  <button class="nav-item" onclick="selectNav(this,'odalar')">
     <span class="nav-icon">💬</span>
-    Mesajlar
-  </div>
+    Odalar
+  </button>
 
-  <div class="nav-item" onclick="selectNav(this,'ben')">
+  <button class="nav-item" onclick="selectNav(this,'mesajlar')">
+    <span class="nav-icon">✉️</span>
+    Mesajlar
+  </button>
+
+  <button class="nav-item" onclick="selectNav(this,'ben')">
     <span class="nav-icon">👤</span>
     Ben
-  </div>
+  </button>
 
 </nav>
- <script>
+<script>
 
-function searchUser(){
-  const name = prompt("Kullanıcı ara:");
-
-  if(name){
-    alert(name + " için arama yapılıyor...");
-  }
-}
-
-function showCup(){
-  alert("🏆 Kupa bölümü");
-}
-
-function openRoom(type){
-
-  if(type === "video"){
-    alert("🎥 Video Odası açılıyor...");
-  }
-
-  if(type === "chat"){
-    alert("💬 Sohbet Odası açılıyor...");
-  }
-
-}
-
-function showAd(){
-  alert("Power Chatt'a hoş geldin!");
-}
-
-function shareMoment(){
-  alert("📸 Anını paylaşma bölümü hazırlanıyor.");
-}
-
-function likeMoment(button){
-
-  const span = button.querySelector("span");
-
-  if(span){
-    span.textContent = Number(span.textContent) + 1;
-  }
-
-}
-
-function commentMoment(){
-  alert("💬 Yorum bölümü hazırlanıyor.");
-}
-
-function selectNav(element, sayfa){
+function selectNav(element,sayfa){
 
   document.querySelectorAll(".nav-item").forEach(function(item){
     item.classList.remove("active");
@@ -499,13 +391,97 @@ function selectNav(element, sayfa){
 
   element.classList.add("active");
 
-  const anaSayfa = document.querySelector("main.container");
-  const anlar = document.getElementById("anlarPage");
-  const odalar = document.getElementById("odalarPage");
-  const mesajlar = document.getElementById("mesajlarPage");
+  document.getElementById("anaPage").classList.add("hidden");
+  document.getElementById("anlarPage").classList.add("hidden");
+  document.getElementById("odalarPage").classList.add("hidden");
+  document.getElementById("mesajlarPage").classList.add("hidden");
+  document.getElementById("benPage").classList.add("hidden");
 
-  anaSayfa.style.display = "none";
-  anlar.style.display = "none";
-  odalar.style.display = "
+  if(sayfa==="ana"){
+    document.getElementById("anaPage").classList.remove("hidden");
+  }
+
+  if(sayfa==="anlar"){
+    document.getElementById("anlarPage").classList.remove("hidden");
+  }
+
+  if(sayfa==="odalar"){
+    document.getElementById("odalarPage").classList.remove("hidden");
+  }
+
+  if(sayfa==="mesajlar"){
+    document.getElementById("mesajlarPage").classList.remove("hidden");
+  }
+
+  if(sayfa==="ben"){
+    document.getElementById("benPage").classList.remove("hidden");
+  }
+
+  window.scrollTo(0,0);
+}
+
+
+function dilDegistir(){
+
+  const dil=document.getElementById("languageSelect").value;
+
+  if(dil==="tr"){
+    alert("Türkçe seçildi.");
+  }
+
+  if(dil==="az"){
+    alert("Azərbaycanca seçildi.");
+  }
+
+  if(dil==="en"){
+    alert("English selected.");
+  }
+
+  if(dil==="ar"){
+    alert("تم اختيار العربية");
+  }
+}
+
+
+function aramaAc(){
+  alert("Arama bölümü açılacak.");
+}
+
+
+function kupaAc(){
+  alert("🏆 Kupa bölümü açılacak.");
+}
+
+
+function videoOdalariniAc(){
+  alert("🎥 Video Odaları açılacak.");
+}
+
+
+function sohbetOdalariniAc(){
+  alert("💬 Sohbet Odaları açılacak.");
+}
+
+
+function anPaylas(){
+  alert("📸 Anını paylaşma bölümü açılacak.");
+}
+
+
+function anBegen(){
+  alert("❤️ Beğenildi.")
+}
+
+
+function anYorum(){
+  const yorum=prompt("Yorumunu yaz:");
+
+  if(yorum){
+    alert("💬 Yorumun eklendi.");
+  }
+}
+
+</script>
+
 </body>
 </html>
