@@ -322,6 +322,30 @@ body{
 
   </section>
 <main class="container">
+  <!-- ÜLKE VE DİL SEÇİMİ -->
+<div class="card" style="background:#fff;padding:15px;border-radius:15px;margin-bottom:15px;">
+
+  <h3 style="margin-bottom:10px;">🌍 Ülke Seç</h3>
+
+  <select id="ulkeSec" onchange="ulkeDegistir()"
+    style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:15px;">
+
+    <option value="tr">🇹🇷 Türkiye</option>
+    <option value="az">🇦🇿 Azerbaycan</option>
+
+  </select>
+
+  <h3 style="margin:15px 0 10px;">🗣️ Dil Seç</h3>
+
+  <select id="dilSec" onchange="dilDegistir()"
+    style="width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:15px;">
+
+    <option value="tr">Türkçe</option>
+    <option value="az">Azərbaycanca</option>
+
+  </select>
+
+</div>
 
   <div class="room-tabs">
 
