@@ -1,10 +1,13 @@
-```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Power Chatt</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <style>
 *{
@@ -21,31 +24,137 @@ body{
 }
 
 button{
-  font-family:inherit;
+  border:0;
   cursor:pointer;
+  font-family:inherit;
 }
 
 .hidden{
-  display:none !important;
+  display:none!important;
 }
 
-.top-menu{
-  height:64px;
-  background:#fff;
+/* GİRİŞ */
+
+#loginPage{
+  min-height:100vh;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding:0 14px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-  position:sticky;
-  top:0;
-  z-index:1000;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-box{
+  width:100%;
+  max-width:430px;
+  background:white;
+  border-radius:24px;
+  padding:28px 22px;
+  box-shadow:0 10px 35px rgba(0,0,0,.08);
 }
 
 .logo{
-  font-size:21px;
-  font-weight:bold;
+  text-align:center;
+  font-size:28px;
+  font-weight:800;
   color:#6847dc;
+  margin-bottom:8px;
+}
+
+.login-title{
+  text-align:center;
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.login-subtitle{
+  text-align:center;
+  color:#777;
+  font-size:14px;
+  margin-bottom:22px;
+}
+
+.input{
+  width:100%;
+  height:50px;
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:0 15px;
+  margin-bottom:12px;
+  font-size:15px;
+  outline:none;
+  background:#fafafa;
+}
+
+.input:focus{
+  border-color:#6847dc;
+  background:#fff;
+}
+
+.primary-btn{
+  width:100%;
+  min-height:50px;
+  border-radius:14px;
+  background:#6847dc;
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  margin-top:4px;
+  padding:10px 15px;
+}
+
+.google-btn{
+  width:100%;
+  height:50px;
+  border-radius:14px;
+  background:white;
+  border:1px solid #ddd;
+  color:#333;
+  font-size:15px;
+  font-weight:700;
+  margin-top:12px;
+}
+
+.switch-btn{
+  width:100%;
+  background:none;
+  color:#6847dc;
+  font-size:14px;
+  margin-top:18px;
+}
+
+.error{
+  color:#d93025;
+  font-size:13px;
+  text-align:center;
+  margin:8px 0;
+}
+
+/* UYGULAMA */
+
+#app{
+  display:none;
+}
+
+.top{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:white;
+  padding:14px 15px 10px;
+  border-bottom:1px solid #eee;
+}
+
+.top-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.app-logo{
+  color:#6847dc;
+  font-size:22px;
+  font-weight:800;
 }
 
 .top-actions{
@@ -53,391 +162,444 @@ button{
   gap:8px;
 }
 
-.top-actions button{
+.icon-btn{
   width:40px;
   height:40px;
-  border:0;
-  border-radius:50%;
-  background:#f1f2f6;
+  border-radius:12px;
+  background:#f1effd;
   font-size:18px;
+}
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-top:14px;
+  padding-bottom:3px;
+}
+
+.category{
+  white-space:nowrap;
+  padding:9px 14px;
+  border-radius:20px;
+  background:#f1f1f5;
+  color:#666;
+  font-size:13px;
+}
+
+.category.active{
+  background:#6847dc;
+  color:white;
 }
 
 .page{
   padding:15px 12px;
 }
 
-.card{
-  background:#fff;
-  border-radius:16px;
-  padding:16px;
+.hero{
+  background:linear-gradient(135deg,#6847dc,#8c6be8);
+  color:white;
+  padding:22px;
+  border-radius:22px;
   margin-bottom:15px;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+.hero h2{
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  opacity:.9;
+  font-size:14px;
 }
 
 .section-title{
-  font-size:19px;
-  font-weight:bold;
-  margin-bottom:12px;
+  font-size:18px;
+  font-weight:800;
+  margin:18px 2px 12px;
 }
 
-.room-buttons{
-  display:flex;
-  gap:10px;
+.rooms{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
-.room-button{
-  flex:1;
-  min-height:80px;
-  border-radius:15px;
-  font-size:15px;
-  font-weight:bold;
-}
-
-.video-button{
-  border:0;
-  background:linear-gradient(135deg,#6847dc,#9275ff);
-  color:#fff;
-}
-
-.chat-button{
-  border:1px solid #ddd;
-  background:#fff;
-  color:#222;
-}
-
-.active-users{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.user-card{
-  background:#f5f6fa;
-  padding:13px;
-  border-radius:12px;
-}
-
-.bottom-nav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:78px;
-  background:#fff;
-  border-top:1px solid #ddd;
-  display:flex;
-  z-index:99999;
-}
-
-.nav-item{
-  flex:1;
-  border:0;
-  background:#fff;
-  color:#777;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  font-size:11px;
-}
-
-.nav-icon{
-  font-size:22px;
-  margin-bottom:5px;
-}
-
-.nav-item.active{
-  color:#6847dc;
-  font-weight:bold;
-}
-
-.action-button{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:12px;
-  background:#6847dc;
-  color:#fff;
-  font-size:15px;
-  font-weight:bold;
-}
-
-.list-button{
-  width:100%;
-  padding:15px;
-  margin-bottom:10px;
-  border-radius:12px;
-  font-size:16px;
-}
-
-.primary{
-  border:0;
-  background:#6847dc;
-  color:#fff;
-}
-
-.secondary{
-  border:1px solid #ddd;
-  background:#fff;
-  color:#222;
-}
-
-.coin-box{
-  display:flex;
-  gap:10px;
-  margin-top:15px;
-}
-
-.coin-item{
-  flex:1;
-  background:#f5f6fa;
-  border-radius:12px;
-  padding:14px;
+.room{
+  background:white;
+  border-radius:18px;
+  padding:18px 14px;
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
   text-align:center;
 }
 
-.coin-number{
+.room-icon{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.room-title{
+  font-weight:700;
+  font-size:14px;
+}
+
+.room-sub{
+  color:#888;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.users{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  width:100%;
+}
+
+.user-card{
+  background:white;
+  border-radius:18px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,.04);
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#6847dc;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:20px;
-  font-weight:bold;
-  color:#6847dc;
+  font-weight:800;
+}
+
+.user-info{
+  flex:1;
+}
+
+.user-name{
+  font-weight:700;
+}
+
+.user-status{
+  font-size:12px;
+  color:#25a55b;
+  margin-top:4px;
+}
+
+.chat-btn{
+  background:#6847dc;
+  color:white;
+  padding:9px 13px;
+  border-radius:12px;
+  font-size:12px;
+}
+
+/* ANILAR */
+
+.memory-card{
+  background:white;
+  border-radius:20px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.memory-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.memory-image{
+  width:100%;
+  height:180px;
+  border-radius:16px;
+  background:#eee;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:50px;
+}
+
+/* ODALAR / MESAJLAR */
+
+.empty-box{
+  background:white;
+  border-radius:20px;
+  padding:35px 20px;
+  text-align:center;
+  color:#777;
+  margin-top:15px;
+}
+
+.empty-icon{
+  font-size:45px;
+  margin-bottom:10px;
+}
+
+/* BEN */
+
+.profile-card{
+  background:white;
+  border-radius:22px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.04);
+}
+
+.profile-avatar{
+  width:82px;
+  height:82px;
+  margin:0 auto 12px;
+  border-radius:50%;
+  background:#6847dc;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  font-weight:800;
+}
+
+.profile-name{
+  font-size:21px;
+  font-weight:800;
+}
+
+.profile-username{
+  color:#777;
   margin-top:5px;
 }
 
-.menu-title{
-  font-weight:bold;
-  margin:5px 0 12px;
+.profile-email{
+  color:#999;
+  font-size:12px;
+  margin-top:5px;
+  word-break:break-word;
 }
 
-.small-text{
-  color:#777;
-  font-size:13px;
+.edit-btn{
+  background:#f0edff;
+  color:#6847dc;
+  padding:10px 18px;
+  border-radius:12px;
+  margin-top:14px;
+  font-weight:700;
 }
 
-.game-card{
-  background:#f5f6fa;
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:16px;
+}
+
+.stat{
+  background:#f7f7fa;
   border-radius:14px;
+  padding:12px 5px;
+}
+
+.stat strong{
+  display:block;
+  font-size:17px;
+}
+
+.stat span{
+  color:#888;
+  font-size:11px;
+}
+
+.menu-section{
+  margin-top:16px;
+}
+
+.menu-section h3{
+  font-size:14px;
+  margin:0 4px 8px;
+  color:#777;
+}
+
+.menu-item{
+  width:100%;
+  background:white;
+  border-radius:15px;
   padding:15px;
-  margin-bottom:10px;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-align:left;
+  font-size:14px;
+}
+
+.menu-item span:first-child{
+  width:25px;
+  font-size:19px;
+}
+
+.menu-arrow{
+  margin-left:auto;
+  color:#aaa;
+}
+
+.coin-box{
+  background:linear-gradient(135deg,#6847dc,#8d70ea);
+  color:white;
+  border-radius:20px;
+  padding:18px;
+  margin-top:16px;
   display:flex;
   align-items:center;
   justify-content:space-between;
 }
 
-.game-info{
-  display:flex;
-  align-items:center;
-  gap:12px;
+.coin-title{
+  font-size:13px;
+  opacity:.85;
 }
 
-.game-icon{
-  font-size:32px;
+.coin-value{
+  font-size:25px;
+  font-weight:800;
+  margin-top:3px;
 }
 
-.game-button{
-  border:0;
-  background:#6847dc;
-  color:#fff;
-  border-radius:10px;
+.coin-button{
+  background:white;
+  color:#6847dc;
   padding:9px 13px;
-  font-weight:bold;
-}
-
-/* GİRİŞ */
-
-#loginPage{
-  min-height:100vh;
-  background:#f5f6fa;
-  padding:25px 15px;
-}
-
-.login-box{
-  max-width:430px;
-  margin:30px auto;
-  background:#fff;
-  border-radius:20px;
-  padding:25px 20px;
-  box-shadow:0 3px 15px rgba(0,0,0,.08);
-  text-align:center;
-}
-
-.login-logo{
-  font-size:30px;
-  font-weight:bold;
-  color:#6847dc;
-  margin-bottom:10px;
-}
-
-.login-title{
-  font-size:22px;
-  font-weight:bold;
-  margin-bottom:8px;
-}
-
-.login-text{
-  color:#777;
-  margin-bottom:20px;
-}
-
-.input{
-  width:100%;
-  padding:14px;
-  margin-bottom:12px;
-  border:1px solid #ddd;
   border-radius:12px;
-  font-size:15px;
-  outline:none;
+  font-weight:700;
 }
 
-.input:focus{
-  border-color:#6847dc;
+/* ALT MENÜ */
+
+.bottom-nav{
+  position:fixed!important;
+  left:0;
+  right:0;
+  bottom:0;
+  height:72px;
+  background:white;
+  border-top:1px solid #e8e8e8;
+  display:flex!important;
+  align-items:center;
+  justify-content:space-around;
+  z-index:99999!important;
+  visibility:visible!important;
+  opacity:1!important;
 }
 
-.google-button{
-  width:100%;
-  padding:14px;
-  border:1px solid #ddd;
-  border-radius:12px;
-  background:#fff;
-  font-size:15px;
-  font-weight:bold;
-  margin-bottom:12px;
-}
-
-.login-button{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:12px;
-  background:#6847dc;
-  color:#fff;
-  font-size:16px;
-  font-weight:bold;
-}
-
-.switch-button{
-  border:0;
+.nav-btn{
   background:none;
-  color:#6847dc;
-  margin-top:18px;
-  font-weight:bold;
-}
-
-/* PROFİL */
-
-.profile-row{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.profile-small-avatar{
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  background:#f1f2f6;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:32px;
-}
-
-.stats{
-  display:flex;
-  gap:8px;
-  margin-top:15px;
-}
-
-.stat{
-  flex:1;
-  background:#f5f6fa;
-  padding:12px 5px;
-  border-radius:12px;
+  color:#888;
+  font-size:11px;
   text-align:center;
+  min-width:60px;
 }
 
-.stat strong{
+.nav-icon{
   display:block;
-  color:#6847dc;
-  font-size:18px;
+  font-size:21px;
+  margin-bottom:3px;
 }
 
-.stat span{
-  font-size:12px;
-  color:#777;
+.nav-btn.active{
+  color:#6847dc;
+  font-weight:700;
 }
 
 /* MODAL */
 
 .modal{
+  display:none;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.45);
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
   z-index:100000;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
 .modal-box{
+  background:white;
   width:100%;
-  max-width:500px;
-  background:#fff;
-  border-radius:22px 22px 0 0;
-  padding:20px;
+  max-width:420px;
+  border-radius:22px;
+  padding:22px;
+  max-height:85vh;
+  overflow:auto;
 }
 
 .modal-title{
   font-size:20px;
-  font-weight:bold;
+  font-weight:800;
   margin-bottom:15px;
 }
 
-.close-button{
+.close-btn{
   width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  background:#fff;
+  height:45px;
   border-radius:12px;
+  background:#eee;
   margin-top:10px;
+}
+
+textarea.input{
+  height:100px;
+  padding-top:12px;
+  resize:vertical;
+}
+
+@media(max-width:500px){
+  .rooms{
+    grid-template-columns:1fr 1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- GİRİŞ / KAYIT -->
+<!-- GİRİŞ -->
 
-<section id="loginPage">
+<div id="loginPage">
 
   <div class="login-box">
 
-    <div class="login-logo">
-      ⚡ Power Chatt
-    </div>
+    <div class="logo">⚡ Power Chatt</div>
 
     <div class="login-title" id="loginTitle">
-      Hoş Geldin
+      Power Chatt'e Hoş Geldin
     </div>
 
-    <div class="login-text" id="loginText">
-      Power Chatt'e giriş yap
+    <div class="login-subtitle" id="loginSubtitle">
+      Hesabına giriş yap ve sohbete başla
     </div>
 
-    <div id="registerFields" class="hidden">
+    <div id="registerFields" style="display:none;">
 
       <input
         id="registerName"
         class="input"
         type="text"
-        placeholder="Adın"
-      >
+        placeholder="Adın">
 
       <input
         id="registerUsername"
         class="input"
         type="text"
-        placeholder="Kullanıcı adı"
-      >
+        placeholder="Kullanıcı adın">
 
     </div>
 
@@ -445,63 +607,77 @@ button{
       id="email"
       class="input"
       type="email"
-      placeholder="Gmail adresin"
-    >
+      placeholder="Gmail veya e-posta adresin">
 
     <input
       id="password"
       class="input"
       type="password"
-      placeholder="Şifren"
-    >
+      placeholder="Şifren">
+
+    <div id="loginError" class="error"></div>
 
     <button
-      class="google-button"
-      onclick="googleGiris()"
-    >
-      🇬 Google ile devam et
-    </button>
-
-    <button
-      class="login-button"
+      class="primary-btn"
       onclick="hesapIslemi()"
-      id="loginButton"
-    >
+      id="mainAuthButton">
       Giriş Yap
     </button>
 
     <button
-      class="switch-button"
-      onclick="kayitModu()"
-      id="switchButton"
-    >
+      class="google-btn"
+      onclick="googleGiris()">
+      🔵 Google ile devam et
+    </button>
+
+    <button
+      class="switch-btn"
+      onclick="modDegistir()"
+      id="switchButton">
       Hesabın yok mu? Kayıt ol
     </button>
 
   </div>
 
-</section>
+</div>
 
 
 <!-- UYGULAMA -->
 
-<div id="app" class="hidden">
+<div id="app">
 
-<header class="top-menu">
+<header class="top">
 
-  <div class="logo">
-    ⚡ Power Chatt
+  <div class="top-row">
+
+    <div class="app-logo">
+      ⚡ Power Chatt
+    </div>
+
+    <div class="top-actions">
+
+      <button
+        class="icon-btn"
+        onclick="aramaAc()">
+        🔍
+      </button>
+
+      <button
+        class="icon-btn"
+        onclick="kupaAc()">
+        🏆
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="top-actions">
+  <div class="categories">
 
-    <button onclick="aramaAc()">
-      🔍
-    </button>
-
-    <button onclick="kupaAc()">
-      🏆
-    </button>
+    <button class="category active">Önerilen</button>
+    <button class="category">Yakınlarda</button>
+    <button class="category">Yeni Kullanıcılar</button>
+    <button class="category">Popüler</button>
 
   </div>
 
@@ -510,115 +686,191 @@ button{
 
 <!-- ANA SAYFA -->
 
-<section id="anaPage" class="page">
+<main id="anaPage" class="page">
 
-  <div class="card">
+  <section class="hero">
 
-    <div class="section-title">
-      ⚡ Power Chatt'e Hoş Geldiniz
-    </div>
+    <h2>Power Chatt'e hoş geldiniz 👋</h2>
 
     <p>
       Yeni insanlarla tanış, sohbet et ve eğlen.
     </p>
 
+  </section>
+
+  <div class="section-title">
+    Odalar
   </div>
 
-  <div class="card">
+  <div class="rooms">
 
-    <div class="section-title">
-      💬 Odalar
-    </div>
+    <button class="room" onclick="odaAc('Video Odaları')">
 
-    <div class="room-buttons">
+      <div class="room-icon">📹</div>
 
-      <button
-        class="room-button video-button"
-        onclick="videoOdalariniAc()"
-      >
-        🎥<br>
+      <div class="room-title">
         Video Odaları
-      </button>
+      </div>
 
-      <button
-        class="room-button chat-button"
-        onclick="sohbetOdalariniAc()"
-      >
-        🗨️<br>
-        Sohbet Odaları
-      </button>
+      <div class="room-sub">
+        Görüntülü sohbet
+      </div>
 
-    </div>
+    </button>
 
-  </div>
+    <button class="room" onclick="odaAc('Aktif Odalar')">
 
-  <div class="card">
+      <div class="room-icon">💬</div>
 
-    <div class="section-title">
-      🔥 Aktif Kullanıcılar
-    </div>
+      <div class="room-title">
+        Aktif Odalar
+      </div>
 
-    <div class="active-users">
+      <div class="room-sub">
+        Şimdi sohbet et
+      </div>
 
-      <div class="user-card">👨 Mert</div>
-      <div class="user-card">👩 Elif</div>
-      <div class="user-card">👨 Can</div>
-      <div class="user-card">👩 Zeynep</div>
-      <div class="user-card">👨 Emir</div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ANILAR -->
-
-<section id="anlarPage" class="page hidden">
-
-  <div class="card">
-
-    <div class="section-title">
-      📸 Anılar
-    </div>
-
-    <button
-      class="action-button"
-      onclick="anPaylas()"
-    >
-      ➕ Anını Paylaş
     </button>
 
   </div>
 
-  <div class="card">
 
-    <div style="font-weight:bold;margin-bottom:8px;">
-      👨 Mert
+  <div class="section-title">
+    Aktif kullanıcılar
+  </div>
+
+  <div class="users">
+
+    <div class="user-card">
+
+      <div class="avatar">A</div>
+
+      <div class="user-info">
+        <div class="user-name">Ayşe</div>
+        <div class="user-status">● Çevrimiçi</div>
+      </div>
+
+      <button
+        class="chat-btn"
+        onclick="mesajAc('Ayşe')">
+        Sohbet
+      </button>
+
     </div>
 
-    <p style="margin-bottom:12px;">
-      Bugünden güzel bir an 😊
+    <div class="user-card">
+
+      <div class="avatar">M</div>
+
+      <div class="user-info">
+        <div class="user-name">Mert</div>
+        <div class="user-status">● Çevrimiçi</div>
+      </div>
+
+      <button
+        class="chat-btn"
+        onclick="mesajAc('Mert')">
+        Sohbet
+      </button>
+
+    </div>
+
+    <div class="user-card">
+
+      <div class="avatar">E</div>
+
+      <div class="user-info">
+        <div class="user-name">Elif</div>
+        <div class="user-status">● Çevrimiçi</div>
+      </div>
+
+      <button
+        class="chat-btn"
+        onclick="mesajAc('Elif')">
+        Sohbet
+      </button>
+
+    </div>
+
+    <div class="user-card">
+
+      <div class="avatar">K</div>
+
+      <div class="user-info">
+        <div class="user-name">Kerem</div>
+        <div class="user-status">● Çevrimiçi</div>
+      </div>
+
+      <button
+        class="chat-btn"
+        onclick="mesajAc('Kerem')">
+        Sohbet
+      </button>
+
+    </div>
+
+    <div class="user-card">
+
+      <div class="avatar">S</div>
+
+      <div class="user-info">
+        <div class="user-name">Selin</div>
+        <div class="user-status">● Çevrimiçi</div>
+      </div>
+
+      <button
+        class="chat-btn"
+        onclick="mesajAc('Selin')">
+        Sohbet
+      </button>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<!-- ANILAR -->
+
+<section id="anlarPage" class="page" style="display:none;">
+
+  <div class="section-title">
+    Anılar
+  </div>
+
+  <button
+    class="primary-btn"
+    onclick="aniPaylas()">
+    📸 Anını Paylaş
+  </button>
+
+  <div class="memory-card" style="margin-top:15px;">
+
+    <div class="memory-top">
+
+      <div
+        class="avatar"
+        style="width:42px;height:42px;font-size:16px;">
+        M
+      </div>
+
+      <div>
+        <strong>Mert</strong>
+        <div style="font-size:11px;color:#999;">
+          Bugün
+        </div>
+      </div>
+
+    </div>
+
+    <div class="memory-image">
+      📷
+    </div>
+
+    <p style="margin-top:12px;">
+      Güzel bir gün! ❤️
     </p>
-
-    <div style="display:flex;gap:8px;">
-
-      <button
-        onclick="anBegen()"
-        style="flex:1;padding:10px;border:1px solid #ddd;border-radius:10px;background:#fff;"
-      >
-        ❤️ Beğen
-      </button>
-
-      <button
-        onclick="anYorum()"
-        style="flex:1;padding:10px;border:1px solid #ddd;border-radius:10px;background:#fff;"
-      >
-        💬 Yorum
-      </button>
-
-    </div>
 
   </div>
 
@@ -627,33 +879,36 @@ button{
 
 <!-- ODALAR -->
 
-<section id="odalarPage" class="page hidden">
+<section id="odalarPage" class="page" style="display:none;">
 
-  <div class="card">
+  <div class="section-title">
+    Odalar
+  </div>
 
-    <div class="section-title">
-      💬 Odalar
-    </div>
+  <div class="rooms">
 
-    <button
-      class="list-button primary"
-      onclick="sohbetOdalariniAc()"
-    >
-      🇹🇷 Türkiye Sohbet
+    <button class="room" onclick="odaAc('Türkiye Sohbet')">
+      <div class="room-icon">🇹🇷</div>
+      <div class="room-title">Türkiye Sohbet</div>
+      <div class="room-sub">Canlı sohbet</div>
     </button>
 
-    <button
-      class="list-button secondary"
-      onclick="sohbetOdalariniAc()"
-    >
-      🇦🇿 Azerbaycan Sohbet
+    <button class="room" onclick="odaAc('Azerbaycan Sohbet')">
+      <div class="room-icon">🇦🇿</div>
+      <div class="room-title">Azerbaycan Sohbet</div>
+      <div class="room-sub">Canlı sohbet</div>
     </button>
 
-    <button
-      class="list-button secondary"
-      onclick="sohbetOdalariniAc()"
-    >
-      🌙 Gece Sohbeti
+    <button class="room" onclick="odaAc('Gece Sohbeti')">
+      <div class="room-icon">🌙</div>
+      <div class="room-title">Gece Sohbeti</div>
+      <div class="room-sub">Sohbete katıl</div>
+    </button>
+
+    <button class="room" onclick="odaAc('Aktif Odalar')">
+      <div class="room-icon">🔥</div>
+      <div class="room-title">Aktif Odalar</div>
+      <div class="room-sub">Şimdi aktif</div>
     </button>
 
   </div>
@@ -663,25 +918,24 @@ button{
 
 <!-- MESAJLAR -->
 
-<section id="mesajlarPage" class="page hidden">
+<section id="mesajlarPage" class="page" style="display:none;">
 
-  <div class="card">
+  <div class="section-title">
+    Mesajlar
+  </div>
 
-    <div class="section-title">
-      💬 Mesajlar
+  <div class="empty-box">
+
+    <div class="empty-icon">
+      💬
     </div>
 
-    <div style="padding:14px;background:#f5f6fa;border-radius:12px;margin-bottom:10px;">
-      👩 Elif
-      <br>
-      <small>Merhaba 👋</small>
-    </div>
+    <strong>Henüz mesaj yok</strong>
 
-    <div style="padding:14px;background:#f5f6fa;border-radius:12px;">
-      👨 Mert
-      <br>
-      <small>Nasılsın?</small>
-    </div>
+    <p style="margin-top:7px;">
+      Kullanıcılarla sohbet etmeye başladığında
+      mesajların burada görünecek.
+    </p>
 
   </div>
 
@@ -690,92 +944,47 @@ button{
 
 <!-- BEN -->
 
-<section id="benPage" class="page hidden">
+<section id="benPage" class="page" style="display:none;">
 
-  <div class="card">
+  <div class="profile-card">
 
-    <div class="section-title">
-      👤 Ben
+    <div class="profile-avatar" id="profileAvatar">
+      P
     </div>
 
-    <div class="profile-row">
-
-      <div class="profile-small-avatar">
-        👤
-      </div>
-
-      <div>
-
-        <h3 id="profileName">
-          Power Chatt Kullanıcısı
-        </h3>
-
-        <div class="small-text" id="profileUsername">
-          @powerchatt
-        </div>
-
-      </div>
-
+    <div class="profile-name" id="profileName">
+      Power Chatt Kullanıcısı
     </div>
+
+    <div class="profile-username" id="profileUsername">
+      @powerchatt
+    </div>
+
+    <div class="profile-email" id="profileEmail">
+      Hesap bilgileri yükleniyor...
+    </div>
+
+    <button
+      class="edit-btn"
+      onclick="profilDuzenle()">
+      ✏️ Profili Düzenle
+    </button>
 
     <div class="stats">
 
       <div class="stat">
-        <strong>0</strong>
-        <span>Arkadaş</span>
+        <strong id="followersValue">0</strong>
+        <span>Takipçi</span>
       </div>
 
       <div class="stat">
-        <strong>0</strong>
+        <strong id="followingValue">0</strong>
         <span>Takip</span>
       </div>
 
       <div class="stat">
-        <strong>0</strong>
-        <span>Takipçi</span>
-      </div>
-
-    </div>
-
-    <br>
-
-    <button
-      class="action-button"
-      onclick="profilDuzenle()"
-    >
-      ✏️ Profili Düzenle
-    </button>
-
-  </div>
-
-
-  <!-- CÜZDAN -->
-
-  <div class="card">
-
-    <div class="menu-title">
-      🪙 Cüzdanım
-    </div>
-
-    <div class="coin-box">
-
-      <div class="coin-item">
-        <div>🪙 Coin</div>
-
-        <div
-          class="coin-number"
-          id="coinValue"
-        >
-          0
-        </div>
-      </div>
-
-      <div class="coin-item">
-        <div>💰 Kazanç</div>
-
-        <div class="coin-number">
-          0
-        </div>
+        <strong id="friendsValue">0</strong>
+        <span>Arkadaş</span>
       </div>
 
     </div>
@@ -783,216 +992,185 @@ button{
   </div>
 
 
-  <!-- OYUNLAR -->
+  <div class="coin-box">
 
-  <div class="card">
+    <div>
 
-    <div class="menu-title">
-      🎮 Oyunlar
-    </div>
-
-    <div class="game-card">
-
-      <div class="game-info">
-        <div class="game-icon">🚀</div>
-
-        <div>
-          <strong>Rocket Game</strong>
-
-          <div class="small-text">
-            Coin ile oyna
-          </div>
-        </div>
+      <div class="coin-title">
+        Coin bakiyesi
       </div>
 
-      <button
-        class="game-button"
-        onclick="oyunAc('Rocket Game')"
-      >
-        Oyna
-      </button>
-
-    </div>
-
-
-    <div class="game-card">
-
-      <div class="game-info">
-        <div class="game-icon">🎰</div>
-
-        <div>
-          <strong>Jackpot</strong>
-
-          <div class="small-text">
-            Coin ile oyna
-          </div>
-        </div>
+      <div class="coin-value" id="coinValue">
+        0 🪙
       </div>
 
-      <button
-        class="game-button"
-        onclick="oyunAc('Jackpot')"
-      >
-        Oyna
-      </button>
-
-    </div>
-
-
-    <div class="game-card">
-
-      <div class="game-info">
-        <div class="game-icon">🎲</div>
-
-        <div>
-          <strong>Şans Oyunu</strong>
-
-          <div class="small-text">
-            Yakında
-          </div>
-        </div>
-      </div>
-
-      <button
-        class="game-button"
-        onclick="oyunAc('Şans Oyunu')"
-      >
-        Oyna
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- HESABIM -->
-
-  <div class="card">
-
-    <div class="menu-title">
-      👤 Hesabım
     </div>
 
     <button
-      class="list-button secondary"
-      onclick="profilDuzenle()"
-    >
-      ✏️ Profilimi Düzenle
-    </button>
-
-    <button
-      class="list-button secondary"
-      onclick="arkadaslarim()"
-    >
-      👥 Arkadaşlarım
-    </button>
-
-    <button
-      class="list-button secondary"
-      onclick="takip()"
-    >
-      ❤️ Takip Ettiklerim
+      class="coin-button"
+      onclick="coinAl()">
+      Coin Al
     </button>
 
   </div>
 
 
-  <!-- AYARLAR -->
+  <div class="menu-section">
 
-  <div class="card">
-
-    <div class="menu-title">
-      ⚙️ Ayarlar
-    </div>
+    <h3>Oyunlar</h3>
 
     <button
-      class="list-button secondary"
-      onclick="ayarlarAc()"
-    >
-      ⚙️ Ayarlar
+      class="menu-item"
+      onclick="oyunAc('Rocket Game')">
+      <span>🚀</span>
+      <strong>Rocket Game</strong>
+      <span class="menu-arrow">›</span>
     </button>
 
     <button
-      class="list-button secondary"
-      onclick="gizlilikAc()"
-    >
-      🔒 Gizlilik ve Güvenlik
+      class="menu-item"
+      onclick="oyunAc('Jackpot')">
+      <span>🎰</span>
+      <strong>Jackpot</strong>
+      <span class="menu-arrow">›</span>
     </button>
 
     <button
-      class="list-button secondary"
-      onclick="bildirimlerAc()"
-    >
-      🔔 Bildirimler
-    </button>
-
-  </div>
-
-
-  <!-- GÜVENLİK -->
-
-  <div class="card">
-
-    <div class="menu-title">
-      🛡️ Güvenlik
-    </div>
-
-    <button
-      class="list-button secondary"
-      onclick="engellenenler()"
-    >
-      🚫 Engellenen Kullanıcılar
-    </button>
-
-    <button
-      class="list-button secondary"
-      onclick="raporAc()"
-    >
-      ⚠️ Kullanıcı / İçerik Bildir
+      class="menu-item"
+      onclick="oyunAc('Şans Oyunu')">
+      <span>🎲</span>
+      <strong>Şans Oyunu</strong>
+      <span class="menu-arrow">›</span>
     </button>
 
   </div>
 
 
-  <!-- DESTEK -->
+  <div class="menu-section">
 
-  <div class="card">
-
-    <div class="menu-title">
-      ❓ Destek
-    </div>
+    <h3>Hesabım</h3>
 
     <button
-      class="list-button secondary"
-      onclick="yardimAc()"
-    >
-      ❓ Yardım ve Destek
+      class="menu-item"
+      onclick="profilDuzenle()">
+      <span>👤</span>
+      <strong>Profilim</strong>
+      <span class="menu-arrow">›</span>
     </button>
 
     <button
-      class="list-button secondary"
-      onclick="kosullarAc()"
-    >
-      📄 Kullanım Koşulları
+      class="menu-item"
+      onclick="arkadaslarAc()">
+      <span>👥</span>
+      <strong>Arkadaşlarım</strong>
+      <span class="menu-arrow">›</span>
     </button>
 
     <button
-      class="list-button secondary"
-      onclick="gizlilikPolitikasi()"
-    >
-      🔐 Gizlilik Politikası
+      class="menu-item"
+      onclick="takipAc()">
+      <span>❤️</span>
+      <strong>Takip Ettiklerim</strong>
+      <span class="menu-arrow">›</span>
     </button>
 
   </div>
 
 
-  <div class="card">
+  <div class="menu-section">
+
+    <h3>Ayarlar</h3>
 
     <button
-      class="list-button secondary"
+      class="menu-item"
+      onclick="ayarlarAc()">
+      <span>⚙️</span>
+      <strong>Ayarlar</strong>
+      <span class="menu-arrow">›</span>
+    </button>
+
+    <button
+      class="menu-item"
+      onclick="gizlilikAc()">
+      <span>🔐</span>
+      <strong>Gizlilik ve Güvenlik</strong>
+      <span class="menu-arrow">›</span>
+    </button>
+
+    <button
+      class="menu-item"
+      onclick="bildirimAc()">
+      <span>🔔</span>
+      <strong>Bildirimler</strong>
+      <span class="menu-arrow">›</span>
+    </button>
+
+  </div>
+
+
+  <div class="menu-section">
+
+    <h3>Güvenlik</h3>
+
+    <button
+      class="menu-item"
+      onclick="engelliAc()">
+      <span>🚫</span>
+      <strong>Engellenen Kullanıcılar</strong>
+      <span class="menu-arrow">›</span>
+    </button>
+
+    <button
+      class="menu-item"
+      onclick="sikayetAc()">
+      <span>⚠️</span>
+      <strong>Bildirim / Şikayet</strong>
+      <span class="menu-arrow">›</span>
+    </button>
+
+  </div>
+
+
+  <div class="menu-section">
+
+    <h3>Destek</h3>
+
+    <button
+      class="menu-item"
+      onclick="yardimAc()">
+      <span>❓</span>
+      <strong>Yardım</strong>
+      <span class="menu-arrow">›</span>
+    </button>
+
+    <button
+      class="menu-item"
+      onclick="kosullarAc()">
+      <span>📄</span>
+      <strong>Kullanım Koşulları</strong>
+      <span class="menu-arrow">›</span>
+    </button>
+
+    <button
+      class="menu-item"
+      onclick="gizlilikPolitikasiAc()">
+      <span>🛡️</span>
+      <strong>Gizlilik Politikası</strong>
+      <span class="menu-arrow">›</span>
+    </button>
+
+  </div>
+
+
+  <div class="menu-section">
+
+    <button
+      class="menu-item"
       onclick="cikisYap()"
-    >
-      🚪 Çıkış Yap
+      style="color:#d93025;">
+      <span>🚪</span>
+      <strong>Çıkış Yap</strong>
+      <span class="menu-arrow">›</span>
     </button>
 
   </div>
@@ -1005,41 +1183,36 @@ button{
 <nav class="bottom-nav">
 
   <button
-    class="nav-item active"
-    onclick="selectNav(this,'ana')"
-  >
+    class="nav-btn active"
+    onclick="selectNav(this,'anaPage')">
     <span class="nav-icon">🏠</span>
     Ana Sayfa
   </button>
 
   <button
-    class="nav-item"
-    onclick="selectNav(this,'anlar')"
-  >
+    class="nav-btn"
+    onclick="selectNav(this,'anlarPage')">
     <span class="nav-icon">📸</span>
     Anılar
   </button>
 
   <button
-    class="nav-item"
-    onclick="selectNav(this,'odalar')"
-  >
+    class="nav-btn"
+    onclick="selectNav(this,'odalarPage')">
     <span class="nav-icon">💬</span>
     Odalar
   </button>
 
   <button
-    class="nav-item"
-    onclick="selectNav(this,'mesajlar')"
-  >
+    class="nav-btn"
+    onclick="selectNav(this,'mesajlarPage')">
     <span class="nav-icon">✉️</span>
     Mesajlar
   </button>
 
   <button
-    class="nav-item"
-    onclick="selectNav(this,'ben')"
-  >
+    class="nav-btn"
+    onclick="selectNav(this,'benPage')">
     <span class="nav-icon">👤</span>
     Ben
   </button>
@@ -1051,23 +1224,19 @@ button{
 
 <!-- MODAL -->
 
-<div id="modal" class="modal hidden">
+<div class="modal" id="modal">
 
   <div class="modal-box">
 
-    <div
-      class="modal-title"
-      id="modalTitle"
-    >
+    <div class="modal-title" id="modalTitle">
       Power Chatt
     </div>
 
     <div id="modalContent"></div>
 
     <button
-      class="close-button"
-      onclick="modalKapat()"
-    >
+      class="close-btn"
+      onclick="modalKapat()">
       Kapat
     </button>
 
@@ -1076,12 +1245,11 @@ button{
 </div>
 
 
-<!-- FIREBASE -->
-
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-
 <script>
+
+/* =========================
+   FIREBASE
+========================= */
 
 const firebaseConfig = {
   apiKey: "AIzaSyAh6U4MpIjUtE3ncqZkkYkskZHSPrM6wXU",
@@ -1097,544 +1265,182 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 
+const db = firebase.firestore();
+
 const googleProvider =
   new firebase.auth.GoogleAuthProvider();
 
 
-/* GİRİŞ */
+/* =========================
+   DEĞİŞKENLER
+========================= */
 
-let kayitModuAktif=false;
+let kayitModuAktif = false;
+
+
+/* =========================
+   KAYIT / GİRİŞ MODU
+========================= */
+
+function modDegistir(){
+
+  if(kayitModuAktif){
+    girisModu();
+  }else{
+    kayitModu();
+  }
+
+}
 
 
 function kayitModu(){
 
-  kayitModuAktif=true;
-
-  document.getElementById("loginTitle").innerText=
-    "Yeni Hesap Oluştur";
-
-  document.getElementById("loginText").innerText=
-    "Power Chatt'e katıl";
+  kayitModuAktif = true;
 
   document.getElementById("registerFields")
-    .classList.remove("hidden");
+    .style.display = "block";
 
-  document.getElementById("loginButton")
-    .innerText="Kayıt Ol";
+  document.getElementById("loginTitle")
+    .innerText = "Power Chatt'e Katıl";
+
+  document.getElementById("loginSubtitle")
+    .innerText = "Yeni hesabını oluştur";
+
+  document.getElementById("mainAuthButton")
+    .innerText = "Kayıt Ol";
 
   document.getElementById("switchButton")
-    .innerText=
-      "Zaten hesabın var mı? Giriş yap";
+    .innerText = "Zaten hesabın var mı? Giriş yap";
 
-  document.getElementById("switchButton")
-    .onclick=girisModu;
+  document.getElementById("loginError")
+    .innerText = "";
 
 }
 
 
 function girisModu(){
 
-  kayitModuAktif=false;
-
-  document.getElementById("loginTitle").innerText=
-    "Hoş Geldin";
-
-  document.getElementById("loginText").innerText=
-    "Power Chatt'e giriş yap";
+  kayitModuAktif = false;
 
   document.getElementById("registerFields")
-    .classList.add("hidden");
+    .style.display = "none";
 
-  document.getElementById("loginButton")
-    .innerText="Giriş Yap";
+  document.getElementById("loginTitle")
+    .innerText = "Power Chatt'e Hoş Geldin";
+
+  document.getElementById("loginSubtitle")
+    .innerText = "Hesabına giriş yap ve sohbete başla";
+
+  document.getElementById("mainAuthButton")
+    .innerText = "Giriş Yap";
 
   document.getElementById("switchButton")
-    .innerText=
-      "Hesabın yok mu? Kayıt ol";
+    .innerText = "Hesabın yok mu? Kayıt ol";
 
-  document.getElementById("switchButton")
-    .onclick=kayitModu;
+  document.getElementById("loginError")
+    .innerText = "";
 
 }
 
 
-/* NORMAL E-POSTA GİRİŞİ */
+/* =========================
+   FIRESTORE KULLANICI OLUŞTUR
+========================= */
 
-function hesapIslemi(){
+async function kullaniciProfiliOlustur(
+  user,
+  bilgiler = {}
+){
 
-  const email=
-    document.getElementById("email")
-      .value.trim();
-
-  const password=
-    document.getElementById("password")
-      .value.trim();
-
-  if(!email || !password){
-
-    alert(
-      "Lütfen Gmail ve şifreni gir."
-    );
-
-    return;
+  if(!user){
+    return null;
   }
 
+  const userRef =
+    db.collection("users").doc(user.uid);
 
-  if(kayitModuAktif){
+  const mevcut =
+    await userRef.get();
 
-    const name=
-      document.getElementById("registerName")
-        .value.trim();
+  const mevcutData =
+    mevcut.exists ? mevcut.data() : {};
 
-    const username=
-      document.getElementById("registerUsername")
-        .value.trim();
-
-    if(!name || !username){
-
-      alert(
-        "Lütfen adını ve kullanıcı adını gir."
-      );
-
-      return;
-    }
-
-
-    auth.createUserWithEmailAndPassword(
-      email,
-      password
-    )
-
-    .then(function(result){
-
-      const user=result.user;
-
-      localStorage.setItem(
-        "power_name",
-        name
-      );
-
-      localStorage.setItem(
-        "power_username",
-        username
-      );
-
-      localStorage.setItem(
-        "power_email",
-        user.email || email
-      );
-
-      uygulamayiAc();
-
-    })
-
-    .catch(function(error){
-
-      alert(
-        "Kayıt başarısız: " +
-        error.message
-      );
-
-    });
-
-    return;
-  }
-
-
-  auth.signInWithEmailAndPassword(
-    email,
-    password
-  )
-
-  .then(function(result){
-
-    const user=result.user;
-
-    localStorage.setItem(
-      "power_email",
-      user.email || email
-    );
-
-    uygulamayiAc();
-
-  })
-
-  .catch(function(error){
-
-    alert(
-      "Giriş başarısız: " +
-      error.message
-    );
-
-  });
-
-}
-
-
-/* GOOGLE / GMAIL GİRİŞİ */
-
-function googleGiris(){
-
-  auth.signInWithPopup(googleProvider)
-
-  .then(function(result){
-
-    const user=result.user;
-
-    localStorage.setItem(
-      "power_email",
-      user.email || ""
-    );
-
-    localStorage.setItem(
-      "power_name",
-      user.displayName ||
-      "Power Chatt Kullanıcısı"
-    );
-
-
-    let username="powerchatt";
-
-    if(user.displayName){
-
-      username=
-        user.displayName
-          .toLowerCase()
-          .replace(/[^a-z0-9ğüşöçıİĞÜŞÖÇ]/gi,"")
-          .substring(0,20);
-
-    }
-
-
-    localStorage.setItem(
-      "power_username",
-      username
-    );
-
-    uygulamayiAc();
-
-  })
-
-  .catch(function(error){
-
-    console.error(error);
-
-    if(
-      error.code ===
-      "auth/popup-closed-by-user"
-    ){
-
-      return;
-    }
-
-    alert(
-      "Google ile giriş yapılamadı:\n" +
-      error.message
-    );
-
-  });
-
-}
-
-
-/* UYGULAMA */
-
-function uygulamayiAc(){
-
-  document
-    .getElementById("loginPage")
-    .classList.add("hidden");
-
-  document
-    .getElementById("app")
-    .classList.remove("hidden");
-
-
-  const name=
-    localStorage.getItem("power_name");
-
-  const username=
-    localStorage.getItem("power_username");
-
-
-  if(name){
-
-    document.getElementById("profileName")
-      .innerText=name;
-
-  }
-
-
-  if(username){
-
-    document.getElementById("profileUsername")
-      .innerText="@"+username;
-
-  }
-
-}
-
-
-/* OTURUM KONTROLÜ */
-
-auth.onAuthStateChanged(function(user){
-
-  if(user){
-
-    if(
-      !localStorage.getItem("power_email")
-    ){
-
-      localStorage.setItem(
-        "power_email",
-        user.email || ""
-      );
-
-    }
-
-    if(
-      !localStorage.getItem("power_name")
-    ){
-
-      localStorage.setItem(
-        "power_name",
-        user.displayName ||
-        "Power Chatt Kullanıcısı"
-      );
-
-    }
-
-  }
-
-});
-
-
-/* ÇIKIŞ */
-
-function cikisYap(){
-
-  auth.signOut()
-
-  .then(function(){
-
-    localStorage.removeItem("power_email");
-    localStorage.removeItem("power_name");
-    localStorage.removeItem("power_username");
-
-    document
-      .getElementById("app")
-      .classList.add("hidden");
-
-    document
-      .getElementById("loginPage")
-      .classList.remove("hidden");
-
-    girisModu();
-
-  })
-
-  .catch(function(error){
-
-    alert(
-      "Çıkış yapılamadı: " +
-      error.message
-    );
-
-  });
-
-}
-
-
-/* ALT MENÜ */
-
-function selectNav(element,sayfa){
-
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(function(item){
-
-      item.classList.remove("active");
-
-    });
-
-  element.classList.add("active");
-
-
-  const sayfalar=[
-    "anaPage",
-    "anlarPage",
-    "odalarPage",
-    "mesajlarPage",
-    "benPage"
-  ];
-
-
-  sayfalar.forEach(function(id){
-
-    document
-      .getElementById(id)
-      .classList.add("hidden");
-
-  });
-
-
-  const secilen=
-    document.getElementById(
-      sayfa+"Page"
-    );
-
-  if(secilen){
-
-    secilen.classList.remove("hidden");
-
-  }
-
-}
-
-
-/* MODAL */
-
-function modalAc(baslik,icerik){
-
-  document.getElementById("modalTitle")
-    .innerText=baslik;
-
-  document.getElementById("modalContent")
-    .innerHTML=icerik;
-
-  document.getElementById("modal")
-    .classList.remove("hidden");
-
-}
-
-
-function modalKapat(){
-
-  document.getElementById("modal")
-    .classList.add("hidden");
-
-}
-
-
-/* ODALAR */
-
-function videoOdalariniAc(){
-
-  modalAc(
-    "🎥 Video Odaları",
-    "<p>Video odaları hazırlanıyor.</p><br><p>Yakında canlı video sohbet başlayacak.</p>"
-  );
-
-}
-
-
-function sohbetOdalariniAc(){
-
-  selectNav(
-    document.querySelectorAll(".nav-item")[2],
-    "odalar"
-  );
-
-}
-
-
-/* ANILAR */
-
-function anPaylas(){
-
-  modalAc(
-    "📸 Anını Paylaş",
-    "<p>Fotoğraf ve anı paylaşma sistemi hazırlanıyor.</p>"
-  );
-
-}
-
-
-function anBegen(){
-
-  alert(
-    "❤️ Anı beğenildi."
-  );
-
-}
-
-
-function anYorum(){
-
-  modalAc(
-    "💬 Yorum",
-    "<input class='input' placeholder='Yorumunu yaz...'><button class='action-button'>Gönder</button>"
-  );
-
-}
-
-
-/* ARAMA */
-
-function aramaAc(){
-
-  modalAc(
-    "🔍 Arama",
-    "<input class='input' placeholder='Kullanıcı ara...'><button class='action-button'>Ara</button>"
-  );
-
-}
-
-
-/* KUPA */
-
-function kupaAc(){
-
-  modalAc(
-    "🏆 Sıralama",
-    "<p>Power Chatt sıralaması yakında burada olacak.</p>"
-  );
-
-}
-
-
-/* PROFİL */
-
-function profilDuzenle(){
-
-  const name=
-    localStorage.getItem("power_name") ||
-    "";
-
-  const username=
+  let username =
+    bilgiler.username ||
+    mevcutData.username ||
     localStorage.getItem("power_username") ||
     "";
 
-  modalAc(
-    "✏️ Profili Düzenle",
-    "<input id='editName' class='input' value='"+name+"' placeholder='Adın'>" +
-    "<input id='editUsername' class='input' value='"+username+"' placeholder='Kullanıcı adı'>" +
-    "<button class='action-button' onclick='profilKaydet()'>Kaydet</button>"
-  );
+  let name =
+    bilgiler.name ||
+    mevcutData.name ||
+    user.displayName ||
+    localStorage.getItem("power_name") ||
+    "Power Chatt Kullanıcısı";
 
-}
+  if(!username){
 
+    username =
+      name
+      .toLowerCase()
+      .replace(
+        /[^a-z0-9ğüşöçıİĞÜŞÖÇ]/gi,
+        ""
+      )
+      .substring(0,20);
 
-function profilKaydet(){
-
-  const name=
-    document.getElementById("editName")
-      .value.trim();
-
-  const username=
-    document.getElementById("editUsername")
-      .value.trim();
-
-
-  if(!name || !username){
-
-    alert(
-      "Ad ve kullanıcı adı boş olamaz."
-    );
-
-    return;
   }
 
+  if(!username){
+    username = "powerchatt";
+  }
+
+  const data = {
+
+    uid:user.uid,
+
+    name:name,
+
+    username:username,
+
+    email:user.email || "",
+
+    coins:
+      typeof mevcutData.coins === "number"
+        ? mevcutData.coins
+        : 0,
+
+    followers:
+      typeof mevcutData.followers === "number"
+        ? mevcutData.followers
+        : 0,
+
+    following:
+      typeof mevcutData.following === "number"
+        ? mevcutData.following
+        : 0,
+
+    friends:
+      typeof mevcutData.friends === "number"
+        ? mevcutData.friends
+        : 0,
+
+    updatedAt:
+      firebase.firestore.FieldValue.serverTimestamp()
+
+  };
+
+  if(!mevcut.exists){
+
+    data.createdAt =
+      firebase.firestore.FieldValue.serverTimestamp();
+
+  }
+
+  await userRef.set(
+    data,
+    {merge:true}
+  );
 
   localStorage.setItem(
     "power_name",
@@ -1646,59 +1452,768 @@ function profilKaydet(){
     username
   );
 
+  localStorage.setItem(
+    "power_email",
+    user.email || ""
+  );
 
-  document.getElementById("profileName")
-    .innerText=name;
-
-  document.getElementById("profileUsername")
-    .innerText="@"+username;
-
-  modalKapat();
+  return data;
 
 }
 
 
-/* OYUNLAR */
+/* =========================
+   FIRESTORE PROFİL YÜKLE
+========================= */
+
+async function gercekProfiliYukle(user){
+
+  if(!user){
+    return;
+  }
+
+  try{
+
+    const ref =
+      db.collection("users").doc(user.uid);
+
+    const snap =
+      await ref.get();
+
+    let data;
+
+    if(snap.exists){
+
+      data = snap.data();
+
+    }else{
+
+      data =
+        await kullaniciProfiliOlustur(user);
+
+    }
+
+    const name =
+      data.name ||
+      user.displayName ||
+      "Power Chatt Kullanıcısı";
+
+    const username =
+      data.username ||
+      "powerchatt";
+
+    const email =
+      data.email ||
+      user.email ||
+      "";
+
+    document.getElementById("profileName")
+      .innerText = name;
+
+    document.getElementById("profileUsername")
+      .innerText = "@" + username;
+
+    document.getElementById("profileEmail")
+      .innerText = email;
+
+    document.getElementById("profileAvatar")
+      .innerText =
+      name.charAt(0).toUpperCase();
+
+    document.getElementById("coinValue")
+      .innerText =
+      (data.coins || 0) + " 🪙";
+
+    document.getElementById("followersValue")
+      .innerText =
+      data.followers || 0;
+
+    document.getElementById("followingValue")
+      .innerText =
+      data.following || 0;
+
+    document.getElementById("friendsValue")
+      .innerText =
+      data.friends || 0;
+
+    localStorage.setItem(
+      "power_name",
+      name
+    );
+
+    localStorage.setItem(
+      "power_username",
+      username
+    );
+
+    localStorage.setItem(
+      "power_email",
+      email
+    );
+
+  }catch(error){
+
+    console.error(
+      "Firestore profil hatası:",
+      error
+    );
+
+    firebaseHataGoster(
+      "Profil veritabanından okunamadı.",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   E-POSTA KAYIT / GİRİŞ
+========================= */
+
+async function hesapIslemi(){
+
+  const email =
+    document.getElementById("email")
+      .value.trim();
+
+  const password =
+    document.getElementById("password")
+      .value;
+
+  const errorBox =
+    document.getElementById("loginError");
+
+  errorBox.innerText = "";
+
+  if(!email || !password){
+
+    errorBox.innerText =
+      "E-posta ve şifre alanlarını doldur.";
+
+    return;
+
+  }
+
+  try{
+
+    if(kayitModuAktif){
+
+      const name =
+        document.getElementById("registerName")
+          .value.trim();
+
+      const username =
+        document.getElementById("registerUsername")
+          .value.trim();
+
+      if(!name || !username){
+
+        errorBox.innerText =
+          "Adını ve kullanıcı adını yaz.";
+
+        return;
+
+      }
+
+      if(password.length < 6){
+
+        errorBox.innerText =
+          "Şifre en az 6 karakter olmalı.";
+
+        return;
+
+      }
+
+      const result =
+        await auth.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+
+      const user = result.user;
+
+      await user.updateProfile({
+        displayName:name
+      });
+
+      await kullaniciProfiliOlustur(
+        user,
+        {
+          name:name,
+          username:username
+        }
+      );
+
+      uygulamayiAc();
+
+    }else{
+
+      const result =
+        await auth.signInWithEmailAndPassword(
+          email,
+          password
+        );
+
+      const user = result.user;
+
+      await kullaniciProfiliOlustur(user);
+
+      uygulamayiAc();
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    errorBox.innerText =
+      firebaseHata(error);
+
+  }
+
+}
+
+
+/* =========================
+   GOOGLE GİRİŞ
+========================= */
+
+async function googleGiris(){
+
+  try{
+
+    const result =
+      await auth.signInWithPopup(
+        googleProvider
+      );
+
+    const user = result.user;
+
+    await kullaniciProfiliOlustur(
+      user
+    );
+
+    uygulamayiAc();
+
+  }catch(error){
+
+    console.error(error);
+
+    if(
+      error.code ===
+      "auth/popup-closed-by-user"
+    ){
+      return;
+    }
+
+    alert(
+      "Google ile giriş yapılamadı:\n" +
+      firebaseHata(error)
+    );
+
+  }
+
+}
+
+
+/* =========================
+   AUTH DURUMU
+========================= */
+
+auth.onAuthStateChanged(
+  async function(user){
+
+    if(user){
+
+      try{
+
+        await kullaniciProfiliOlustur(
+          user
+        );
+
+        if(
+          document.getElementById("app")
+            .style.display === "block"
+        ){
+
+          await gercekProfiliYukle(
+            user
+          );
+
+        }
+
+      }catch(error){
+
+        console.error(error);
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =========================
+   UYGULAMAYI AÇ
+========================= */
+
+async function uygulamayiAc(){
+
+  document.getElementById("loginPage")
+    .style.display = "none";
+
+  document.getElementById("app")
+    .style.display = "block";
+
+  const user =
+    auth.currentUser;
+
+  if(user){
+
+    await gercekProfiliYukle(
+      user
+    );
+
+  }
+
+}
+
+
+/* =========================
+   ÇIKIŞ
+========================= */
+
+async function cikisYap(){
+
+  try{
+
+    await auth.signOut();
+
+    localStorage.removeItem(
+      "power_name"
+    );
+
+    localStorage.removeItem(
+      "power_username"
+    );
+
+    localStorage.removeItem(
+      "power_email"
+    );
+
+    document.getElementById("app")
+      .style.display = "none";
+
+    document.getElementById("loginPage")
+      .style.display = "flex";
+
+    girisModu();
+
+    document.getElementById("email")
+      .value = "";
+
+    document.getElementById("password")
+      .value = "";
+
+  }catch(error){
+
+    alert(
+      "Çıkış yapılamadı:\n" +
+      firebaseHata(error)
+    );
+
+  }
+
+}
+
+
+/* =========================
+   ALT MENÜ
+========================= */
+
+function selectNav(element,sayfa){
+
+  const pages = [
+    "anaPage",
+    "anlarPage",
+    "odalarPage",
+    "mesajlarPage",
+    "benPage"
+  ];
+
+  pages.forEach(function(id){
+
+    const page =
+      document.getElementById(id);
+
+    if(page){
+      page.style.display = "none";
+    }
+
+  });
+
+  const selected =
+    document.getElementById(sayfa);
+
+  if(selected){
+    selected.style.display = "block";
+  }
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(function(btn){
+
+      btn.classList.remove("active");
+
+    });
+
+  element.classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   PROFİL DÜZENLE
+========================= */
+
+async function profilDuzenle(){
+
+  const user =
+    auth.currentUser;
+
+  if(!user){
+    return;
+  }
+
+  let name =
+    user.displayName ||
+    localStorage.getItem("power_name") ||
+    "";
+
+  let username =
+    localStorage.getItem("power_username") ||
+    "";
+
+  try{
+
+    const snap =
+      await db.collection("users")
+        .doc(user.uid)
+        .get();
+
+    if(snap.exists){
+
+      const data = snap.data();
+
+      name =
+        data.name || name;
+
+      username =
+        data.username || username;
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+  modalAc(
+    "Profili Düzenle",
+    `
+      <input
+        id="editName"
+        class="input"
+        placeholder="Adın"
+        value="${guvenliHTML(name)}">
+
+      <input
+        id="editUsername"
+        class="input"
+        placeholder="Kullanıcı adın"
+        value="${guvenliHTML(username)}">
+
+      <button
+        class="primary-btn"
+        onclick="profilKaydet()">
+        Kaydet
+      </button>
+    `
+  );
+
+}
+
+
+/* =========================
+   PROFİL KAYDET
+========================= */
+
+async function profilKaydet(){
+
+  const name =
+    document.getElementById("editName")
+      .value.trim();
+
+  const username =
+    document.getElementById("editUsername")
+      .value.trim();
+
+  if(!name || !username){
+
+    alert(
+      "Ad ve kullanıcı adı boş olamaz."
+    );
+
+    return;
+
+  }
+
+  const user =
+    auth.currentUser;
+
+  if(!user){
+
+    alert("Önce giriş yapmalısın.");
+
+    return;
+
+  }
+
+  try{
+
+    await user.updateProfile({
+      displayName:name
+    });
+
+    await db.collection("users")
+      .doc(user.uid)
+      .set({
+
+        uid:user.uid,
+
+        name:name,
+
+        username:username,
+
+        email:user.email || "",
+
+        updatedAt:
+          firebase.firestore.FieldValue
+            .serverTimestamp()
+
+      },{
+        merge:true
+      });
+
+    localStorage.setItem(
+      "power_name",
+      name
+    );
+
+    localStorage.setItem(
+      "power_username",
+      username
+    );
+
+    gercekProfiliYukle(user);
+
+    modalKapat();
+
+    alert(
+      "Profilin Firebase'e kaydedildi."
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Profil kaydedilemedi:\n" +
+      firebaseHata(error)
+    );
+
+  }
+
+}
+
+
+/* =========================
+   ODA
+========================= */
+
+function odaAc(oda){
+
+  modalAc(
+    oda,
+    `
+      <div class="empty-box">
+        <div class="empty-icon">💬</div>
+        <strong>${guvenliHTML(oda)}</strong>
+        <p style="margin-top:8px;">
+          Gerçek oda sistemi sonraki aşamada
+          Firebase'e bağlanacak.
+        </p>
+      </div>
+    `
+  );
+
+}
+
+
+/* =========================
+   MESAJ
+========================= */
+
+function mesajAc(kisi){
+
+  modalAc(
+    "Sohbet",
+    `
+      <div class="empty-box">
+        <div class="empty-icon">💬</div>
+        <strong>${guvenliHTML(kisi)}</strong>
+        <p style="margin-top:8px;">
+          Gerçek mesajlaşma sistemi sonraki
+          aşamada Firebase'e bağlanacak.
+        </p>
+      </div>
+    `
+  );
+
+}
+
+
+/* =========================
+   ANILAR
+========================= */
+
+function aniPaylas(){
+
+  modalAc(
+    "Anını Paylaş",
+    `
+      <input
+        class="input"
+        type="file"
+        accept="image/*">
+
+      <textarea
+        class="input"
+        placeholder="Anına bir şeyler yaz..."></textarea>
+
+      <button
+        class="primary-btn"
+        onclick="modalKapat();alert('Anı sistemi sonraki aşamada Firebase Storage ile bağlanacak.')">
+        Paylaş
+      </button>
+    `
+  );
+
+}
+
+
+/* =========================
+   OYUNLAR
+========================= */
 
 function oyunAc(oyun){
 
   modalAc(
-    "🎮 "+oyun,
-    "<p><strong>"+oyun+"</strong></p><br><p>Oyun sistemi hazırlanıyor.</p><p>Coin sistemi aktif olduğunda burada oynanabilecek.</p>"
+    oyun,
+    `
+      <div class="empty-box">
+        <div class="empty-icon">🎮</div>
+        <strong>${guvenliHTML(oyun)}</strong>
+        <p style="margin-top:8px;">
+          Oyun sistemi sonraki aşamada
+          Power Chatt coin sistemiyle bağlanacak.
+        </p>
+      </div>
+    `
   );
 
 }
 
 
-/* HESAP */
-
-function arkadaslarim(){
+function coinAl(){
 
   modalAc(
-    "👥 Arkadaşlarım",
-    "<p>Arkadaş listesi yakında burada olacak.</p>"
+    "Coin",
+    `
+      <div class="empty-box">
+        <div class="empty-icon">🪙</div>
+        <strong>Coin sistemi</strong>
+        <p style="margin-top:8px;">
+          Coin satın alma ve ödeme sistemi
+          sonraki aşamada eklenecek.
+        </p>
+      </div>
+    `
   );
 
 }
 
 
-function takip(){
+/* =========================
+   DİĞER MENÜLER
+========================= */
+
+function arkadaslarAc(){
 
   modalAc(
-    "❤️ Takip Ettiklerim",
-    "<p>Takip ettiğin kullanıcılar burada görünecek.</p>"
+    "Arkadaşlarım",
+    `
+      <div class="empty-box">
+        <div class="empty-icon">👥</div>
+        <strong>Henüz arkadaş yok</strong>
+      </div>
+    `
   );
 
 }
 
 
-/* AYARLAR */
+function takipAc(){
+
+  modalAc(
+    "Takip Ettiklerim",
+    `
+      <div class="empty-box">
+        <div class="empty-icon">❤️</div>
+        <strong>Henüz takip ettiğin kullanıcı yok</strong>
+      </div>
+    `
+  );
+
+}
+
 
 function ayarlarAc(){
 
   modalAc(
-    "⚙️ Ayarlar",
-    "<p>Hesap ve uygulama ayarları burada olacak.</p>"
+    "Ayarlar",
+    `
+      <button class="menu-item">
+        🔔 Bildirim Ayarları
+      </button>
+
+      <button class="menu-item">
+        🌙 Görünüm
+      </button>
+
+      <button class="menu-item">
+        🔐 Hesap Güvenliği
+      </button>
+    `
   );
 
 }
@@ -1707,52 +2222,84 @@ function ayarlarAc(){
 function gizlilikAc(){
 
   modalAc(
-    "🔒 Gizlilik ve Güvenlik",
-    "<p>Gizlilik ayarları burada olacak.</p>"
+    "Gizlilik ve Güvenlik",
+    `
+      <div class="empty-box">
+        <div class="empty-icon">🔐</div>
+        <p>
+          Gizlilik ve güvenlik seçenekleri
+          burada yönetilecek.
+        </p>
+      </div>
+    `
   );
 
 }
 
 
-function bildirimlerAc(){
+function bildirimAc(){
 
   modalAc(
-    "🔔 Bildirimler",
-    "<p>Bildirim ayarları burada olacak.</p>"
+    "Bildirimler",
+    `
+      <div class="empty-box">
+        <div class="empty-icon">🔔</div>
+        <strong>Bildirim ayarları</strong>
+      </div>
+    `
   );
 
 }
 
 
-/* GÜVENLİK */
-
-function engellenenler(){
+function engelliAc(){
 
   modalAc(
-    "🚫 Engellenen Kullanıcılar",
-    "<p>Engellediğin kullanıcılar burada listelenecek.</p>"
+    "Engellenen Kullanıcılar",
+    `
+      <div class="empty-box">
+        <div class="empty-icon">🚫</div>
+        <strong>Engellenen kullanıcı yok.</strong>
+      </div>
+    `
   );
 
 }
 
 
-function raporAc(){
+function sikayetAc(){
 
   modalAc(
-    "⚠️ Bildir",
-    "<p>Kullanıcı veya içerik bildirme sistemi hazırlanıyor.</p>"
+    "Bildirim / Şikayet",
+    `
+      <textarea
+        class="input"
+        placeholder="Şikayetini yaz..."></textarea>
+
+      <button
+        class="primary-btn"
+        onclick="modalKapat();alert('Bildirim alındı.')">
+        Gönder
+      </button>
+    `
   );
 
 }
 
-
-/* DESTEK */
 
 function yardimAc(){
 
   modalAc(
-    "❓ Yardım ve Destek",
-    "<p>Power Chatt yardım merkezi yakında burada olacak.</p>"
+    "Yardım",
+    `
+      <div class="empty-box">
+        <div class="empty-icon">❓</div>
+        <p>
+          Power Chatt yardım merkezi
+          burada olacak.
+        </p>
+      </div>
+    `
   );
 
 }
@@ -1761,24 +2308,214 @@ function yardimAc(){
 function kosullarAc(){
 
   modalAc(
-    "📄 Kullanım Koşulları",
-    "<p>Power Chatt kullanım koşulları hazırlanıyor.</p>"
+    "Kullanım Koşulları",
+    `
+      <p style="line-height:1.7;color:#555;">
+        Power Chatt kullanım koşulları
+        burada yayınlanacaktır.
+      </p>
+    `
   );
 
 }
 
 
-function gizlilikPolitikasi(){
+function gizlilikPolitikasiAc(){
 
   modalAc(
-    "🔐 Gizlilik Politikası",
-    "<p>Power Chatt gizlilik politikası hazırlanıyor.</p>"
+    "Gizlilik Politikası",
+    `
+      <p style="line-height:1.7;color:#555;">
+        Power Chatt gizlilik politikası
+        burada yayınlanacaktır.
+      </p>
+    `
   );
 
 }
+
+
+/* =========================
+   ARAMA / KUPA
+========================= */
+
+function aramaAc(){
+
+  modalAc(
+    "Kullanıcı Ara",
+    `
+      <input
+        class="input"
+        placeholder="Kullanıcı adı ara...">
+
+      <button class="primary-btn">
+        Ara
+      </button>
+    `
+  );
+
+}
+
+
+function kupaAc(){
+
+  modalAc(
+    "Liderlik",
+    `
+      <div class="empty-box">
+        <div class="empty-icon">🏆</div>
+        <strong>Liderlik tablosu</strong>
+        <p style="margin-top:8px;">
+          Yakında burada olacak.
+        </p>
+      </div>
+    `
+  );
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function modalAc(title,content){
+
+  document.getElementById("modalTitle")
+    .innerText = title;
+
+  document.getElementById("modalContent")
+    .innerHTML = content;
+
+  document.getElementById("modal")
+    .style.display = "flex";
+
+}
+
+
+function modalKapat(){
+
+  document.getElementById("modal")
+    .style.display = "none";
+
+}
+
+
+/* =========================
+   HATA
+========================= */
+
+function firebaseHata(error){
+
+  if(!error){
+    return "Bilinmeyen hata.";
+  }
+
+  switch(error.code){
+
+    case "auth/email-already-in-use":
+      return "Bu e-posta adresi zaten kayıtlı.";
+
+    case "auth/invalid-email":
+      return "E-posta adresi geçersiz.";
+
+    case "auth/weak-password":
+      return "Şifre en az 6 karakter olmalı.";
+
+    case "auth/user-not-found":
+      return "Bu hesap bulunamadı.";
+
+    case "auth/wrong-password":
+      return "Şifre yanlış.";
+
+    case "auth/invalid-credential":
+      return "E-posta veya şifre yanlış.";
+
+    case "auth/too-many-requests":
+      return "Çok fazla deneme yapıldı. Biraz sonra tekrar dene.";
+
+    case "auth/popup-blocked":
+      return "Google giriş penceresi engellendi.";
+
+    case "auth/popup-closed-by-user":
+      return "Google giriş penceresi kapatıldı.";
+
+    case "auth/unauthorized-domain":
+      return "Bu site Firebase tarafından yetkilendirilmemiş.";
+
+    case "permission-denied":
+      return "Firebase güvenlik kuralları erişimi engelledi.";
+
+    default:
+      return error.message ||
+        "Bir hata oluştu.";
+
+  }
+
+}
+
+
+function firebaseHataGoster(mesaj,error){
+
+  console.error(mesaj,error);
+
+}
+
+
+/* =========================
+   GÜVENLİ HTML
+========================= */
+
+function guvenliHTML(text){
+
+  return String(text || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   MODAL DIŞINA TIKLAMA
+========================= */
+
+document.getElementById("modal")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(e.target === this){
+        modalKapat();
+      }
+
+    }
+  );
+
+
+/* =========================
+   SAYFA AÇILIŞI
+========================= */
+
+window.addEventListener(
+  "load",
+  function(){
+
+    const user =
+      auth.currentUser;
+
+    if(user){
+
+      uygulamayiAc();
+
+    }
+
+  }
+);
 
 </script>
 
 </body>
 </html>
-```
