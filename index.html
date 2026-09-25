@@ -19,11 +19,8 @@ body{
   padding-bottom:80px;
 }
 
-button,select{
-  font-family:inherit;
-}
-
 button{
+  font-family:inherit;
   cursor:pointer;
 }
 
@@ -35,6 +32,9 @@ button{
   justify-content:space-between;
   padding:0 14px;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
 
 .logo{
@@ -75,6 +75,43 @@ button{
   margin-bottom:12px;
 }
 
+.room-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.room-button{
+  flex:1;
+  min-height:80px;
+  border-radius:15px;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.video-button{
+  border:0;
+  background:linear-gradient(135deg,#6847dc,#9275ff);
+  color:#fff;
+}
+
+.chat-button{
+  border:1px solid #ddd;
+  background:#fff;
+  color:#222;
+}
+
+.active-users{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.user-card{
+  background:#f5f6fa;
+  padding:13px;
+  border-radius:12px;
+}
+
 .bottom-nav{
   position:fixed;
   left:0;
@@ -112,6 +149,37 @@ button{
 .hidden{
   display:none !important;
 }
+
+.action-button{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  background:#6847dc;
+  color:#fff;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.list-button{
+  width:100%;
+  padding:15px;
+  margin-bottom:10px;
+  border-radius:12px;
+  font-size:16px;
+}
+
+.primary{
+  border:0;
+  background:#6847dc;
+  color:#fff;
+}
+
+.secondary{
+  border:1px solid #ddd;
+  background:#fff;
+  color:#222;
+}
 </style>
 </head>
 
@@ -126,50 +194,41 @@ button{
   </div>
 </header>
 
-<!-- DİL SEÇENEĞİ -->
 
-<section class="page">
-  <div class="card">
-
-    <div class="section-title">
-      🌐 Dil Seç
-    </div>
-
-    <select id="languageSelect" onchange="dilDegistir()">
-      <option value="tr">🇹🇷 Türkçe</option>
-      <option value="az">🇦🇿 Azərbaycanca</option>
-      <option value="en">🇬🇧 English</option>
-      <option value="ar">🇸🇦 العربية</option>
-    </select>
-
-  </div>
-</section>
-  <!-- ANA SAYFA -->
+<!-- ANA SAYFA -->
 
 <section id="anaPage" class="page">
 
   <div class="card">
-    <div class="section-title">⚡ Power Chatt'e Hoş Geldiniz</div>
-    <p>Yeni insanlarla tanış, sohbet et ve eğlen.</p>
+    <div class="section-title">
+      ⚡ Power Chatt'e Hoş Geldiniz
+    </div>
+
+    <p>
+      Yeni insanlarla tanış, sohbet et ve eğlen.
+    </p>
   </div>
+
 
   <div class="card">
 
-    <div class="section-title">💬 Odalar</div>
+    <div class="section-title">
+      💬 Odalar
+    </div>
 
-    <div style="display:flex;gap:10px;">
+    <div class="room-buttons">
 
       <button
+        class="room-button video-button"
         onclick="videoOdalariniAc()"
-        style="flex:1;min-height:80px;border:0;border-radius:15px;background:linear-gradient(135deg,#6847dc,#9275ff);color:#fff;font-size:15px;font-weight:bold;"
       >
         🎥<br>
         Video Odaları
       </button>
 
       <button
+        class="room-button chat-button"
         onclick="sohbetOdalariniAc()"
-        style="flex:1;min-height:80px;border:1px solid #ddd;border-radius:15px;background:#fff;color:#222;font-size:15px;font-weight:bold;"
       >
         🗨️<br>
         Sohbet Odaları
@@ -179,29 +238,32 @@ button{
 
   </div>
 
+
   <div class="card">
 
-    <div class="section-title">🔥 Aktif Kullanıcılar</div>
+    <div class="section-title">
+      🔥 Aktif Kullanıcılar
+    </div>
 
-    <div style="display:flex;flex-direction:column;gap:10px;">
+    <div class="active-users">
 
-      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+      <div class="user-card">
         👨 Mert
       </div>
 
-      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+      <div class="user-card">
         👩 Elif
       </div>
 
-      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+      <div class="user-card">
         👨 Can
       </div>
 
-      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+      <div class="user-card">
         👩 Zeynep
       </div>
 
-      <div style="background:#f5f6fa;padding:13px;border-radius:12px;">
+      <div class="user-card">
         👨 Emir
       </div>
 
@@ -211,22 +273,26 @@ button{
 
 </section>
 
+
 <!-- ANILAR -->
 
 <section id="anlarPage" class="page hidden">
 
   <div class="card">
 
-    <div class="section-title">📸 Anılar</div>
+    <div class="section-title">
+      📸 Anılar
+    </div>
 
     <button
+      class="action-button"
       onclick="anPaylas()"
-      style="width:100%;padding:14px;border:0;border-radius:12px;background:#6847dc;color:#fff;font-size:15px;font-weight:bold;"
     >
       ➕ Anını Paylaş
     </button>
 
   </div>
+
 
   <div class="card">
 
@@ -260,31 +326,34 @@ button{
 
 </section>
 
+
 <!-- ODALAR -->
 
 <section id="odalarPage" class="page hidden">
 
   <div class="card">
 
-    <div class="section-title">💬 Odalar</div>
+    <div class="section-title">
+      💬 Odalar
+    </div>
 
     <button
+      class="list-button primary"
       onclick="sohbetOdalariniAc()"
-      style="width:100%;padding:15px;margin-bottom:10px;border:0;border-radius:12px;background:#6847dc;color:#fff;font-size:16px;"
     >
       🇹🇷 Türkiye Sohbet
     </button>
 
     <button
+      class="list-button secondary"
       onclick="sohbetOdalariniAc()"
-      style="width:100%;padding:15px;margin-bottom:10px;border:1px solid #ddd;border-radius:12px;background:#fff;font-size:16px;"
     >
       🇦🇿 Azerbaycan Sohbet
     </button>
 
     <button
+      class="list-button secondary"
       onclick="sohbetOdalariniAc()"
-      style="width:100%;padding:15px;border:1px solid #ddd;border-radius:12px;background:#fff;font-size:16px;"
     >
       🌙 Gece Sohbeti
     </button>
@@ -293,13 +362,16 @@ button{
 
 </section>
 
+
 <!-- MESAJLAR -->
 
 <section id="mesajlarPage" class="page hidden">
 
   <div class="card">
 
-    <div class="section-title">💬 Mesajlar</div>
+    <div class="section-title">
+      💬 Mesajlar
+    </div>
 
     <div style="padding:14px;background:#f5f6fa;border-radius:12px;margin-bottom:10px;">
       👩 Elif
@@ -317,17 +389,22 @@ button{
 
 </section>
 
+
 <!-- BEN -->
 
 <section id="benPage" class="page hidden">
 
   <div class="card">
 
-    <div class="section-title">👤 Ben</div>
+    <div class="section-title">
+      👤 Ben
+    </div>
 
     <div style="text-align:center;padding:20px;">
 
-      <div style="font-size:55px;">👤</div>
+      <div style="font-size:55px;">
+        👤
+      </div>
 
       <h3 style="margin:10px 0;">
         Power Chatt Kullanıcısı
@@ -340,8 +417,8 @@ button{
     </div>
 
     <button
-      style="width:100%;padding:14px;margin-top:10px;border:0;border-radius:12px;background:#6847dc;color:#fff;font-size:15px;"
-      onclick="alert('Profil düzenleme bölümü açılacak.')"
+      class="action-button"
+      onclick="profilDuzenle()"
     >
       ✏️ Profili Düzenle
     </button>
@@ -350,37 +427,54 @@ button{
 
 </section>
 
-<!-- ALT MENÜ BURAYA GELECEK -->
-  <!-- ALT MENÜ -->
+
+<!-- ALT MENÜ -->
 
 <nav class="bottom-nav">
 
-  <button class="nav-item active" onclick="selectNav(this,'ana')">
+  <button
+    class="nav-item active"
+    onclick="selectNav(this,'ana')"
+  >
     <span class="nav-icon">🏠</span>
     Ana Sayfa
   </button>
 
-  <button class="nav-item" onclick="selectNav(this,'anlar')">
+  <button
+    class="nav-item"
+    onclick="selectNav(this,'anlar')"
+  >
     <span class="nav-icon">📸</span>
     Anılar
   </button>
 
-  <button class="nav-item" onclick="selectNav(this,'odalar')">
+  <button
+    class="nav-item"
+    onclick="selectNav(this,'odalar')"
+  >
     <span class="nav-icon">💬</span>
     Odalar
   </button>
 
-  <button class="nav-item" onclick="selectNav(this,'mesajlar')">
+  <button
+    class="nav-item"
+    onclick="selectNav(this,'mesajlar')"
+  >
     <span class="nav-icon">✉️</span>
     Mesajlar
   </button>
 
-  <button class="nav-item" onclick="selectNav(this,'ben')">
+  <button
+    class="nav-item"
+    onclick="selectNav(this,'ben')"
+  >
     <span class="nav-icon">👤</span>
     Ben
   </button>
 
 </nav>
+
+
 <script>
 
 function selectNav(element,sayfa){
@@ -421,64 +515,65 @@ function selectNav(element,sayfa){
 }
 
 
-function dilDegistir(){
-
-  const dil=document.getElementById("languageSelect").value;
-
-  if(dil==="tr"){
-    alert("Türkçe seçildi.");
-  }
-
-  if(dil==="az"){
-    alert("Azərbaycanca seçildi.");
-  }
-
-  if(dil==="en"){
-    alert("English selected.");
-  }
-
-  if(dil==="ar"){
-    alert("تم اختيار العربية");
-  }
-}
-
-
 function aramaAc(){
-  alert("Arama bölümü açılacak.");
+
+  alert("🔍 Arama bölümü açılacak.");
+
 }
 
 
 function kupaAc(){
+
   alert("🏆 Kupa bölümü açılacak.");
+
 }
 
 
 function videoOdalariniAc(){
+
   alert("🎥 Video Odaları açılacak.");
+
 }
 
 
 function sohbetOdalariniAc(){
+
   alert("💬 Sohbet Odaları açılacak.");
+
 }
 
 
 function anPaylas(){
+
   alert("📸 Anını paylaşma bölümü açılacak.");
+
 }
 
 
 function anBegen(){
-  alert("❤️ Beğenildi.")
+
+  alert("❤️ Beğenildi.");
+
 }
 
 
 function anYorum(){
+
   const yorum=prompt("Yorumunu yaz:");
 
   if(yorum){
+
     alert("💬 Yorumun eklendi.");
+
   }
+
+}
+
+
+function profilDuzenle(){
+
+  alert("✏️ Profil düzenleme bölümü açılacak.");
+
 }
 
 </script>
