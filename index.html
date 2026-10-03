@@ -128,6 +128,7 @@ button{
   font-size:13px;
   text-align:center;
   margin:8px 0;
+  white-space:pre-line;
 }
 
 /* UYGULAMA */
@@ -1666,10 +1667,13 @@ async function hesapIslemi(){
 
   }catch(error){
 
-    console.error(error);
+    console.error("E-POSTA GİRİŞ HATASI:",error);
 
     errorBox.innerText =
-      firebaseHata(error);
+      "Hata kodu: " +
+      (error.code || "bilinmiyor") +
+      "\n" +
+      (error.message || firebaseHata(error));
 
   }
 
@@ -1678,9 +1682,16 @@ async function hesapIslemi(){
 
 /* =========================
    GOOGLE GİRİŞ
+   GERÇEK HATA KODUNU GÖSTERİR
 ========================= */
 
 async function googleGiris(){
+
+  const errorBox =
+    document.getElementById("loginError");
+
+  errorBox.innerText =
+    "Google ile giriş yapılıyor...";
 
   try{
 
@@ -1691,26 +1702,47 @@ async function googleGiris(){
 
     const user = result.user;
 
+    console.log(
+      "Google giriş başarılı:",
+      user
+    );
+
     await kullaniciProfiliOlustur(
       user
     );
 
-    uygulamayiAc();
+    errorBox.innerText = "";
+
+    await uygulamayiAc();
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "GOOGLE GİRİŞ HATASI:",
+      error
+    );
 
-    if(
-      error.code ===
-      "auth/popup-closed-by-user"
-    ){
-      return;
-    }
+    const hataKodu =
+      error.code ||
+      "hata-kodu-yok";
+
+    const hataMesaji =
+      error.message ||
+      "Bilinmeyen Firebase hatası.";
+
+    errorBox.innerText =
+      "Google giriş hatası\n\n" +
+      "Kod: " +
+      hataKodu +
+      "\n\n" +
+      hataMesaji;
 
     alert(
-      "Google ile giriş yapılamadı:\n" +
-      firebaseHata(error)
+      "Google giriş hatası\n\n" +
+      "Kod: " +
+      hataKodu +
+      "\n\n" +
+      hataMesaji
     );
 
   }
@@ -1746,7 +1778,10 @@ auth.onAuthStateChanged(
 
       }catch(error){
 
-        console.error(error);
+        console.error(
+          "AUTH DURUM HATASI:",
+          error
+        );
 
       }
 
@@ -2024,7 +2059,7 @@ async function profilKaydet(){
       username
     );
 
-    gercekProfiliYukle(user);
+    await gercekProfiliYukle(user);
 
     modalKapat();
 
@@ -2442,6 +2477,18 @@ function firebaseHata(error){
 
     case "auth/unauthorized-domain":
       return "Bu site Firebase tarafından yetkilendirilmemiş.";
+
+    case "auth/operation-not-allowed":
+      return "Bu giriş yöntemi Firebase'de etkin değil.";
+
+    case "auth/account-exists-with-different-credential":
+      return "Bu e-posta başka bir giriş yöntemiyle kayıtlı.";
+
+    case "auth/network-request-failed":
+      return "İnternet bağlantısı veya Firebase bağlantısı başarısız.";
+
+    case "auth/internal-error":
+      return "Firebase tarafında beklenmeyen bir hata oluştu.";
 
     case "permission-denied":
       return "Firebase güvenlik kuralları erişimi engelledi.";
