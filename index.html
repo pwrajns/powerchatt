@@ -7,6 +7,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <style>
 *{
@@ -251,6 +252,82 @@ button{
     box-shadow:0 3px 12px rgba(0,0,0,.05);
 }
 
+/* ANILAR */
+.memoryInput{
+    width:100%;
+    min-height:110px;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:14px;
+    resize:vertical;
+    font-size:15px;
+    outline:none;
+    margin-bottom:10px;
+}
+
+.memoryInput:focus{
+    border-color:#6847dc;
+}
+
+.memoryCard{
+    background:white;
+    padding:18px;
+    border-radius:18px;
+    margin-bottom:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,.05);
+}
+
+.memoryTop{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+}
+
+.memoryUser{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.memoryAvatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#6847dc;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.memoryDate{
+    color:#999;
+    font-size:12px;
+}
+
+.memoryText{
+    line-height:1.5;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.deleteMemory{
+    background:#fff0f0;
+    color:#d33;
+    padding:7px 10px;
+    border-radius:8px;
+    font-size:12px;
+    margin-top:12px;
+}
+
+.emptyMemory{
+    text-align:center;
+    color:#777;
+    padding:20px;
+}
+
 /* ALT MENÜ */
 .bottomNav{
     position:fixed;
@@ -296,6 +373,8 @@ button{
     border-radius:12px;
     display:none;
     z-index:100;
+    max-width:90%;
+    text-align:center;
 }
 </style>
 </head>
@@ -308,17 +387,34 @@ button{
 <div class="loginBox">
 
 <div class="logo">Power Chatt</div>
-<div class="subtitle">Yeni insanlarla tanış, sohbet et ve eğlen.</div>
 
-<input id="email" class="input" type="email" placeholder="E-posta">
+<div class="subtitle">
+Yeni insanlarla tanış, sohbet et ve eğlen.
+</div>
 
-<input id="password" class="input" type="password" placeholder="Şifre">
+<input
+id="email"
+class="input"
+type="email"
+placeholder="E-posta">
 
-<button class="primary" onclick="login()">Giriş Yap</button>
+<input
+id="password"
+class="input"
+type="password"
+placeholder="Şifre">
 
-<button class="primary" onclick="register()">Kayıt Ol</button>
+<button class="primary" onclick="login()">
+Giriş Yap
+</button>
 
-<button class="google" onclick="googleLogin()">🔵 Google ile giriş yap</button>
+<button class="primary" onclick="register()">
+Kayıt Ol
+</button>
+
+<button class="google" onclick="googleLogin()">
+🔵 Google ile giriş yap
+</button>
 
 <div id="loginMessage" class="message"></div>
 
@@ -330,10 +426,19 @@ button{
 <div id="appPage" class="hidden">
 
 <header class="header">
+
 <div class="headerTop">
-<div class="headerLogo">Power Chatt</div>
-<div class="search">🔍</div>
+
+<div class="headerLogo">
+Power Chatt
 </div>
+
+<div class="search">
+🔍
+</div>
+
+</div>
+
 </header>
 
 
@@ -342,53 +447,93 @@ button{
 <!-- ANA SAYFA -->
 <section id="homePage" class="page active">
 
-<div class="title">Hoş geldiniz 👋</div>
-
-<div class="card">
-<h3>🔥 Popüler Odalar</h3>
-<p>En aktif sohbet odalarına katıl.</p>
+<div class="title">
+Hoş geldiniz 👋
 </div>
 
+<div class="card">
+
+<h3>🔥 Popüler Odalar</h3>
+
+<p>
+En aktif sohbet odalarına katıl.
+</p>
+
+</div>
+
+
 <div class="card room">
-<div class="roomIcon">🇹🇷</div>
+
+<div class="roomIcon">
+🇹🇷
+</div>
+
 <div>
 <h3>Türkiye Sohbet</h3>
 <p>Aktif kullanıcılar</p>
 </div>
+
 </div>
 
+
 <div class="card room">
-<div class="roomIcon">🇦🇿</div>
+
+<div class="roomIcon">
+🇦🇿
+</div>
+
 <div>
 <h3>Azerbaycan Sohbet</h3>
 <p>Aktif kullanıcılar</p>
 </div>
+
 </div>
 
-<h3 style="margin:20px 0 12px;">🟢 Aktif Kullanıcılar</h3>
+
+<h3 style="margin:20px 0 12px;">
+🟢 Aktif Kullanıcılar
+</h3>
+
 
 <div class="card user">
-<div class="avatar">A</div>
+
+<div class="avatar">
+A
+</div>
+
 <div>
 <strong>Ayşe</strong>
 <p>Şimdi aktif</p>
 </div>
+
 </div>
 
+
 <div class="card user">
-<div class="avatar">M</div>
+
+<div class="avatar">
+M
+</div>
+
 <div>
 <strong>Mert</strong>
 <p>Şimdi aktif</p>
 </div>
+
 </div>
 
+
 <div class="card user">
-<div class="avatar">E</div>
+
+<div class="avatar">
+E
+</div>
+
 <div>
 <strong>Elif</strong>
 <p>Şimdi aktif</p>
 </div>
+
 </div>
 
 </section>
@@ -397,20 +542,54 @@ button{
 <!-- ANILAR -->
 <section id="memoriesPage" class="page">
 
-<div class="title">📸 Anılar</div>
-
-<div class="card">
-<h3>Anılarını paylaş</h3>
-<p>Yakında fotoğraf ve video paylaşabileceksin.</p>
-<br>
-<button class="primary" onclick="showToast('Anı paylaşma sistemi hazırlanıyor.')">
-+ Anı Paylaş
-</button>
+<div class="title">
+📸 Anılar
 </div>
 
+
 <div class="card">
-<h3>🌅 Power Chatt Anıları</h3>
-<p>Paylaşılan anılar burada görünecek.</p>
+
+<h3>
+Yeni Anı Paylaş
+</h3>
+
+<p style="margin-bottom:12px;">
+Bugün ne yaptığını paylaş.
+</p>
+
+<textarea
+id="memoryText"
+class="memoryInput"
+placeholder="Anını buraya yaz..."></textarea>
+
+<button
+class="primary"
+onclick="shareMemory()">
+📤 Anıyı Paylaş
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+🌅 Power Chatt Anıları
+</h3>
+
+<p>
+Paylaşılan anılar burada görünecek.
+</p>
+
+</div>
+
+
+<div id="memoryList">
+
+<div class="emptyMemory">
+Anılar yükleniyor...
+</div>
+
 </div>
 
 </section>
@@ -419,30 +598,56 @@ button{
 <!-- ODALAR -->
 <section id="roomsPage" class="page">
 
-<div class="title">🚪 Odalar</div>
+<div class="title">
+🚪 Odalar
+</div>
 
-<div class="card room" onclick="showToast('Türkiye Sohbet odası yakında açılacak.')">
-<div class="roomIcon">🇹🇷</div>
+
+<div
+class="card room"
+onclick="showToast('Türkiye Sohbet odası hazırlanıyor.')">
+
+<div class="roomIcon">
+🇹🇷
+</div>
+
 <div>
 <h3>Türkiye Sohbet</h3>
 <p>Genel sohbet odası</p>
 </div>
+
 </div>
 
-<div class="card room" onclick="showToast('Azerbaycan Sohbet odası yakında açılacak.')">
-<div class="roomIcon">🇦🇿</div>
+
+<div
+class="card room"
+onclick="showToast('Azerbaycan Sohbet odası hazırlanıyor.')">
+
+<div class="roomIcon">
+🇦🇿
+</div>
+
 <div>
 <h3>Azerbaycan Sohbet</h3>
 <p>Genel sohbet odası</p>
 </div>
+
 </div>
 
-<div class="card room" onclick="showToast('Gece Sohbeti yakında açılacak.')">
-<div class="roomIcon">🌙</div>
+
+<div
+class="card room"
+onclick="showToast('Gece Sohbeti hazırlanıyor.')">
+
+<div class="roomIcon">
+🌙
+</div>
+
 <div>
 <h3>Gece Sohbeti</h3>
 <p>Gece sohbetleri</p>
 </div>
+
 </div>
 
 </section>
@@ -451,27 +656,49 @@ button{
 <!-- MESAJLAR -->
 <section id="messagesPage" class="page">
 
-<div class="title">💬 Mesajlar</div>
+<div class="title">
+💬 Mesajlar
+</div>
+
 
 <div class="card user">
-<div class="avatar">A</div>
+
+<div class="avatar">
+A
+</div>
+
 <div>
 <strong>Ayşe</strong>
 <p>Henüz mesaj yok.</p>
 </div>
+
 </div>
 
+
 <div class="card user">
-<div class="avatar">M</div>
+
+<div class="avatar">
+M
+</div>
+
 <div>
 <strong>Mert</strong>
 <p>Henüz mesaj yok.</p>
 </div>
+
 </div>
 
+
 <div class="card">
-<h3>💬 Yeni mesaj</h3>
-<p>Kullanıcılarla özel mesajlaşma sistemi burada olacak.</p>
+
+<h3>
+💬 Yeni mesaj
+</h3>
+
+<p>
+Kullanıcılarla özel mesajlaşma sistemi hazırlanacak.
+</p>
+
 </div>
 
 </section>
@@ -480,15 +707,25 @@ button{
 <!-- BEN -->
 <section id="profilePage" class="page">
 
-<div class="title">Ben</div>
+<div class="title">
+Ben
+</div>
+
 
 <div class="card profileHead">
 
-<div id="profileAvatar" class="bigAvatar">P</div>
+<div id="profileAvatar" class="bigAvatar">
+P
+</div>
 
-<h2 id="profileName">Power Chatt Kullanıcısı</h2>
+<h2 id="profileName">
+Power Chatt Kullanıcısı
+</h2>
 
-<p id="profileUsername">@powerchatt</p>
+<p id="profileUsername">
+@powerchatt
+</p>
+
 
 <div class="stats">
 
@@ -513,41 +750,86 @@ button{
 
 
 <div class="card">
-<h3>🪙 Coin Bakiyesi</h3>
-<h2 style="margin:8px 0 15px;">1.000</h2>
 
-<button class="primary" onclick="showToast('Coin satın alma sistemi hazırlanıyor.')">
+<h3>
+🪙 Coin Bakiyesi
+</h3>
+
+<h2 style="margin:8px 0 15px;">
+1.000
+</h2>
+
+<button
+class="primary"
+onclick="showToast('Coin satın alma sistemi hazırlanıyor.')">
+
 Coin Al
+
 </button>
+
 </div>
 
 
-<button class="menuButton" onclick="showToast('Rocket Game yakında aktif olacak.')">
+<button
+class="menuButton"
+onclick="showToast('Rocket Game yakında aktif olacak.')">
+
 🎮 Rocket Game
+
 </button>
 
-<button class="menuButton" onclick="showToast('Jackpot yakında aktif olacak.')">
+
+<button
+class="menuButton"
+onclick="showToast('Jackpot yakında aktif olacak.')">
+
 🎰 Jackpot
+
 </button>
 
-<button class="menuButton" onclick="showToast('Şans Oyunu yakında aktif olacak.')">
+
+<button
+class="menuButton"
+onclick="showToast('Şans Oyunu yakında aktif olacak.')">
+
 🍀 Şans Oyunu
+
 </button>
 
-<button class="menuButton" onclick="showToast('Ayarlar sayfası hazırlanıyor.')">
+
+<button
+class="menuButton"
+onclick="showToast('Ayarlar sayfası hazırlanıyor.')">
+
 ⚙️ Ayarlar
+
 </button>
 
-<button class="menuButton" onclick="showToast('Güvenlik ayarları hazırlanıyor.')">
+
+<button
+class="menuButton"
+onclick="showToast('Güvenlik ayarları hazırlanıyor.')">
+
 🔒 Güvenlik
+
 </button>
 
-<button class="menuButton" onclick="showToast('Destek sistemi hazırlanıyor.')">
+
+<button
+class="menuButton"
+onclick="showToast('Destek sistemi hazırlanıyor.')">
+
 🆘 Destek
+
 </button>
 
-<button class="menuButton" onclick="logout()">
+
+<button
+class="menuButton"
+onclick="logout()">
+
 🚪 Çıkış Yap
+
 </button>
 
 </section>
@@ -558,156 +840,384 @@ Coin Al
 <!-- ALT MENÜ -->
 <nav class="bottomNav">
 
-<button id="navHome" class="navButton active" onclick="showPage('homePage','navHome')">
+<button
+id="navHome"
+class="navButton active"
+onclick="showPage('homePage','navHome')">
+
 <span>🏠</span>
 Ana Sayfa
+
 </button>
 
-<button id="navMemories" class="navButton" onclick="showPage('memoriesPage','navMemories')">
+
+<button
+id="navMemories"
+class="navButton"
+onclick="showPage('memoriesPage','navMemories')">
+
 <span>📸</span>
 Anılar
+
 </button>
 
-<button id="navRooms" class="navButton" onclick="showPage('roomsPage','navRooms')">
+
+<button
+id="navRooms"
+class="navButton"
+onclick="showPage('roomsPage','navRooms')">
+
 <span>🚪</span>
 Odalar
+
 </button>
 
-<button id="navMessages" class="navButton" onclick="showPage('messagesPage','navMessages')">
+
+<button
+id="navMessages"
+class="navButton"
+onclick="showPage('messagesPage','navMessages')">
+
 <span>💬</span>
 Mesajlar
+
 </button>
 
-<button id="navProfile" class="navButton" onclick="showPage('profilePage','navProfile')">
+
+<button
+id="navProfile"
+class="navButton"
+onclick="showPage('profilePage','navProfile')">
+
 <span>👤</span>
 Ben
+
 </button>
 
 </nav>
 
 </div>
 
+
 <div id="toast"></div>
 
 
 <script>
 
+/* FIREBASE */
+
 const firebaseConfig = {
-apiKey: "AIzaSyAh6U4MpIjUtE3ncqZkkYkskZHSPrM6wXU",
-authDomain: "power-chatt-a72f7.firebaseapp.com",
-projectId: "power-chatt-a72f7",
-storageBucket: "power-chatt-a72f7.firebasestorage.app",
-messagingSenderId: "791826290270",
-appId: "1:791826290270:web:6f13cff199edf3176dc6cf",
-measurementId: "G-5N3WG4PWDL"
+
+apiKey:
+"AIzaSyAh6U4MpIjUtE3ncqZkkYkskZHSPrM6wXU",
+
+authDomain:
+"power-chatt-a72f7.firebaseapp.com",
+
+projectId:
+"power-chatt-a72f7",
+
+storageBucket:
+"power-chatt-a72f7.firebasestorage.app",
+
+messagingSenderId:
+"791826290270",
+
+appId:
+"1:791826290270:web:6f13cff199edf3176dc6cf",
+
+measurementId:
+"G-5N3WG4PWDL"
+
 };
+
 
 firebase.initializeApp(firebaseConfig);
 
+
 const auth = firebase.auth();
 
+const db = firebase.firestore();
+
+
+let currentUser = null;
+
+
+/* GİRİŞ */
 
 function login(){
 
-const email = document.getElementById("email").value.trim();
-const password = document.getElementById("password").value;
+const email =
+document.getElementById("email").value.trim();
+
+const password =
+document.getElementById("password").value;
+
 
 if(!email || !password){
+
 document.getElementById("loginMessage").innerText =
 "E-posta ve şifreyi gir.";
+
 return;
+
 }
 
-auth.signInWithEmailAndPassword(email,password)
+
+auth.signInWithEmailAndPassword(
+email,
+password
+)
+
 .then(()=>{
+
 document.getElementById("loginMessage").innerText="";
+
 })
+
 .catch(error=>{
+
 document.getElementById("loginMessage").innerText =
 error.message;
+
 });
 
 }
 
+
+/* KAYIT */
 
 function register(){
 
-const email = document.getElementById("email").value.trim();
-const password = document.getElementById("password").value;
+const email =
+document.getElementById("email").value.trim();
+
+const password =
+document.getElementById("password").value;
+
 
 if(!email || !password){
+
 document.getElementById("loginMessage").innerText =
 "E-posta ve şifreyi gir.";
+
 return;
+
 }
+
 
 if(password.length < 6){
+
 document.getElementById("loginMessage").innerText =
 "Şifre en az 6 karakter olmalı.";
+
 return;
+
 }
 
-auth.createUserWithEmailAndPassword(email,password)
-.then(()=>{
+
+auth.createUserWithEmailAndPassword(
+email,
+password
+)
+
+.then(async userCredential=>{
+
 document.getElementById("loginMessage").innerText="";
+
+await createUserDocument(
+userCredential.user
+);
+
 })
+
 .catch(error=>{
+
 document.getElementById("loginMessage").innerText =
 error.message;
+
 });
 
 }
 
+
+/* GOOGLE */
 
 function googleLogin(){
 
-const provider = new firebase.auth.GoogleAuthProvider();
+const provider =
+new firebase.auth.GoogleAuthProvider();
+
 
 auth.signInWithPopup(provider)
+
+.then(async result=>{
+
+await createUserDocument(result.user);
+
+})
+
 .catch(error=>{
+
 document.getElementById("loginMessage").innerText =
-"Google ile giriş yapılamadı: " + error.message;
+"Google ile giriş yapılamadı: " +
+error.message;
+
 });
 
 }
 
 
-auth.onAuthStateChanged(user=>{
+/* KULLANICI FIRESTORE KAYDI */
+
+async function createUserDocument(user){
+
+if(!user){
+return;
+}
+
+
+const userRef =
+db.collection("kullanıcılar")
+.doc(user.uid);
+
+
+const snapshot =
+await userRef.get();
+
+
+if(!snapshot.exists){
+
+const name =
+user.displayName ||
+"Power Chatt Kullanıcısı";
+
+
+let username =
+user.email
+?
+user.email
+.split("@")[0]
+.toLowerCase()
+.replace(/[^a-z0-9_]/g,"")
+:
+"powerchatt";
+
+
+await userRef.set({
+
+uid:user.uid,
+
+isim:name,
+
+"e-posta":user.email || "",
+
+"kullanıcı adı":username,
+
+madeni paralar:0,
+
+takipçiler:0,
+
+"takip etme":0,
+
+Arkadaşlar:0,
+
+"oluşturulma tarihi":
+firebase.firestore.FieldValue.serverTimestamp(),
+
+güncellendi:
+firebase.firestore.FieldValue.serverTimestamp()
+
+});
+
+}
+
+}
+
+
+/* OTURUM KONTROL */
+
+auth.onAuthStateChanged(async user=>{
 
 if(user){
 
-document.getElementById("loginPage").classList.add("hidden");
-document.getElementById("appPage").classList.remove("hidden");
+currentUser = user;
 
-let name = user.displayName || "Power Chatt Kullanıcısı";
 
-document.getElementById("profileName").innerText=name;
+document.getElementById("loginPage")
+.classList.add("hidden");
+
+
+document.getElementById("appPage")
+.classList.remove("hidden");
+
+
+let name =
+user.displayName ||
+"Power Chatt Kullanıcısı";
+
+
+document.getElementById("profileName")
+.innerText = name;
+
 
 if(user.email){
 
 let username =
 "@" +
-user.email.split("@")[0]
+user.email
+.split("@")[0]
 .toLowerCase()
 .replace(/[^a-z0-9_]/g,"");
 
-document.getElementById("profileUsername").innerText=username;
+
+document.getElementById("profileUsername")
+.innerText = username;
+
 }
 
-document.getElementById("profileAvatar").innerText =
+
+document.getElementById("profileAvatar")
+.innerText =
 name.charAt(0).toUpperCase();
+
+
+try{
+
+await createUserDocument(user);
+
+}catch(error){
+
+console.log(
+"Kullanıcı Firestore kaydı:",
+error
+);
+
+}
+
+
+loadMemories();
 
 }
 
 else{
 
-document.getElementById("loginPage").classList.remove("hidden");
-document.getElementById("appPage").classList.add("hidden");
+currentUser = null;
+
+
+document.getElementById("loginPage")
+.classList.remove("hidden");
+
+
+document.getElementById("appPage")
+.classList.add("hidden");
 
 }
 
 });
 
+
+/* ÇIKIŞ */
 
 function logout(){
 
@@ -716,38 +1226,460 @@ auth.signOut();
 }
 
 
+/* SAYFA DEĞİŞTİR */
+
 function showPage(pageId,navId){
 
-document.querySelectorAll(".page").forEach(page=>{
+document
+.querySelectorAll(".page")
+.forEach(page=>{
+
 page.classList.remove("active");
+
 });
 
-document.getElementById(pageId).classList.add("active");
 
-document.querySelectorAll(".navButton").forEach(button=>{
+document
+.getElementById(pageId)
+.classList.add("active");
+
+
+document
+.querySelectorAll(".navButton")
+.forEach(button=>{
+
 button.classList.remove("active");
+
 });
 
-document.getElementById(navId).classList.add("active");
+
+document
+.getElementById(navId)
+.classList.add("active");
+
+
+if(pageId === "memoriesPage"){
+
+loadMemories();
+
+}
+
 
 window.scrollTo({
+
 top:0,
+
 behavior:"smooth"
+
 });
 
 }
 
 
+/* ANI PAYLAŞ */
+
+async function shareMemory(){
+
+if(!currentUser){
+
+showToast(
+"Önce giriş yapmalısın."
+);
+
+return;
+
+}
+
+
+const text =
+document
+.getElementById("memoryText")
+.value
+.trim();
+
+
+if(!text){
+
+showToast(
+"Anını yazmadan paylaşamazsın."
+);
+
+return;
+
+}
+
+
+const button =
+document.querySelector(
+'#memoriesPage .primary'
+);
+
+
+button.disabled = true;
+
+button.innerText =
+"Paylaşılıyor...";
+
+
+try{
+
+let name =
+currentUser.displayName ||
+currentUser.email
+||
+"Power Chatt Kullanıcısı";
+
+
+await db
+.collection("anılar")
+.add({
+
+uid:currentUser.uid,
+
+isim:name,
+
+email:currentUser.email || "",
+
+metin:text,
+
+oluşturulma:
+firebase.firestore.FieldValue.serverTimestamp()
+
+});
+
+
+document
+.getElementById("memoryText")
+.value = "";
+
+
+showToast(
+"Anın başarıyla paylaşıldı. 🎉"
+);
+
+
+await loadMemories();
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Anı paylaşılırken hata oluştu: " +
+error.message
+);
+
+}
+
+
+button.disabled = false;
+
+button.innerText =
+"📤 Anıyı Paylaş";
+
+}
+
+
+/* ANILARI GETİR */
+
+async function loadMemories(){
+
+const list =
+document.getElementById("memoryList");
+
+
+if(!list){
+return;
+}
+
+
+list.innerHTML =
+'<div class="emptyMemory">Anılar yükleniyor...</div>';
+
+
+try{
+
+const snapshot =
+await db
+.collection("anılar")
+.orderBy(
+"oluşturulma",
+"desc"
+)
+.limit(50)
+.get();
+
+
+if(snapshot.empty){
+
+list.innerHTML =
+'<div class="emptyMemory">Henüz hiç anı paylaşılmamış.</div>';
+
+return;
+
+}
+
+
+list.innerHTML = "";
+
+
+snapshot.forEach(doc=>{
+
+const data = doc.data();
+
+
+const memoryCard =
+document.createElement("div");
+
+memoryCard.className =
+"memoryCard";
+
+
+const top =
+document.createElement("div");
+
+top.className =
+"memoryTop";
+
+
+const user =
+document.createElement("div");
+
+user.className =
+"memoryUser";
+
+
+const avatar =
+document.createElement("div");
+
+avatar.className =
+"memoryAvatar";
+
+
+avatar.innerText =
+(data.isim || "P")
+.charAt(0)
+.toUpperCase();
+
+
+const userName =
+document.createElement("strong");
+
+userName.innerText =
+data.isim ||
+"Power Chatt Kullanıcısı";
+
+
+user.appendChild(avatar);
+
+user.appendChild(userName);
+
+
+const date =
+document.createElement("div");
+
+date.className =
+"memoryDate";
+
+
+if(data.oluşturulma){
+
+try{
+
+date.innerText =
+data.oluşturulma
+.toDate()
+.toLocaleString(
+"tr-TR"
+);
+
+}catch(e){
+
+date.innerText =
+"Az önce";
+
+}
+
+}else{
+
+date.innerText =
+"Az önce";
+
+}
+
+
+top.appendChild(user);
+
+top.appendChild(date);
+
+
+const text =
+document.createElement("div");
+
+text.className =
+"memoryText";
+
+text.innerText =
+data.metin || "";
+
+
+memoryCard.appendChild(top);
+
+memoryCard.appendChild(text);
+
+
+/* SADECE KENDİ ANIYSA SİL */
+
+if(
+currentUser &&
+data.uid === currentUser.uid
+){
+
+const deleteButton =
+document.createElement("button");
+
+deleteButton.className =
+"deleteMemory";
+
+deleteButton.innerText =
+"🗑️ Anıyı Sil";
+
+
+deleteButton.onclick = function(){
+
+deleteMemory(doc.id);
+
+};
+
+
+memoryCard.appendChild(
+deleteButton
+);
+
+}
+
+
+list.appendChild(
+memoryCard
+);
+
+});
+
+}catch(error){
+
+console.error(error);
+
+list.innerHTML =
+'<div class="emptyMemory">Anılar yüklenemedi.</div>';
+
+showToast(
+"Anılar yüklenirken hata oluştu."
+);
+
+}
+
+}
+
+
+/* ANI SİL */
+
+async function deleteMemory(id){
+
+if(!currentUser){
+return;
+}
+
+
+const confirmed =
+confirm(
+"Bu anıyı silmek istediğine emin misin?"
+);
+
+
+if(!confirmed){
+return;
+}
+
+
+try{
+
+const ref =
+db
+.collection("anılar")
+.doc(id);
+
+
+const doc =
+await ref.get();
+
+
+if(!doc.exists){
+return;
+}
+
+
+const data =
+doc.data();
+
+
+if(
+data.uid !== currentUser.uid
+){
+
+showToast(
+"Bu anıyı silemezsin."
+);
+
+return;
+
+}
+
+
+await ref.delete();
+
+
+showToast(
+"Anı silindi."
+);
+
+
+loadMemories();
+
+}catch(error){
+
+console.error(error);
+
+showToast(
+"Anı silinemedi."
+);
+
+}
+
+}
+
+
+/* TOAST */
+
 function showToast(message){
 
-const toast=document.getElementById("toast");
+const toast =
+document.getElementById("toast");
 
-toast.innerText=message;
-toast.style.display="block";
+
+toast.innerText =
+message;
+
+
+toast.style.display =
+"block";
+
 
 setTimeout(()=>{
-toast.style.display="none";
-},2500);
+
+toast.style.display =
+"none";
+
+},3000);
 
 }
 
