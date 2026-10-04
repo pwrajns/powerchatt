@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Power Chatt</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
@@ -10,1654 +10,1645 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-font-family:Arial,sans-serif;
-background:#f5f6fa;
-color:#222;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
-button,input,textarea,select{font-family:inherit}
-button{cursor:pointer;border:0}
-.hidden{display:none!important}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f6fa;
+  color:#202124;
+  min-height:100vh;
+}
+
+button,input,textarea{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* AUTH */
 
 #authPage{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-background:linear-gradient(135deg,#6847dc,#9274ec);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:linear-gradient(135deg,#6847dc,#8d6cf2);
 }
 
 .authBox{
-width:100%;
-max-width:420px;
-background:#fff;
-border-radius:25px;
-padding:30px;
-box-shadow:0 20px 60px rgba(0,0,0,.18);
+  width:100%;
+  max-width:430px;
+  background:white;
+  border-radius:28px;
+  padding:32px 24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
 }
 
 .logo{
-text-align:center;
-font-size:31px;
-font-weight:800;
-color:#6847dc;
-margin-bottom:8px;
+  text-align:center;
+  font-size:34px;
+  font-weight:900;
+  color:#6847dc;
+  margin-bottom:8px;
 }
 
-.subtitle{
-text-align:center;
-color:#777;
-margin-bottom:25px;
+.authSubtitle{
+  text-align:center;
+  color:#777;
+  margin-bottom:28px;
 }
 
-.input{
-width:100%;
-padding:15px;
-border:1px solid #ddd;
-border-radius:13px;
-margin-bottom:12px;
-outline:none;
-background:#fff;
+.authBox input{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:12px;
+  font-size:15px;
+  outline:none;
 }
 
-.input:focus{border-color:#6847dc}
-
-.primary{
-width:100%;
-padding:15px;
-border-radius:13px;
-background:#6847dc;
-color:#fff;
-font-size:16px;
-font-weight:bold;
+.authBox input:focus{
+  border-color:#6847dc;
 }
 
-.google{
-width:100%;
-padding:15px;
-border-radius:13px;
-background:#fff;
-border:1px solid #ddd;
-margin-top:10px;
-font-weight:bold;
+.primaryBtn{
+  width:100%;
+  border:0;
+  background:linear-gradient(135deg,#6847dc,#8b6be8);
+  color:white;
+  padding:15px;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:bold;
+  margin-top:5px;
 }
 
-.authSwitch{
-text-align:center;
-margin-top:18px;
-color:#6847dc;
-cursor:pointer;
+.googleBtn{
+  width:100%;
+  border:1px solid #ddd;
+  background:white;
+  padding:14px;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:bold;
+  margin-top:12px;
 }
 
-.error{
-color:#d33;
-background:#fff0f0;
-padding:10px;
-border-radius:10px;
-margin-bottom:12px;
-display:none;
+.switchAuth{
+  text-align:center;
+  margin-top:20px;
+  color:#777;
+  font-size:14px;
 }
+
+.switchAuth span{
+  color:#6847dc;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* APP */
 
 #app{
-min-height:100vh;
-padding-bottom:82px;
+  min-height:100vh;
+  padding-bottom:82px;
 }
 
-.top{
-background:#fff;
-padding:18px 18px 12px;
-position:sticky;
-top:0;
-z-index:20;
-border-bottom:1px solid #eee;
-}
-
-.topLine{
-display:flex;
-justify-content:space-between;
-align-items:center;
+.topbar{
+  height:70px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  z-index:20;
 }
 
 .topLogo{
-color:#6847dc;
-font-size:25px;
-font-weight:800;
+  font-size:25px;
+  font-weight:900;
+  color:#6847dc;
 }
 
-.topBtns{
-display:flex;
-gap:8px;
+.topActions{
+  display:flex;
+  gap:8px;
 }
 
 .iconBtn{
-width:42px;
-height:42px;
-border-radius:50%;
-background:#f1effc;
-font-size:19px;
-}
-
-.search{
-margin-top:12px;
-width:100%;
-padding:13px 15px;
-border:1px solid #eee;
-border-radius:14px;
-background:#f7f7fa;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:13px;
+  background:#f1effc;
+  font-size:20px;
 }
 
 .page{
-display:none;
-padding:18px;
-max-width:900px;
-margin:auto;
+  display:none;
+  padding:20px 16px;
+  max-width:900px;
+  margin:auto;
 }
 
 .page.active{
-display:block;
+  display:block;
 }
 
 .pageTitle{
-font-size:25px;
-font-weight:800;
-margin-bottom:8px;
+  font-size:27px;
+  font-weight:900;
+  margin-bottom:18px;
 }
 
-.pageSub{
-color:#777;
-margin-bottom:18px;
-}
-
-.welcome{
-background:linear-gradient(135deg,#6847dc,#9274ec);
-color:#fff;
-border-radius:22px;
-padding:22px;
-margin-bottom:18px;
-}
-
-.welcome h2{
-margin-bottom:7px;
-}
-
-.quickGrid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px;
-margin-bottom:18px;
-}
-
-.quick{
-background:#fff;
-border-radius:17px;
-padding:17px 8px;
-text-align:center;
-box-shadow:0 3px 14px rgba(0,0,0,.05);
-}
-
-.quickIcon{
-font-size:28px;
-margin-bottom:8px;
-}
-
-.quickName{
-font-weight:bold;
-font-size:13px;
-}
-
-.sectionTitle{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:20px 0 12px;
-font-size:19px;
-font-weight:800;
-}
-
-.sectionTitle button{
-color:#6847dc;
-background:none;
-font-weight:bold;
-}
-
-.roomGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.roomCard{
-background:#fff;
-border-radius:19px;
-padding:18px;
-box-shadow:0 3px 14px rgba(0,0,0,.05);
-}
-
-.roomEmoji{
-font-size:30px;
-margin-bottom:10px;
-}
-
-.roomName{
-font-weight:800;
-font-size:17px;
-}
-
-.roomDesc{
-font-size:13px;
-color:#777;
-margin:6px 0 12px;
-}
-
-.roomEnter{
-background:#6847dc;
-color:#fff;
-border-radius:10px;
-padding:10px 14px;
-font-weight:bold;
-width:100%;
-}
-
-.createRoom{
-background:#fff;
-border-radius:18px;
-padding:17px;
-margin-bottom:18px;
-box-shadow:0 3px 14px rgba(0,0,0,.04);
-}
-
-.createRoom button{
-background:#6847dc;
-color:#fff;
-padding:13px 18px;
-border-radius:11px;
-font-weight:bold;
-width:100%;
-}
-
-.userList{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.userCard{
-background:#fff;
-border-radius:16px;
-padding:13px;
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.avatar{
-width:48px;
-height:48px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#eee;
-font-size:23px;
-overflow:hidden;
-flex-shrink:0;
-}
-
-.avatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.userInfo{
-flex:1;
-}
-
-.userName{
-font-weight:bold;
-}
-
-.userStatus{
-font-size:12px;
-color:#777;
-margin-top:4px;
-}
-
-.followBtn{
-background:#6847dc;
-color:#fff;
-border-radius:10px;
-padding:8px 12px;
-}
-
-.bottom{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-height:72px;
-background:#fff;
-border-top:1px solid #eee;
-display:flex;
-justify-content:space-around;
-align-items:center;
-z-index:100;
-}
-
-.navBtn{
-background:none;
-color:#888;
-font-size:11px;
-text-align:center;
-}
-
-.navIcon{
-font-size:23px;
-margin-bottom:3px;
-}
-
-.navBtn.active{
-color:#6847dc;
-font-weight:bold;
-}
-
-.profileHeader{
-background:#fff;
-border-radius:22px;
-padding:24px;
-text-align:center;
-}
-
-.bigAvatar{
-width:90px;
-height:90px;
-margin:auto;
-border-radius:50%;
-background:#eee;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:42px;
-overflow:hidden;
-}
-
-.bigAvatar img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.profileName{
-font-size:22px;
-font-weight:800;
-margin-top:12px;
-}
-
-.profileUsername{
-color:#777;
-margin-top:4px;
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-margin-top:20px;
-}
-
-.stat strong{
-display:block;
-font-size:19px;
-}
-
-.stat span{
-font-size:12px;
-color:#777;
-}
-
-.profileButtons{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-margin-top:18px;
-}
-
-.menuBtn{
-background:#fff;
-border-radius:15px;
-padding:16px;
-text-align:left;
-font-weight:bold;
-box-shadow:0 3px 14px rgba(0,0,0,.04);
-}
-
-.menuBtn span{
-font-size:22px;
-margin-right:8px;
-}
-
-.coinBox{
-background:linear-gradient(135deg,#6847dc,#9b7cf0);
-color:#fff;
-padding:25px;
-border-radius:22px;
-text-align:center;
-margin-bottom:15px;
-}
-
-.coinNumber{
-font-size:38px;
-font-weight:900;
-margin:8px;
-}
-
-.coinGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.coinOption{
-background:#fff;
-border-radius:17px;
-padding:18px;
-text-align:center;
-}
-
-.coinOption button{
-margin-top:10px;
-padding:10px 15px;
-background:#6847dc;
-color:#fff;
-border-radius:10px;
-}
-
-.gameGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.game{
-background:#fff;
-border-radius:20px;
-padding:25px;
-text-align:center;
-}
-
-.gameIcon{
-font-size:42px;
-}
-
-.game h3{
-margin:10px;
-}
-
-.game button{
-background:#6847dc;
-color:#fff;
-padding:10px 18px;
-border-radius:10px;
-}
-
-.formCard{
-background:#fff;
-padding:20px;
-border-radius:20px;
-}
-
-textarea.input{
-min-height:110px;
-resize:vertical;
-}
-
-.memoryList{
-display:flex;
-flex-direction:column;
-gap:14px;
-}
-
-.memory{
-background:#fff;
-border-radius:18px;
-padding:15px;
-}
-
-.memory img{
-width:100%;
-max-height:400px;
-object-fit:cover;
-border-radius:13px;
-margin-top:10px;
-}
-
-.deleteBtn{
-margin-top:10px;
-color:#d33;
-background:#fff0f0;
-padding:8px 12px;
-border-radius:9px;
-}
-
-.roomTop{
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:15px;
+.backHeader{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
 }
 
 .backBtn{
-width:42px;
-height:42px;
-border-radius:12px;
-background:#fff;
-font-size:25px;
+  width:42px;
+  height:42px;
+  border:0;
+  background:white;
+  border-radius:13px;
+  font-size:25px;
+  box-shadow:0 3px 12px rgba(0,0,0,.07);
 }
 
-.roomTitleBox{
-flex:1;
+/* HOME */
+
+.welcome{
+  background:linear-gradient(135deg,#6847dc,#9478ee);
+  color:white;
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:18px;
 }
 
-.roomTitle{
-font-weight:800;
-font-size:20px;
+.welcome h2{
+  margin-bottom:8px;
+}
+
+.welcome p{
+  opacity:.9;
+}
+
+.quickGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:22px;
+}
+
+.quickCard{
+  background:white;
+  border:0;
+  border-radius:18px;
+  padding:18px 8px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.quickIcon{
+  font-size:26px;
+  margin-bottom:7px;
+}
+
+.quickText{
+  font-weight:bold;
+  font-size:13px;
+}
+
+.sectionTitle{
+  font-size:19px;
+  font-weight:900;
+  margin:20px 0 12px;
+}
+
+.activeUsers{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.userCard{
+  background:white;
+  border-radius:18px;
+  padding:13px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+
+.avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#ece8fb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:bold;
+  color:#6847dc;
+}
+
+.userInfo{
+  flex:1;
+}
+
+.userName{
+  font-weight:bold;
+}
+
+.userStatus{
+  font-size:12px;
+  color:#777;
+  margin-top:3px;
+}
+
+.smallBtn{
+  border:0;
+  background:#f0edfc;
+  color:#6847dc;
+  padding:9px 12px;
+  border-radius:11px;
+  font-weight:bold;
+}
+
+/* ROOM CARDS */
+
+.roomGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.roomCard{
+  background:white;
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+.roomEmoji{
+  font-size:35px;
+  margin-bottom:8px;
+}
+
+.roomName{
+  font-size:18px;
+  font-weight:900;
+}
+
+.roomDesc{
+  color:#777;
+  font-size:13px;
+  margin:7px 0 14px;
+}
+
+.roomEnter{
+  width:100%;
+  border:0;
+  background:#6847dc;
+  color:white;
+  padding:12px;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+/* ROOM CREATE */
+
+.createRoomBox{
+  background:white;
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:20px;
+  box-shadow:0 4px 16px rgba(0,0,0,.05);
+}
+
+.createRoomBox h3{
+  margin-bottom:14px;
+}
+
+.createRoomBox input,
+.createRoomBox textarea,
+.formBox input,
+.formBox textarea{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:13px;
+  padding:13px;
+  margin-bottom:10px;
+  outline:none;
+}
+
+.createRoomBox textarea,
+.formBox textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.createRoomBox select{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:13px;
+  padding:13px;
+  margin-bottom:10px;
+  background:white;
+}
+
+/* ROOM CHAT */
+
+.roomChatHeader{
+  background:white;
+  border-radius:20px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.roomChatHeaderInfo{
+  flex:1;
 }
 
 .roomOnline{
-font-size:12px;
-color:#4b9b59;
+  color:#21a45b;
+  font-size:12px;
+  margin-top:3px;
 }
 
 .chatBox{
-background:#fff;
-border-radius:20px;
-padding:14px;
-min-height:450px;
-max-height:60vh;
-overflow-y:auto;
+  height:calc(100vh - 240px);
+  min-height:350px;
+  background:white;
+  border-radius:20px;
+  padding:15px;
+  overflow-y:auto;
+  box-shadow:0 3px 12px rgba(0,0,0,.04);
 }
 
-.chatMessage{
-margin-bottom:12px;
-display:flex;
+.messageRow{
+  display:flex;
+  margin-bottom:12px;
 }
 
-.chatMessage.me{
-justify-content:flex-end;
+.messageRow.me{
+  justify-content:flex-end;
 }
 
-.bubble{
-max-width:78%;
-background:#f0eff8;
-padding:10px 13px;
-border-radius:15px;
+.messageBubble{
+  max-width:78%;
+  padding:10px 13px;
+  border-radius:16px;
+  background:#f0eff7;
 }
 
-.me .bubble{
-background:#6847dc;
-color:#fff;
+.messageRow.me .messageBubble{
+  background:#6847dc;
+  color:white;
 }
 
-.bubbleName{
-font-size:11px;
-font-weight:bold;
-margin-bottom:4px;
+.messageSender{
+  font-size:11px;
+  font-weight:bold;
+  margin-bottom:3px;
+  opacity:.7;
 }
 
 .chatInput{
-display:flex;
-gap:8px;
-margin-top:10px;
+  display:flex;
+  gap:8px;
+  background:white;
+  padding:10px;
+  border-radius:18px;
+  margin-top:10px;
 }
 
 .chatInput input{
-flex:1;
-padding:14px;
-border:1px solid #ddd;
-border-radius:13px;
+  flex:1;
+  border:0;
+  background:#f5f5f7;
+  border-radius:13px;
+  padding:13px;
+  outline:none;
 }
 
 .chatInput button{
-width:55px;
-border-radius:13px;
-background:#6847dc;
-color:#fff;
-font-size:20px;
+  width:48px;
+  border:0;
+  border-radius:13px;
+  background:#6847dc;
+  color:white;
+  font-size:20px;
 }
 
-.infoCard{
-background:#fff;
-border-radius:18px;
-padding:20px;
-margin-bottom:12px;
+/* MEMORY */
+
+.memoryCreate{
+  background:white;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:18px;
 }
 
-.infoCard h3{
-margin-bottom:8px;
+.memoryCreate textarea{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:13px;
+  padding:13px;
+  min-height:90px;
+  resize:none;
 }
 
-.infoCard p{
-color:#666;
-line-height:1.5;
-margin-bottom:12px;
+.memoryCreate input{
+  margin:12px 0;
+  width:100%;
 }
 
-.switchRow{
-background:#fff;
-border-radius:15px;
-padding:16px;
-display:flex;
-justify-content:space-between;
-margin-bottom:10px;
+.memoryBtn{
+  border:0;
+  background:#6847dc;
+  color:white;
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:bold;
 }
 
-.switch{
-width:48px;
-height:27px;
-border-radius:20px;
-background:#ccc;
-position:relative;
+.memoryGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
-.switch.on{
-background:#6847dc;
+.memoryCard{
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
 }
 
-.switch:after{
-content:"";
-width:21px;
-height:21px;
-background:#fff;
-border-radius:50%;
-position:absolute;
-top:3px;
-left:3px;
+.memoryCard img{
+  width:100%;
+  display:block;
+  max-height:300px;
+  object-fit:cover;
 }
 
-.switch.on:after{
-left:24px;
+.memoryText{
+  padding:12px;
 }
 
-.empty{
-background:#fff;
-padding:30px;
-text-align:center;
-border-radius:18px;
-color:#777;
+/* MESSAGE */
+
+.messageList{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
-.roomMembers{
-display:flex;
-gap:6px;
-margin-top:10px;
-flex-wrap:wrap;
+.conversation{
+  background:white;
+  border-radius:18px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
 }
 
-.member{
-background:#f1effc;
-padding:5px 9px;
-border-radius:10px;
-font-size:12px;
+/* PROFILE */
+
+.profileHeader{
+  background:white;
+  border-radius:24px;
+  padding:24px;
+  text-align:center;
 }
+
+.profileAvatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#ece8fb;
+  margin:auto auto 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:35px;
+  color:#6847dc;
+}
+
+.profileName{
+  font-size:22px;
+  font-weight:900;
+}
+
+.profileUsername{
+  color:#777;
+  margin-top:4px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:20px;
+}
+
+.stat{
+  background:#f7f7fa;
+  border-radius:14px;
+  padding:12px;
+}
+
+.stat strong{
+  display:block;
+  font-size:18px;
+}
+
+.stat span{
+  color:#777;
+  font-size:12px;
+}
+
+.profileMenu{
+  margin-top:15px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.menuBtn{
+  width:100%;
+  border:0;
+  background:white;
+  border-radius:16px;
+  padding:16px;
+  text-align:left;
+  font-weight:bold;
+  box-shadow:0 3px 12px rgba(0,0,0,.04);
+}
+
+/* GENERAL BOX */
+
+.infoBox{
+  background:white;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 3px 12px rgba(0,0,0,.04);
+}
+
+.bigCoin{
+  font-size:45px;
+  text-align:center;
+  margin:10px;
+}
+
+.coinBalance{
+  text-align:center;
+  font-size:30px;
+  font-weight:900;
+  color:#6847dc;
+  margin-bottom:18px;
+}
+
+.optionGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.optionCard{
+  background:white;
+  border:0;
+  border-radius:18px;
+  padding:20px 10px;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);
+  text-align:center;
+}
+
+.optionCard .optionIcon{
+  font-size:30px;
+  margin-bottom:7px;
+}
+
+.formBox{
+  background:white;
+  padding:20px;
+  border-radius:22px;
+}
+
+.dangerBtn{
+  width:100%;
+  border:0;
+  background:#ffe7e7;
+  color:#d22;
+  padding:14px;
+  border-radius:13px;
+  font-weight:bold;
+}
+
+/* SEARCH */
+
+.searchBox{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.searchBox input{
+  flex:1;
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:14px;
+}
+
+.searchResults{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* BOTTOM NAV */
+
+.bottomNav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:76px;
+  background:white;
+  border-top:1px solid #eee;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  z-index:50;
+  box-shadow:0 -4px 20px rgba(0,0,0,.06);
+}
+
+.navBtn{
+  border:0;
+  background:white;
+  color:#888;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  font-size:11px;
+}
+
+.navBtn span:first-child{
+  font-size:22px;
+}
+
+.navBtn.active{
+  color:#6847dc;
+  font-weight:bold;
+}
+
+/* MOBILE */
 
 @media(max-width:650px){
-.quickGrid{
-grid-template-columns:repeat(2,1fr);
-}
+  .quickGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
 
-.roomGrid{
-grid-template-columns:1fr;
-}
+  .roomGrid{
+    grid-template-columns:1fr;
+  }
 
-.gameGrid{
-grid-template-columns:1fr;
-}
+  .memoryGrid{
+    grid-template-columns:1fr;
+  }
 
-.profileButtons{
-grid-template-columns:1fr;
-}
+  .optionGrid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .page{
+    padding:16px 12px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="authPage">
-<div class="authBox">
+<!-- AUTH -->
+<section id="authPage">
 
-<div class="logo">Power Chatt</div>
-<div class="subtitle">Yeni insanlarla tanış, sohbet et ve eğlen.</div>
+  <div class="authBox">
 
-<div id="authError" class="error"></div>
+    <div class="logo">Power Chatt</div>
 
-<div id="loginForm">
+    <div class="authSubtitle">
+      Yeni insanlarla tanış, sohbet et ve eğlen.
+    </div>
 
-<input id="loginEmail"
-class="input"
-type="email"
-placeholder="E-posta">
+    <div id="loginForm">
 
-<input id="loginPassword"
-class="input"
-type="password"
-placeholder="Şifre">
+      <input id="loginEmail" type="email" placeholder="E-posta">
 
-<button class="primary" onclick="login()">
-Giriş Yap
-</button>
+      <input id="loginPassword" type="password" placeholder="Şifre">
 
-<button class="google" onclick="googleLogin()">
-🔵 Google ile Giriş Yap
-</button>
+      <button class="primaryBtn" type="button" onclick="loginEmailPassword()">
+        Giriş Yap
+      </button>
 
-<div class="authSwitch" onclick="showRegister()">
-Hesap oluştur
-</div>
+      <button class="googleBtn" type="button" onclick="loginGoogle()">
+        🔵 Google ile Giriş Yap
+      </button>
 
-</div>
+      <div class="switchAuth">
+        Hesabın yok mu?
+        <span onclick="showRegister()">Kayıt Ol</span>
+      </div>
 
-<div id="registerForm" class="hidden">
+    </div>
 
-<input id="registerName"
-class="input"
-placeholder="Ad Soyad">
+    <div id="registerForm" class="hidden">
 
-<input id="registerUsername"
-class="input"
-placeholder="Kullanıcı adı">
+      <input id="registerName" type="text" placeholder="Ad Soyad">
 
-<input id="registerEmail"
-class="input"
-type="email"
-placeholder="E-posta">
+      <input id="registerUsername" type="text" placeholder="Kullanıcı adı">
 
-<input id="registerPassword"
-class="input"
-type="password"
-placeholder="Şifre">
+      <input id="registerEmail" type="email" placeholder="E-posta">
 
-<button class="primary" onclick="register()">
-Hesap Oluştur
-</button>
+      <input id="registerPassword" type="password" placeholder="Şifre">
 
-<div class="authSwitch" onclick="showLogin()">
-Zaten hesabım var
-</div>
+      <button class="primaryBtn" type="button" onclick="registerAccount()">
+        Hesap Oluştur
+      </button>
 
-</div>
+      <div class="switchAuth">
+        Zaten hesabın var mı?
+        <span onclick="showLogin()">Giriş Yap</span>
+      </div>
 
-</div>
-</div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- APP -->
 
 <div id="app" class="hidden">
 
-<header class="top">
+  <header class="topbar">
 
-<div class="topLine">
+    <div class="topLogo">Power Chatt</div>
 
-<div class="topLogo">
-Power Chatt
-</div>
+    <div class="topActions">
 
-<div class="topBtns">
+      <button class="iconBtn" type="button" onclick="openPage('searchPage')">
+        🔎
+      </button>
 
-<button class="iconBtn" onclick="openPage('searchPage')">
-🔎
-</button>
+      <button class="iconBtn" type="button" onclick="openPage('gamesPage')">
+        🏆
+      </button>
 
-<button class="iconBtn" onclick="openPage('gamesPage')">
-🏆
-</button>
+    </div>
 
-</div>
+  </header>
 
-</div>
 
-<input
-class="search"
-id="globalSearch"
-placeholder="Kullanıcı veya oda ara..."
-oninput="searchEverything()">
+  <!-- HOME -->
 
-</header>
+  <main id="homePage" class="page active">
 
-<!-- ANA SAYFA -->
+    <div class="welcome">
 
-<main id="homePage" class="page active">
+      <h2>Hoş geldin 👋</h2>
 
-<div class="welcome">
-<h2>Hoş geldin 👋</h2>
-<p id="welcomeName">Power Chatt'e hoş geldin.</p>
-</div>
+      <p id="welcomeText">
+        Power Chatt'e hoş geldin.
+      </p>
 
-<div class="quickGrid">
+    </div>
 
-<button class="quick" onclick="openPage('diamondPage')">
-<div class="quickIcon">💎</div>
-<div class="quickName">Elmas</div>
-</button>
 
-<button class="quick" onclick="openPage('visitorsPage')">
-<div class="quickIcon">👩</div>
-<div class="quickName">Ziyaretçi</div>
-</button>
+    <div class="quickGrid">
 
-<button class="quick" onclick="openPage('tasksPage')">
-<div class="quickIcon">📅</div>
-<div class="quickName">Görevler</div>
-</button>
+      <button class="quickCard" type="button" onclick="openPage('diamondPage')">
+        <div class="quickIcon">💎</div>
+        <div class="quickText">Elmas</div>
+      </button>
 
-<button class="quick" onclick="openPage('groupPage')">
-<div class="quickIcon">👥</div>
-<div class="quickName">Grup</div>
-</button>
+      <button class="quickCard" type="button" onclick="openPage('visitorsPage')">
+        <div class="quickIcon">👩</div>
+        <div class="quickText">Ziyaretçi</div>
+      </button>
 
-</div>
+      <button class="quickCard" type="button" onclick="openPage('tasksPage')">
+        <div class="quickIcon">📅</div>
+        <div class="quickText">Görevler</div>
+      </button>
 
-<div class="sectionTitle">
-<span>Hızlı Erişim</span>
-</div>
+      <button class="quickCard" type="button" onclick="openPage('groupPage')">
+        <div class="quickIcon">👥</div>
+        <div class="quickText">Grup</div>
+      </button>
 
-<div class="quickGrid">
+    </div>
 
-<button class="quick" onclick="openRooms()">
-<div class="quickIcon">💬</div>
-<div class="quickName">Odalar</div>
-</button>
 
-<button class="quick" onclick="openPage('memoriesPage')">
-<div class="quickIcon">📸</div>
-<div class="quickName">Anılar</div>
-</button>
+    <div class="sectionTitle">
+      Hızlı Erişim
+    </div>
 
-<button class="quick" onclick="openPage('messagesPage')">
-<div class="quickIcon">💬</div>
-<div class="quickName">Mesajlar</div>
-</button>
+    <div class="optionGrid">
 
-<button class="quick" onclick="openPage('coinPage')">
-<div class="quickIcon">🪙</div>
-<div class="quickName">Coin Merkezi</div>
-</button>
+      <button class="optionCard" type="button" onclick="openPage('roomsPage')">
+        <div class="optionIcon">🏠</div>
+        <b>Odalar</b>
+      </button>
 
-</div>
+      <button class="optionCard" type="button" onclick="openPage('memoriesPage')">
+        <div class="optionIcon">📸</div>
+        <b>Anılar</b>
+      </button>
 
-<div class="sectionTitle">
-<span>💬 Popüler Odalar</span>
-<button onclick="openRooms()">Tümü</button>
-</div>
+      <button class="optionCard" type="button" onclick="openPage('messagesPage')">
+        <div class="optionIcon">💬</div>
+        <b>Mesajlar</b>
+      </button>
 
-<div id="homeRooms" class="roomGrid"></div>
+      <button class="optionCard" type="button" onclick="openPage('coinPage')">
+        <div class="optionIcon">🪙</div>
+        <b>Coin Merkezi</b>
+      </button>
 
-<div class="sectionTitle">
-<span>🟢 Aktif Kullanıcılar</span>
-</div>
+    </div>
 
-<div class="userList">
 
-<div class="userCard">
-<div class="avatar">👩</div>
-<div class="userInfo">
-<div class="userName">Ayşe</div>
-<div class="userStatus">🟢 Aktif</div>
-</div>
-<button class="followBtn">Takip</button>
-</div>
+    <div class="sectionTitle">
+      Aktif Kullanıcılar
+    </div>
 
-<div class="userCard">
-<div class="avatar">👨</div>
-<div class="userInfo">
-<div class="userName">Mert</div>
-<div class="userStatus">🟢 Aktif</div>
-</div>
-<button class="followBtn">Takip</button>
-</div>
+    <div class="activeUsers">
 
-<div class="userCard">
-<div class="avatar">👩</div>
-<div class="userInfo">
-<div class="userName">Elif</div>
-<div class="userStatus">🟢 Aktif</div>
-</div>
-<button class="followBtn">Takip</button>
-</div>
+      <div class="userCard">
 
-<div class="userCard">
-<div class="avatar">👨</div>
-<div class="userInfo">
-<div class="userName">Kerem</div>
-<div class="userStatus">🟢 Aktif</div>
-</div>
-<button class="followBtn">Takip</button>
-</div>
+        <div class="avatar">A</div>
 
-<div class="userCard">
-<div class="avatar">👩</div>
-<div class="userInfo">
-<div class="userName">Selin</div>
-<div class="userStatus">🟢 Aktif</div>
-</div>
-<button class="followBtn">Takip</button>
-</div>
+        <div class="userInfo">
+          <div class="userName">Ayşe</div>
+          <div class="userStatus">🟢 Çevrimiçi</div>
+        </div>
 
-</div>
+        <button class="smallBtn" type="button" onclick="startPrivateChat('Ayşe')">
+          Mesaj
+        </button>
 
-</main>
+      </div>
 
-<!-- ANILAR -->
 
-<main id="memoriesPage" class="page">
+      <div class="userCard">
 
-<div class="pageTitle">📸 Anılar</div>
-<div class="pageSub">Fotoğrafını ve anını paylaş.</div>
+        <div class="avatar">M</div>
 
-<div class="formCard">
+        <div class="userInfo">
+          <div class="userName">Mert</div>
+          <div class="userStatus">🟢 Çevrimiçi</div>
+        </div>
 
-<textarea
-id="memoryText"
-class="input"
-placeholder="Bugün ne paylaşmak istersin?"></textarea>
+        <button class="smallBtn" type="button" onclick="startPrivateChat('Mert')">
+          Mesaj
+        </button>
 
-<input
-id="memoryImage"
-class="input"
-type="file"
-accept="image/*">
+      </div>
 
-<button class="primary" onclick="addMemory()">
-Anıyı Paylaş
-</button>
 
-</div>
+      <div class="userCard">
 
-<div class="sectionTitle">
-Paylaşılan Anılar
-</div>
+        <div class="avatar">E</div>
 
-<div id="memoryList" class="memoryList"></div>
+        <div class="userInfo">
+          <div class="userName">Elif</div>
+          <div class="userStatus">🟢 Çevrimiçi</div>
+        </div>
 
-</main>
+        <button class="smallBtn" type="button" onclick="startPrivateChat('Elif')">
+          Mesaj
+        </button>
 
-<!-- ODALAR -->
+      </div>
 
-<main id="roomsPage" class="page">
 
-<div class="pageTitle">💬 Sohbet Odaları</div>
+      <div class="userCard">
 
-<div class="pageSub">
-Bir odaya gir veya kendi odanı oluştur.
-</div>
+        <div class="avatar">K</div>
 
-<div class="createRoom">
+        <div class="userInfo">
+          <div class="userName">Kerem</div>
+          <div class="userStatus">🟢 Çevrimiçi</div>
+        </div>
 
-<input
-id="newRoomName"
-class="input"
-placeholder="Oda adı">
+        <button class="smallBtn" type="button" onclick="startPrivateChat('Kerem')">
+          Mesaj
+        </button>
 
-<input
-id="newRoomDesc"
-class="input"
-placeholder="Oda açıklaması">
+      </div>
 
-<select id="newRoomEmoji" class="input">
 
-<option value="💬">💬 Sohbet</option>
-<option value="🇹🇷">🇹🇷 Türkiye</option>
-<option value="🇦🇿">🇦🇿 Azerbaycan</option>
-<option value="🌙">🌙 Gece</option>
-<option value="🎵">🎵 Müzik</option>
-<option value="🎮">🎮 Oyun</option>
-<option value="❤️">❤️ Aşk</option>
+      <div class="userCard">
 
-</select>
+        <div class="avatar">S</div>
 
-<button onclick="createRoom()">
-+ Oda Oluştur
-</button>
+        <div class="userInfo">
+          <div class="userName">Selin</div>
+          <div class="userStatus">🟢 Çevrimiçi</div>
+        </div>
 
-</div>
+        <button class="smallBtn" type="button" onclick="startPrivateChat('Selin')">
+          Mesaj
+        </button>
 
-<div class="sectionTitle">
-<span>Odalar</span>
-</div>
+      </div>
 
-<div id="roomList" class="roomGrid"></div>
+    </div>
 
-</main>
 
-<!-- ODA İÇİ -->
+    <div class="sectionTitle">
+      Popüler Odalar
+    </div>
 
-<main id="roomChatPage" class="page">
+    <div id="homeRooms" class="roomGrid"></div>
 
-<div class="roomTop">
+  </main>
 
-<button class="backBtn" onclick="openRooms()">
-‹
-</button>
 
-<div class="roomTitleBox">
+  <!-- MEMORIES -->
 
-<div id="chatRoomTitle" class="roomTitle">
-Sohbet Odası
-</div>
+  <main id="memoriesPage" class="page">
 
-<div id="chatRoomOnline" class="roomOnline">
-🟢 Çevrimiçi
-</div>
+    <div class="pageTitle">
+      📸 Anılar
+    </div>
 
-</div>
+    <div class="memoryCreate">
 
-</div>
+      <textarea id="memoryText" placeholder="Anını paylaş..."></textarea>
 
-<div id="chatBox" class="chatBox"></div>
+      <input id="memoryImage" type="file" accept="image/*">
 
-<div class="chatInput">
+      <button class="memoryBtn" type="button" onclick="addMemory()">
+        Anı Paylaş
+      </button>
 
-<input
-id="roomMessageInput"
-placeholder="Mesajını yaz..."
-onkeydown="if(event.key==='Enter')sendRoomMessage()">
+    </div>
 
-<button onclick="sendRoomMessage()">
-➤
-</button>
+    <div id="memoryList" class="memoryGrid"></div>
 
-</div>
+  </main>
 
-</main>
 
-<!-- MESAJLAR -->
+  <!-- ROOMS -->
 
-<main id="messagesPage" class="page">
+  <main id="roomsPage" class="page">
 
-<div class="pageTitle">💬 Mesajlar</div>
-<div class="pageSub">Arkadaşlarınla özel sohbet et.</div>
+    <div class="pageTitle">
+      🏠 Sohbet Odaları
+    </div>
 
-<div class="userList">
 
-<div class="userCard" onclick="openPrivateChat('Ayşe')">
-<div class="avatar">👩</div>
-<div class="userInfo">
-<div class="userName">Ayşe</div>
-<div class="userStatus">Sohbeti aç</div>
-</div>
-<span>›</span>
-</div>
+    <div class="createRoomBox">
 
-<div class="userCard" onclick="openPrivateChat('Mert')">
-<div class="avatar">👨</div>
-<div class="userInfo">
-<div class="userName">Mert</div>
-<div class="userStatus">Sohbeti aç</div>
-</div>
-<span>›</span>
-</div>
+      <h3>Yeni Oda Oluştur</h3>
 
-<div class="userCard" onclick="openPrivateChat('Elif')">
-<div class="avatar">👩</div>
-<div class="userInfo">
-<div class="userName">Elif</div>
-<div class="userStatus">Sohbeti aç</div>
-</div>
-<span>›</span>
-</div>
+      <input id="newRoomName" type="text" placeholder="Oda adı">
 
-</div>
+      <textarea id="newRoomDesc" placeholder="Oda açıklaması"></textarea>
 
-</main>
+      <select id="newRoomEmoji">
+        <option value="🇹🇷">🇹🇷 Türkiye</option>
+        <option value="🇦🇿">🇦🇿 Azerbaycan</option>
+        <option value="🌙">🌙 Gece</option>
+        <option value="🎤">🎤 Sohbet</option>
+        <option value="🎮">🎮 Oyun</option>
+        <option value="❤️">❤️ Dostluk</option>
+      </select>
 
-<!-- ÖZEL SOHBET -->
+      <button class="primaryBtn" type="button" onclick="createRoom()">
+        + Oda Oluştur
+      </button>
 
-<main id="privateChatPage" class="page">
+    </div>
 
-<div class="roomTop">
 
-<button class="backBtn" onclick="openPage('messagesPage')">
-‹
-</button>
+    <div class="sectionTitle">
+      Odalar
+    </div>
 
-<div class="roomTitleBox">
-<div id="privateTitle" class="roomTitle"></div>
-</div>
+    <div id="roomList" class="roomGrid"></div>
 
-</div>
+  </main>
 
-<div id="privateChatBox" class="chatBox"></div>
 
-<div class="chatInput">
+  <!-- ROOM CHAT -->
 
-<input
-id="privateInput"
-placeholder="Mesajını yaz..."
-onkeydown="if(event.key==='Enter')sendPrivateMessage()">
+  <main id="roomChatPage" class="page">
 
-<button onclick="sendPrivateMessage()">
-➤
-</button>
+    <div class="roomChatHeader">
 
-</div>
+      <button class="backBtn" type="button" onclick="openPage('roomsPage')">
+        ‹
+      </button>
 
-</main>
+      <div class="roomChatHeaderInfo">
 
-<!-- BEN -->
+        <div id="chatRoomTitle" class="roomName">
+          Sohbet Odası
+        </div>
 
-<main id="profilePage" class="page">
+        <div class="roomOnline">
+          🟢 Aktif sohbet
+        </div>
 
-<div class="pageTitle">Ben</div>
+      </div>
 
-<div class="profileHeader">
+    </div>
 
-<div id="profileAvatar" class="bigAvatar">
-👤
-</div>
 
-<div id="profileName" class="profileName">
-Power Chatt Kullanıcısı
-</div>
+    <div id="chatBox" class="chatBox"></div>
 
-<div id="profileUsername" class="profileUsername">
-@powerchatt
-</div>
 
-<div class="stats">
+    <div class="chatInput">
 
-<div class="stat">
-<strong id="followers">0</strong>
-<span>Takipçi</span>
-</div>
+      <input
+        id="roomMessageInput"
+        type="text"
+        placeholder="Mesaj yaz..."
+        onkeydown="if(event.key==='Enter')sendRoomMessage()"
+      >
 
-<div class="stat">
-<strong id="following">0</strong>
-<span>Takip</span>
-</div>
+      <button type="button" onclick="sendRoomMessage()">
+        ➤
+      </button>
 
-<div class="stat">
-<strong id="friends">0</strong>
-<span>Arkadaş</span>
-</div>
+    </div>
 
-</div>
+  </main>
 
-<div class="profileButtons">
 
-<button class="menuBtn" onclick="openPage('editProfilePage')">
-<span>✏️</span>Profili Düzenle
-</button>
+  <!-- MESSAGES -->
 
-<button class="menuBtn" onclick="openPage('coinPage')">
-<span>🪙</span>Coin Merkezi
-</button>
+  <main id="messagesPage" class="page">
 
-<button class="menuBtn" onclick="openPage('gamesPage')">
-<span>🎮</span>Oyunlar
-</button>
+    <div class="pageTitle">
+      💬 Mesajlar
+    </div>
 
-<button class="menuBtn" onclick="openPage('settingsPage')">
-<span>⚙️</span>Ayarlar
-</button>
+    <div id="conversationList" class="messageList"></div>
 
-<button class="menuBtn" onclick="openPage('securityPage')">
-<span>🔐</span>Güvenlik
-</button>
+  </main>
 
-<button class="menuBtn" onclick="openPage('supportPage')">
-<span>🎧</span>Destek
-</button>
 
-<button class="menuBtn" onclick="logout()">
-<span>🚪</span>Çıkış
-</button>
+  <!-- PRIVATE CHAT -->
 
-</div>
+  <main id="privateChatPage" class="page">
 
-</div>
+    <div class="roomChatHeader">
 
-</main>
+      <button class="backBtn" type="button" onclick="openPage('messagesPage')">
+        ‹
+      </button>
 
-<!-- ELMAS -->
+      <div class="roomChatHeaderInfo">
 
-<main id="diamondPage" class="page">
+        <div id="privateChatTitle" class="roomName">
+          Mesaj
+        </div>
 
-<div class="pageTitle">💎 Elmas</div>
+        <div class="roomOnline">
+          🟢 Çevrimiçi
+        </div>
 
-<div class="pageSub">
-Elmas ve ödül merkezi.
-</div>
+      </div>
 
-<div class="coinBox">
+    </div>
 
-<div>💎 Elmas Bakiyesi</div>
+    <div id="privateChatBox" class="chatBox"></div>
 
-<div id="diamondBalance" class="coinNumber">
-0
-</div>
+    <div class="chatInput">
 
-<div>Test bakiyesi</div>
+      <input
+        id="privateMessageInput"
+        type="text"
+        placeholder="Mesaj yaz..."
+        onkeydown="if(event.key==='Enter')sendPrivateMessage()"
+      >
 
-</div>
+      <button type="button" onclick="sendPrivateMessage()">
+        ➤
+      </button>
 
-<div class="coinGrid">
+    </div>
 
-<div class="coinOption">
-<div>💎 100 Elmas</div>
-<button onclick="addDiamonds(100)">Al</button>
-</div>
+  </main>
 
-<div class="coinOption">
-<div>💎 500 Elmas</div>
-<button onclick="addDiamonds(500)">Al</button>
-</div>
 
-<div class="coinOption">
-<div>💎 1000 Elmas</div>
-<button onclick="addDiamonds(1000)">Al</button>
-</div>
+  <!-- PROFILE -->
 
-<div class="coinOption">
-<div>💎 5000 Elmas</div>
-<button onclick="addDiamonds(5000)">Al</button>
-</div>
+  <main id="profilePage" class="page">
 
-</div>
+    <div class="profileHeader">
 
-</main>
+      <div id="profileAvatar" class="profileAvatar">
+        P
+      </div>
 
-<!-- ZİYARETÇİ -->
+      <div id="profileName" class="profileName">
+        Power Chatt Kullanıcısı
+      </div>
 
-<main id="visitorsPage" class="page">
+      <div id="profileUsername" class="profileUsername">
+        @powerchatt
+      </div>
 
-<div class="pageTitle">👩 Ziyaretçiler</div>
+      <div class="stats">
 
-<div class="pageSub">
-Profilini ziyaret edenler.
-</div>
+        <div class="stat">
+          <strong id="followersCount">0</strong>
+          <span>Takipçi</span>
+        </div>
 
-<div class="userList">
+        <div class="stat">
+          <strong id="followingCount">0</strong>
+          <span>Takip</span>
+        </div>
 
-<div class="userCard">
-<div class="avatar">👩</div>
-<div class="userInfo">
-<div class="userName">Ayşe</div>
-<div class="userStatus">Profilini ziyaret etti</div>
-</div>
-</div>
+        <div class="stat">
+          <strong id="friendsCount">0</strong>
+          <span>Arkadaş</span>
+        </div>
 
-<div class="userCard">
-<div class="avatar">👨</div>
-<div class="userInfo">
-<div class="userName">Mert</div>
-<div class="userStatus">Profilini ziyaret etti</div>
-</div>
-</div>
+      </div>
 
-<div class="userCard">
-<div class="avatar">👩</div>
-<div class="userInfo">
-<div class="userName">Selin</div>
-<div class="userStatus">Profilini ziyaret etti</div>
-</div>
-</div>
+    </div>
 
-</div>
 
-</main>
+    <div class="profileMenu">
 
-<!-- GÖREVLER -->
+      <button class="menuBtn" type="button" onclick="openPage('editProfilePage')">
+        ✏️ Profili Düzenle
+      </button>
 
-<main id="tasksPage" class="page">
+      <button class="menuBtn" type="button" onclick="openPage('coinPage')">
+        🪙 Coin Merkezi
+      </button>
 
-<div class="pageTitle">📅 Görevler</div>
+      <button class="menuBtn" type="button" onclick="openPage('gamesPage')">
+        🎮 Oyunlar
+      </button>
 
-<div class="pageSub">
-Görevleri tamamla ve ödül kazan.
-</div>
+      <button class="menuBtn" type="button" onclick="openPage('settingsPage')">
+        ⚙️ Ayarlar
+      </button>
 
-<div class="infoCard">
+      <button class="menuBtn" type="button" onclick="openPage('securityPage')">
+        🔐 Güvenlik
+      </button>
 
-<h3>🎁 Günlük giriş</h3>
+      <button class="menuBtn" type="button" onclick="openPage('supportPage')">
+        🎧 Destek
+      </button>
 
-<p>
-Bugün Power Chatt'e giriş yap.
-</p>
+      <button class="menuBtn" type="button" onclick="logout()">
+        🚪 Çıkış Yap
+      </button>
 
-<button class="followBtn" onclick="claimTask(this)">
-Ödülü Al
-</button>
+    </div>
 
-</div>
+  </main>
 
-<div class="infoCard">
 
-<h3>💬 Sohbet et</h3>
+  <!-- COIN -->
 
-<p>
-Bir sohbet odasına gir ve mesaj gönder.
-</p>
+  <main id="coinPage" class="page">
 
-<button class="followBtn" onclick="openRooms()">
-Odaya Git
-</button>
+    <div class="pageTitle">
+      🪙 Coin Merkezi
+    </div>
 
-</div>
+    <div class="infoBox">
 
-<div class="infoCard">
+      <div class="bigCoin">🪙</div>
 
-<h3>📸 Anı paylaş</h3>
+      <div id="coinBalance" class="coinBalance">
+        0 Coin
+      </div>
 
-<p>
-Bir anı paylaşarak görevini tamamla.
-</p>
+      <button class="primaryBtn" type="button" onclick="addTestCoins(100)">
+        +100 Test Coin
+      </button>
 
-<button class="followBtn" onclick="openPage('memoriesPage')">
-Anı Paylaş
-</button>
+      <button class="primaryBtn" type="button" onclick="addTestCoins(500)">
+        +500 Test Coin
+      </button>
 
-</div>
+      <button class="primaryBtn" type="button" onclick="addTestCoins(1000)">
+        +1000 Test Coin
+      </button>
 
-</main>
+    </div>
 
-<!-- GRUP -->
+  </main>
 
-<main id="groupPage" class="page">
 
-<div class="pageTitle">👥 Grup</div>
+  <!-- DIAMOND -->
 
-<div class="pageSub">
-Gruplarını yönet.
-</div>
+  <main id="diamondPage" class="page">
 
-<div class="infoCard">
+    <div class="pageTitle">
+      💎 Elmas
+    </div>
 
-<h3>👥 Arkadaş Grubu</h3>
+    <div class="infoBox">
 
-<p>
-Arkadaşlarınla özel grup sohbetleri oluşturabilirsin.
-</p>
+      <div class="bigCoin">💎</div>
 
-<button class="primary" onclick="createGroup()">
-+ Grup Oluştur
-</button>
+      <div class="coinBalance" id="diamondBalance">
+        0
+      </div>
 
-</div>
+      <p style="text-align:center;color:#777;margin-bottom:18px;">
+        Elmaslar yayıncı ve sosyal özelliklerde kullanılmak üzere planlanmıştır.
+      </p>
 
-<div id="groupList"></div>
+      <button class="primaryBtn" type="button" onclick="addTestDiamonds(100)">
+        +100 Test Elmas
+      </button>
 
-</main>
+    </div>
 
-<!-- OYUNLAR -->
+  </main>
 
-<main id="gamesPage" class="page">
 
-<div class="pageTitle">🎮 Oyunlar</div>
+  <!-- VISITORS -->
 
-<div class="pageSub">
-Coin kullanarak oyun alanına geç.
-</div>
+  <main id="visitorsPage" class="page">
 
-<div class="gameGrid">
-
-<div class="game">
-<div class="gameIcon">🚀</div>
-<h3>Rocket Game</h3>
-<p>Yakında gerçek oyun sistemi.</p>
-<br>
-<button onclick="demoGame('Rocket Game')">
-Oyna
-</button>
-</div>
+    <div class="pageTitle">
+      👩 Ziyaretçiler
+    </div>
 
-<div class="game">
-<div class="gameIcon">🎰</div>
-<h3>Jackpot</h3>
-<p>Demo oyun alanı.</p>
-<br>
-<button onclick="demoGame('Jackpot')">
-Oyna
-</button>
-</div>
+    <div class="infoBox">
 
-<div class="game">
-<div class="gameIcon">🍀</div>
-<h3>Şans Oyunu</h3>
-<p>Demo oyun alanı.</p>
-<br>
-<button onclick="demoGame('Şans Oyunu')">
-Oyna
-</button>
-</div>
+      <p style="color:#777;margin-bottom:18px;">
+        Profilini ziyaret eden kullanıcılar burada görünecek.
+      </p>
 
-<div class="game">
-<div class="gameIcon">🎁</div>
-<h3>Yakında</h3>
-<p>Yeni oyunlar gelecek.</p>
-<br>
-<button disabled>
-Yakında
-</button>
-</div>
+      <div class="userCard">
+        <div class="avatar">A</div>
+        <div class="userInfo">
+          <div class="userName">Ayşe</div>
+          <div class="userStatus">Profilini ziyaret etti</div>
+        </div>
+      </div>
 
-</div>
+      <div class="userCard" style="margin-top:10px;">
+        <div class="avatar">M</div>
+        <div class="userInfo">
+          <div class="userName">Mert</div>
+          <div class="userStatus">Profilini ziyaret etti</div>
+        </div>
+      </div>
 
-</main>
+    </div>
 
-<!-- COIN -->
+  </main>
 
-<main id="coinPage" class="page">
 
-<div class="pageTitle">🪙 Coin Merkezi</div>
+  <!-- TASKS -->
 
-<div class="coinBox">
+  <main id="tasksPage" class="page">
 
-<div>Coin Bakiyen</div>
+    <div class="pageTitle">
+      📅 Görevler
+    </div>
 
-<div id="coinBalance" class="coinNumber">
-0
-</div>
+    <div class="optionGrid">
 
-<div>Demo bakiye</div>
+      <div class="optionCard">
+        <div class="optionIcon">💬</div>
+        <b>10 Mesaj Gönder</b>
+        <p style="margin-top:8px;color:#777;">0 / 10</p>
+      </div>
 
-</div>
+      <div class="optionCard">
+        <div class="optionIcon">🏠</div>
+        <b>Bir Odaya Katıl</b>
+        <p style="margin-top:8px;color:#777;">0 / 1</p>
+      </div>
 
-<div class="coinGrid">
+      <div class="optionCard">
+        <div class="optionIcon">📸</div>
+        <b>Anı Paylaş</b>
+        <p style="margin-top:8px;color:#777;">0 / 1</p>
+      </div>
 
-<div class="coinOption">
-<b>🪙 100 Coin</b>
-<button onclick="addCoins(100)">Ekle</button>
-</div>
+      <div class="optionCard">
+        <div class="optionIcon">👥</div>
+        <b>Arkadaş Edin</b>
+        <p style="margin-top:8px;color:#777;">0 / 1</p>
+      </div>
 
-<div class="coinOption">
-<b>🪙 500 Coin</b>
-<button onclick="addCoins(500)">Ekle</button>
-</div>
+    </div>
 
-<div class="coinOption">
-<b>🪙 1000 Coin</b>
-<button onclick="addCoins(1000)">Ekle</button>
-</div>
+  </main>
 
-<div class="coinOption">
-<b>🪙 5000 Coin</b>
-<button onclick="addCoins(5000)">Ekle</button>
-</div>
 
-</div>
+  <!-- GROUP -->
 
-</main>
+  <main id="groupPage" class="page">
 
-<!-- AYARLAR -->
+    <div class="pageTitle">
+      👥 Grup
+    </div>
 
-<main id="settingsPage" class="page">
+    <div class="infoBox">
 
-<div class="pageTitle">⚙️ Ayarlar</div>
+      <h3 style="margin-bottom:10px;">
+        Grup Özelliği
+      </h3>
 
-<div class="switchRow">
-<span>Bildirimler</span>
-<button class="switch on" onclick="toggleSetting(this)"></button>
-</div>
+      <p style="color:#777;line-height:1.6;margin-bottom:18px;">
+        Arkadaşlarınla grup oluşturabilir ve birlikte sohbet edebilirsin.
+      </p>
 
-<div class="switchRow">
-<span>Çevrimiçi görün</span>
-<button class="switch on" onclick="toggleSetting(this)"></button>
-</div>
+      <button class="primaryBtn" type="button" onclick="createDemoGroup()">
+        + Grup Oluştur
+      </button>
 
-<div class="switchRow">
-<span>Gece modu</span>
-<button class="switch" onclick="toggleNight(this)"></button>
-</div>
+    </div>
 
-</main>
+  </main>
 
-<!-- GÜVENLİK -->
 
-<main id="securityPage" class="page">
+  <!-- GAMES -->
 
-<div class="pageTitle">🔐 Güvenlik</div>
+  <main id="gamesPage" class="page">
 
-<div class="infoCard">
+    <div class="pageTitle">
+      🎮 Oyunlar
+    </div>
 
-<h3>🔑 Şifre sıfırlama</h3>
+    <div class="optionGrid">
 
-<p>
-Hesabının şifresini yenilemek için e-posta gönder.
-</p>
+      <button class="optionCard" type="button" onclick="playGame('Rocket Game')">
+        <div class="optionIcon">🚀</div>
+        <b>Rocket Game</b>
+        <p style="margin-top:7px;color:#777;">Demo</p>
+      </button>
 
-<button class="primary" onclick="resetPassword()">
-Şifre Sıfırlama E-postası Gönder
-</button>
+      <button class="optionCard" type="button" onclick="playGame('Jackpot')">
+        <div class="optionIcon">🎰</div>
+        <b>Jackpot</b>
+        <p style="margin-top:7px;color:#777;">Demo</p>
+      </button>
 
-</div>
+      <button class="optionCard" type="button" onclick="playGame('Şans Oyunu')">
+        <div class="optionIcon">🎲</div>
+        <b>Şans Oyunu</b>
+        <p style="margin-top:7px;color:#777;">Demo</p>
+      </button>
 
-<div class="infoCard">
+      <button class="optionCard" type="button" onclick="playGame('Mini Oyun')">
+        <div class="optionIcon">🎯</div>
+        <b>Mini Oyun</b>
+        <p style="margin-top:7px;color:#777;">Demo</p>
+      </button>
 
-<h3>🛡️ Hesap güvenliği</h3>
+    </div>
 
-<p>
-Hesap bilgilerini kimseyle paylaşma.
-</p>
+  </main>
 
-</div>
 
-</main>
+  <!-- SETTINGS -->
 
-<!-- DESTEK -->
+  <main id="settingsPage" class="page">
 
-<main id="supportPage" class="page">
+    <div class="pageTitle">
+      ⚙️ Ayarlar
+    </div>
 
-<div class="pageTitle">🎧 Destek</div>
+    <div class="profileMenu">
 
-<div class="formCard">
+      <button class="menuBtn" type="button" onclick="alert('Bildirim ayarları yakında aktif olacak.')">
+        🔔 Bildirimler
+      </button>
 
-<textarea
-id="supportText"
-class="input"
-placeholder="Sorununu veya önerini yaz..."></textarea>
+      <button class="menuBtn" type="button" onclick="alert('Gizlilik ayarları yakında aktif olacak.')">
+        👁️ Gizlilik
+      </button>
 
-<button class="primary" onclick="sendSupport()">
-Destek Talebi Gönder
-</button>
+      <button class="menuBtn" type="button" onclick="alert('Dil: Türkçe')">
+        🌐 Dil
+      </button>
 
-</div>
+      <button class="menuBtn" type="button" onclick="alert('Power Chatt v1.0')">
+        ℹ️ Uygulama Hakkında
+      </button>
 
-<div id="supportResult"></div>
+    </div>
 
-</main>
+  </main>
 
-<!-- PROFİL DÜZENLE -->
 
-<main id="editProfilePage" class="page">
+  <!-- SECURITY -->
 
-<div class="pageTitle">✏️ Profili Düzenle</div>
+  <main id="securityPage" class="page">
 
-<div class="formCard">
+    <div class="pageTitle">
+      🔐 Güvenlik
+    </div>
 
-<input
-id="editName"
-class="input"
-placeholder="Ad Soyad">
+    <div class="infoBox">
 
-<input
-id="editUsername"
-class="input"
-placeholder="Kullanıcı adı">
+      <h3 style="margin-bottom:10px;">
+        Hesap Güvenliği
+      </h3>
 
-<textarea
-id="editBio"
-class="input"
-placeholder="Hakkında"></textarea>
+      <p style="color:#777;line-height:1.6;margin-bottom:18px;">
+        Hesabını güvenli tutmak için şifreni kimseyle paylaşma.
+      </p>
 
-<input
-id="editPhoto"
-class="input"
-type="file"
-accept="image/*">
+      <button class="primaryBtn" type="button" onclick="resetPassword()">
+        Şifre Sıfırlama E-postası Gönder
+      </button>
 
-<button class="primary" onclick="saveProfile()">
-Profili Kaydet
-</button>
+    </div>
 
-</div>
+  </main>
 
-</main>
 
-<!-- ARAMA -->
+  <!-- SUPPORT -->
 
-<main id="searchPage" class="page">
+  <main id="supportPage" class="page">
 
-<div class="pageTitle">🔎 Ara</div>
+    <div class="pageTitle">
+      🎧 Destek
+    </div>
 
-<div class="pageSub">
-Kullanıcı ve odaları bul.
-</div>
+    <div class="formBox">
 
-<div id="searchResults" class="roomGrid"></div>
+      <textarea id="supportText" placeholder="Sorununu veya mesajını yaz..."></textarea>
 
-</main>
+      <button class="primaryBtn" type="button" onclick="sendSupport()">
+        Destek Talebi Gönder
+      </button>
 
-</div>
+    </div>
+
+  </main>
+
+
+  <!-- EDIT PROFILE -->
+
+  <main id="editProfilePage" class="page">
+
+    <div class="pageTitle">
+      ✏️ Profili Düzenle
+    </div>
+
+    <div class="formBox">
+
+      <input id="editName" type="text" placeholder="Ad Soyad">
+
+      <input id="editUsername" type="text" placeholder="Kullanıcı adı">
+
+      <textarea id="editBio" placeholder="Hakkında"></textarea>
+
+      <input id="editAvatar" type="file" accept="image/*">
 
-<!-- ALT MENÜ -->
+      <button class="primaryBtn" type="button" onclick="saveProfile()">
+        Profili Kaydet
+      </button>
 
-<div id="bottomNav" class="bottom hidden">
+    </div>
 
-<button class="navBtn active" onclick="openPage('homePage',this)">
-<div class="navIcon">🏠</div>
-Ana Sayfa
-</button>
+  </main>
 
-<button class="navBtn" onclick="openPage('memoriesPage',this)">
-<div class="navIcon">📸</div>
-Anılar
-</button>
 
-<button class="navBtn" onclick="openRooms(this)">
-<div class="navIcon">💬</div>
-Odalar
-</button>
+  <!-- SEARCH -->
 
-<button class="navBtn" onclick="openPage('messagesPage',this)">
-<div class="navIcon">💬</div>
-Mesajlar
-</button>
+  <main id="searchPage" class="page">
 
-<button class="navBtn" onclick="openPage('profilePage',this)">
-<div class="navIcon">👤</div>
-Ben
-</button>
+    <div class="pageTitle">
+      🔎 Ara
+    </div>
 
+    <div class="searchBox">
+
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Kullanıcı veya oda ara..."
+        oninput="searchEverything()"
+      >
+
+    </div>
+
+    <div id="searchResults" class="searchResults"></div>
+
+  </main>
+
+
+  <!-- BOTTOM NAV -->
+
+  <nav class="bottomNav">
+
+    <button
+      class="navBtn active"
+      type="button"
+      onclick="openPage('homePage',this)"
+    >
+      <span>🏠</span>
+      <span>Ana Sayfa</span>
+    </button>
+
+    <button
+      class="navBtn"
+      type="button"
+      onclick="openPage('memoriesPage',this)"
+    >
+      <span>📸</span>
+      <span>Anılar</span>
+    </button>
+
+    <button
+      class="navBtn"
+      type="button"
+      onclick="openPage('roomsPage',this)"
+    >
+      <span>🏠</span>
+      <span>Odalar</span>
+    </button>
+
+    <button
+      class="navBtn"
+      type="button"
+      onclick="openPage('messagesPage',this)"
+    >
+      <span>💬</span>
+      <span>Mesajlar</span>
+    </button>
+
+    <button
+      class="navBtn"
+      type="button"
+      onclick="openPage('profilePage',this)"
+    >
+      <span>👤</span>
+      <span>Ben</span>
+    </button>
+
+  </nav>
+
 </div>
+
 
 <script>
 
+/* =========================
+   FIREBASE
+========================= */
+
 const firebaseConfig={
-apiKey:"AIzaSyAh6U4MpIjUtE3ncqZkkmYkzskHkSZPrM6wXU",
-authDomain:"power-chatt-a72f7.firebaseapp.com",
-projectId:"power-chatt-a72f7",
-storageBucket:"power-chatt-a72f7.firebasestorage.app",
-messagingSenderId:"791826290270",
-appId:"1:791826290270:web:6f13cff199edf3176dc6cf",
-measurementId:"G-5N3WG4PWDL"
+  apiKey:"AIzaSyAh6U4MpIjUtE3ncqZkkmYkzskHkSZPrM6wXU",
+  authDomain:"power-chatt-a72f7.firebaseapp.com",
+  projectId:"power-chatt-a72f7",
+  storageBucket:"power-chatt-a72f7.firebasestorage.app",
+  messagingSenderId:"791826290270",
+  appId:"1:791826290270:web:6f13cff199edf3176dc6cf",
+  measurementId:"G-5N3WG4PWDL"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -1667,1620 +1658,2122 @@ const db=firebase.firestore();
 
 let currentUser=null;
 let currentRoom=null;
-let privatePerson=null;
+let currentPrivateUser=null;
 
-const defaultRooms=[
-{
-id:"turkiye",
-name:"Türkiye Sohbet",
-desc:"Aktif kullanıcılarla sohbet et",
-emoji:"🇹🇷"
-},
-{
-id:"azerbaycan",
-name:"Azerbaycan Sohbet",
-desc:"Yeni insanlarla tanış",
-emoji:"🇦🇿"
-},
-{
-id:"gece",
-name:"Gece Sohbeti",
-desc:"Gece sohbetlerine katıl",
-emoji:"🌙"
-}
-];
 
-function showLogin(){
-
-document.getElementById("loginForm")
-.classList.remove("hidden");
-
-document.getElementById("registerForm")
-.classList.add("hidden");
-
-hideError();
-
-}
+/* =========================
+   AUTH
+========================= */
 
 function showRegister(){
 
-document.getElementById("loginForm")
-.classList.add("hidden");
-
-document.getElementById("registerForm")
-.classList.remove("hidden");
-
-hideError();
+  document.getElementById("loginForm").classList.add("hidden");
+  document.getElementById("registerForm").classList.remove("hidden");
 
 }
 
-function showError(message){
+function showLogin(){
 
-const e=document.getElementById("authError");
-
-e.textContent=message;
-e.style.display="block";
+  document.getElementById("registerForm").classList.add("hidden");
+  document.getElementById("loginForm").classList.remove("hidden");
 
 }
 
-function hideError(){
 
-document.getElementById("authError").style.display="none";
+async function registerAccount(){
 
-}
+  const name=document.getElementById("registerName").value.trim();
+  const username=document.getElementById("registerUsername").value.trim();
+  const email=document.getElementById("registerEmail").value.trim();
+  const password=document.getElementById("registerPassword").value;
 
-function firebaseError(error){
+  if(!name||!username||!email||!password){
 
-const code=error.code||"";
+    alert("Lütfen bütün alanları doldur.");
+    return;
 
-if(code.includes("wrong-password"))
-return"Şifre yanlış.";
+  }
 
-if(code.includes("user-not-found"))
-return"Bu e-posta ile kayıtlı kullanıcı yok.";
+  if(password.length<6){
 
-if(code.includes("invalid-email"))
-return"E-posta adresi geçersiz.";
+    alert("Şifre en az 6 karakter olmalı.");
+    return;
 
-if(code.includes("email-already-in-use"))
-return"Bu e-posta zaten kullanılıyor.";
+  }
 
-if(code.includes("weak-password"))
-return"Şifre en az 6 karakter olmalı.";
+  try{
 
-if(code.includes("popup-closed"))
-return"Google giriş penceresi kapatıldı.";
+    const result=await auth.createUserWithEmailAndPassword(email,password);
 
-if(code.includes("unauthorized-domain"))
-return"Firebase'de bu alan adına izin verilmemiş.";
+    currentUser=result.user;
 
-return error.message||"Bir hata oluştu.";
+    await db.collection("users").doc(currentUser.uid).set({
 
-}
+      uid:currentUser.uid,
 
-async function login(){
+      isim:name,
 
-hideError();
+      kullaniciAdi:username,
 
-const email=document.getElementById("loginEmail").value.trim();
-const password=document.getElementById("loginPassword").value;
+      "kullanıcı adı":username,
 
-if(!email||!password){
+      email:email,
 
-showError("E-posta ve şifreyi gir.");
-return;
+      "e-posta":email,
 
-}
+      bio:"",
 
-try{
+      avatar:"",
 
-await auth.signInWithEmailAndPassword(
-email,
-password
-);
+      photo:"",
 
-}catch(error){
+      coins:0,
 
-showError(firebaseError(error));
+      "madeni paralar":0,
 
-}
+      followers:0,
 
-}
+      "takipçiler":0,
 
-async function register(){
+      following:0,
 
-hideError();
+      "takip etme":0,
 
-const name=document.getElementById("registerName").value.trim();
-const username=document.getElementById("registerUsername").value.trim();
-const email=document.getElementById("registerEmail").value.trim();
-const password=document.getElementById("registerPassword").value;
+      friends:0,
 
-if(!name||!username||!email||!password){
+      "Arkadaşlar":0,
 
-showError("Tüm alanları doldur.");
-return;
+      olusturulmaTarihi:firebase.firestore.FieldValue.serverTimestamp(),
 
-}
+      "oluşturulma tarihi":firebase.firestore.FieldValue.serverTimestamp(),
 
-try{
+      guncellendi:firebase.firestore.FieldValue.serverTimestamp(),
 
-const result=
-await auth.createUserWithEmailAndPassword(
-email,
-password
-);
+      "güncellendi":firebase.firestore.FieldValue.serverTimestamp()
 
-await db.collection("users")
-.doc(result.user.uid)
-.set({
+    });
 
-uid:result.user.uid,
-isim:name,
-kullaniciAdi:username,
-"kullanıcı adı":username,
-email:email,
-"e-posta":email,
-bio:"",
-avatar:"",
-photo:"",
-coins:0,
-"madeni paralar":0,
-diamonds:0,
-followers:0,
-"takipçiler":0,
-following:0,
-"takip etme":0,
-friends:0,
-"Arkadaşlar":0,
-createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    alert("Hesabın oluşturuldu.");
 
-});
+    showApp();
 
-}catch(error){
+  }catch(error){
 
-showError(firebaseError(error));
+    console.error(error);
+
+    alert("Kayıt yapılamadı: "+error.message);
+
+  }
 
 }
 
+
+async function loginEmailPassword(){
+
+  const email=document.getElementById("loginEmail").value.trim();
+  const password=document.getElementById("loginPassword").value;
+
+  if(!email||!password){
+
+    alert("E-posta ve şifreyi gir.");
+    return;
+
+  }
+
+  try{
+
+    await auth.signInWithEmailAndPassword(email,password);
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Giriş yapılamadı: "+error.message);
+
+  }
+
 }
 
-async function googleLogin(){
 
-hideError();
+async function loginGoogle(){
 
-try{
+  try{
 
-const provider=new firebase.auth.GoogleAuthProvider();
+    const provider=new firebase.auth.GoogleAuthProvider();
 
-await auth.signInWithPopup(provider);
+    await auth.signInWithPopup(provider);
 
-}catch(error){
+  }catch(error){
 
-showError(firebaseError(error));
+    console.error(error);
+
+    alert("Google ile giriş yapılamadı: "+error.message);
+
+  }
 
 }
 
-}
 
 auth.onAuthStateChanged(async user=>{
 
-if(user){
+  if(user){
 
-currentUser=user;
+    currentUser=user;
 
-document.getElementById("authPage")
-.classList.add("hidden");
+    await ensureUserDocument();
 
-document.getElementById("app")
-.classList.remove("hidden");
+    showApp();
 
-document.getElementById("bottomNav")
-.classList.remove("hidden");
+  }else{
 
-await createOrUpdateUser(user);
-await loadProfile();
+    currentUser=null;
 
-renderRooms();
-renderHomeRooms();
-loadMemories();
-updateCoins();
+    showAuth();
 
-openPage("homePage");
-
-}else{
-
-currentUser=null;
-
-document.getElementById("authPage")
-.classList.remove("hidden");
-
-document.getElementById("app")
-.classList.add("hidden");
-
-document.getElementById("bottomNav")
-.classList.add("hidden");
-
-}
+  }
 
 });
 
-async function createOrUpdateUser(user){
 
-const ref=db.collection("users").doc(user.uid);
-const snap=await ref.get();
+async function ensureUserDocument(){
 
-if(!snap.exists){
+  if(!currentUser)return;
 
-const name=
-user.displayName||
-"Power Chatt Kullanıcısı";
+  const ref=db.collection("users").doc(currentUser.uid);
+  const snap=await ref.get();
 
-const email=user.email||"";
+  if(!snap.exists){
 
-await ref.set({
+    const name=currentUser.displayName||"Power Chatt Kullanıcısı";
 
-uid:user.uid,
-isim:name,
-kullaniciAdi:"powerchatt",
-"kullanıcı adı":"powerchatt",
-email:email,
-"e-posta":email,
-bio:"",
-avatar:user.photoURL||"",
-photo:user.photoURL||"",
-coins:0,
-"madeni paralar":0,
-diamonds:0,
-followers:0,
-"takipçiler":0,
-following:0,
-"takip etme":0,
-friends:0,
-"Arkadaşlar":0,
-createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    const username=(name||"powerchatt")
+      .toLowerCase()
+      .replace(/[^a-z0-9ğüşöçıİĞÜŞÖÇ]/gi,"")
+      .slice(0,18)||"powerchatt";
 
-});
+    await ref.set({
 
-}
+      uid:currentUser.uid,
 
-}
+      isim:name,
 
-async function loadProfile(){
+      kullaniciAdi:username,
 
-if(!currentUser)return;
+      "kullanıcı adı":username,
 
-const snap=
-await db.collection("users")
-.doc(currentUser.uid)
-.get();
+      email:currentUser.email||"",
 
-if(!snap.exists)return;
+      "e-posta":currentUser.email||"",
 
-const d=snap.data();
+      bio:"",
 
-const name=
-d.isim||
-currentUser.displayName||
-"Power Chatt Kullanıcısı";
+      avatar:currentUser.photoURL||"",
 
-const username=
-d.kullaniciAdi||
-d["kullanıcı adı"]||
-"powerchatt";
+      photo:currentUser.photoURL||"",
 
-const photo=
-d.avatar||
-d.photo||
-currentUser.photoURL||
-"";
+      coins:0,
 
-document.getElementById("profileName")
-.textContent=name;
+      "madeni paralar":0,
 
-document.getElementById("profileUsername")
-.textContent="@"+username;
+      followers:0,
 
-document.getElementById("welcomeName")
-.textContent=
-name+", Power Chatt'e hoş geldin.";
+      "takipçiler":0,
 
-document.getElementById("followers")
-.textContent=d.followers??d["takipçiler"]??0;
+      following:0,
 
-document.getElementById("following")
-.textContent=d.following??d["takip etme"]??0;
+      "takip etme":0,
 
-document.getElementById("friends")
-.textContent=d.friends??d["Arkadaşlar"]??0;
+      friends:0,
 
-const avatar=
-document.getElementById("profileAvatar");
+      "Arkadaşlar":0,
 
-if(photo){
+      olusturulmaTarihi:firebase.firestore.FieldValue.serverTimestamp(),
 
-avatar.innerHTML=
-'<img src="'+photo+'" alt="Profil">';
+      "oluşturulma tarihi":firebase.firestore.FieldValue.serverTimestamp(),
 
-}else{
+      guncellendi:firebase.firestore.FieldValue.serverTimestamp(),
 
-avatar.textContent="👤";
+      "güncellendi":firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+  }
 
 }
 
-document.getElementById("editName").value=name;
-document.getElementById("editUsername").value=username;
-document.getElementById("editBio").value=d.bio||"";
 
-updateCoins();
+function showAuth(){
+
+  document.getElementById("authPage").classList.remove("hidden");
+  document.getElementById("app").classList.add("hidden");
 
 }
+
+
+function showApp(){
+
+  document.getElementById("authPage").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+
+  loadProfile();
+  renderRooms();
+  renderHomeRooms();
+  renderConversations();
+  loadMemories();
+  updateCoins();
+
+  openPage("homePage");
+
+}
+
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
+const allPages=[
+  "homePage",
+  "memoriesPage",
+  "roomsPage",
+  "roomChatPage",
+  "messagesPage",
+  "privateChatPage",
+  "profilePage",
+  "coinPage",
+  "diamondPage",
+  "visitorsPage",
+  "tasksPage",
+  "groupPage",
+  "gamesPage",
+  "settingsPage",
+  "securityPage",
+  "supportPage",
+  "editProfilePage",
+  "searchPage"
+];
+
 
 function openPage(pageId,navButton){
 
-document.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
+  allPages.forEach(id=>{
 
-const page=document.getElementById(pageId);
+    const page=document.getElementById(id);
 
-if(!page)return;
+    if(page){
 
-page.classList.add("active");
+      page.classList.remove("active");
 
-if(navButton){
+    }
 
-document.querySelectorAll(".navBtn")
-.forEach(b=>b.classList.remove("active"));
+  });
 
-navButton.classList.add("active");
 
-}else{
+  const target=document.getElementById(pageId);
 
-updateNav(pageId);
+  if(!target){
+
+    document.getElementById("homePage").classList.add("active");
+
+    return;
+
+  }
+
+
+  target.classList.add("active");
+
+
+  document.querySelectorAll(".navBtn").forEach(btn=>{
+    btn.classList.remove("active");
+  });
+
+
+  if(navButton){
+
+    navButton.classList.add("active");
+
+  }else{
+
+    updateNav(pageId);
+
+  }
+
+
+  if(pageId==="roomsPage"){
+
+    renderRooms();
+
+  }
+
+  if(pageId==="roomChatPage"){
+
+    renderRoomChat();
+
+  }
+
+  if(pageId==="memoriesPage"){
+
+    loadMemories();
+
+  }
+
+  if(pageId==="messagesPage"){
+
+    renderConversations();
+
+  }
+
+  if(pageId==="profilePage"){
+
+    loadProfile();
+
+  }
+
+  if(pageId==="coinPage"||pageId==="diamondPage"){
+
+    updateCoins();
+
+  }
+
+  if(pageId==="editProfilePage"){
+
+    fillEditProfile();
+
+  }
 
 }
 
-if(pageId==="roomsPage"){
-renderRooms();
-}
-
-if(pageId==="roomChatPage"){
-renderRoomChat();
-}
-
-if(pageId==="memoriesPage"){
-loadMemories();
-}
-
-if(pageId==="coinPage"||pageId==="diamondPage"){
-updateCoins();
-}
-
-if(pageId==="groupPage"){
-renderGroups();
-}
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-function openRooms(navButton){
-
-openPage("roomsPage",navButton);
-
-}
 
 function updateNav(pageId){
 
-document.querySelectorAll(".navBtn")
-.forEach(b=>b.classList.remove("active"));
+  let target=pageId;
 
-const map={
-homePage:0,
-memoriesPage:1,
-roomsPage:2,
-messagesPage:3,
-profilePage:4
-};
+  if(pageId==="roomChatPage")target="roomsPage";
 
-if(map[pageId]!==undefined){
+  if(pageId==="privateChatPage")target="messagesPage";
 
-document.querySelectorAll(".navBtn")
-[map[pageId]]
-.classList.add("active");
+  if([
+    "coinPage",
+    "diamondPage",
+    "visitorsPage",
+    "tasksPage",
+    "groupPage",
+    "gamesPage",
+    "settingsPage",
+    "securityPage",
+    "supportPage",
+    "editProfilePage"
+  ].includes(pageId)){
+
+    target="profilePage";
+
+  }
+
+  document.querySelectorAll(".navBtn").forEach(btn=>{
+
+    btn.classList.remove("active");
+
+    const onclick=btn.getAttribute("onclick")||"";
+
+    if(onclick.includes("'"+target+"'")){
+
+      btn.classList.add("active");
+
+    }
+
+  });
 
 }
 
-}
+
+/* =========================
+   ROOMS
+========================= */
+
+const defaultRooms=[
+
+  {
+    id:"turkiye",
+    name:"Türkiye Sohbet",
+    desc:"Aktif kullanıcılarla sohbet et",
+    emoji:"🇹🇷",
+    owner:"system"
+  },
+
+  {
+    id:"azerbaycan",
+    name:"Azerbaycan Sohbet",
+    desc:"Yeni insanlarla tanış",
+    emoji:"🇦🇿",
+    owner:"system"
+  },
+
+  {
+    id:"gece",
+    name:"Gece Sohbeti",
+    desc:"Gece sohbetlerine katıl",
+    emoji:"🌙",
+    owner:"system"
+  }
+
+];
+
 
 function getRooms(){
 
-let rooms=
-JSON.parse(
-localStorage.getItem("powerchatt_rooms")||
-"null"
-);
+  try{
 
-if(!rooms){
+    const saved=localStorage.getItem("powerchatt_rooms");
 
-rooms=defaultRooms;
+    if(saved){
 
-localStorage.setItem(
-"powerchatt_rooms",
-JSON.stringify(rooms)
-);
+      const rooms=JSON.parse(saved);
+
+      if(Array.isArray(rooms)&&rooms.length){
+
+        return rooms;
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+
+  localStorage.setItem(
+    "powerchatt_rooms",
+    JSON.stringify(defaultRooms)
+  );
+
+  return [...defaultRooms];
 
 }
 
-return rooms;
-
-}
 
 function saveRooms(rooms){
 
-localStorage.setItem(
-"powerchatt_rooms",
-JSON.stringify(rooms)
-);
+  localStorage.setItem(
+    "powerchatt_rooms",
+    JSON.stringify(rooms)
+  );
 
 }
 
-function roomHTML(room){
 
-return`
+function escapeHTML(value){
 
-<div class="roomCard">
-
-<div class="roomEmoji">
-${escapeHTML(room.emoji)}
-</div>
-
-<div class="roomName">
-${escapeHTML(room.name)}
-</div>
-
-<div class="roomDesc">
-${escapeHTML(room.desc||"Sohbete katıl")}
-</div>
-
-<div class="roomMembers">
-<span class="member">🟢 Aktif</span>
-<span class="member">💬 Sohbet</span>
-</div>
-
-<br>
-
-<button
-class="roomEnter"
-onclick="enterRoom('${room.id}')">
-
-🚪 Odaya Gir
-
-</button>
-
-</div>
-
-`;
+  return String(value||"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
+
 
 function renderRooms(){
 
-const box=document.getElementById("roomList");
+  const box=document.getElementById("roomList");
 
-if(!box)return;
+  if(!box)return;
 
-const rooms=getRooms();
+  const rooms=getRooms();
 
-if(!rooms.length){
+  box.innerHTML="";
 
-box.innerHTML=
-'<div class="empty">Henüz oda yok.</div>';
 
-return;
+  rooms.forEach(room=>{
+
+    const card=document.createElement("div");
+
+    card.className="roomCard";
+
+
+    const emoji=document.createElement("div");
+    emoji.className="roomEmoji";
+    emoji.textContent=room.emoji||"💬";
+
+
+    const name=document.createElement("div");
+    name.className="roomName";
+    name.textContent=room.name;
+
+
+    const desc=document.createElement("div");
+    desc.className="roomDesc";
+    desc.textContent=room.desc||"Sohbete katıl";
+
+
+    const enter=document.createElement("button");
+    enter.type="button";
+    enter.className="roomEnter";
+    enter.textContent="Odaya Gir";
+
+    enter.onclick=function(){
+
+      enterRoom(room.id);
+
+    };
+
+
+    card.appendChild(emoji);
+    card.appendChild(name);
+    card.appendChild(desc);
+    card.appendChild(enter);
+
+
+    box.appendChild(card);
+
+  });
 
 }
 
-box.innerHTML=
-rooms.map(roomHTML).join("");
-
-}
 
 function renderHomeRooms(){
 
-const box=document.getElementById("homeRooms");
+  const box=document.getElementById("homeRooms");
 
-if(!box)return;
+  if(!box)return;
 
-const rooms=getRooms().slice(0,4);
+  const rooms=getRooms().slice(0,4);
 
-box.innerHTML=
-rooms.map(roomHTML).join("");
+  box.innerHTML="";
+
+
+  rooms.forEach(room=>{
+
+    const card=document.createElement("div");
+
+    card.className="roomCard";
+
+
+    const emoji=document.createElement("div");
+    emoji.className="roomEmoji";
+    emoji.textContent=room.emoji||"💬";
+
+
+    const name=document.createElement("div");
+    name.className="roomName";
+    name.textContent=room.name;
+
+
+    const desc=document.createElement("div");
+    desc.className="roomDesc";
+    desc.textContent=room.desc||"Sohbete katıl";
+
+
+    const button=document.createElement("button");
+
+    button.type="button";
+    button.className="roomEnter";
+    button.textContent="Odaya Gir";
+
+    button.onclick=function(){
+
+      enterRoom(room.id);
+
+    };
+
+
+    card.appendChild(emoji);
+    card.appendChild(name);
+    card.appendChild(desc);
+    card.appendChild(button);
+
+    box.appendChild(card);
+
+  });
 
 }
+
 
 function createRoom(){
 
-const name=
-document.getElementById("newRoomName")
-.value.trim();
+  const name=document.getElementById("newRoomName").value.trim();
 
-const desc=
-document.getElementById("newRoomDesc")
-.value.trim();
+  const desc=document.getElementById("newRoomDesc").value.trim();
 
-const emoji=
-document.getElementById("newRoomEmoji")
-.value;
+  const emoji=document.getElementById("newRoomEmoji").value;
 
-if(!name){
 
-alert("Önce oda adını yaz.");
+  if(!name){
 
-return;
+    alert("Önce oda adını yaz.");
+
+    return;
+
+  }
+
+
+  const rooms=getRooms();
+
+
+  const room={
+
+    id:"room_"+Date.now()+"_"+Math.random().toString(36).slice(2,8),
+
+    name:name,
+
+    desc:desc||"Yeni sohbet odası",
+
+    emoji:emoji||"💬",
+
+    owner:currentUser?currentUser.uid:"",
+
+    createdAt:new Date().toISOString()
+
+  };
+
+
+  rooms.push(room);
+
+  saveRooms(rooms);
+
+
+  document.getElementById("newRoomName").value="";
+  document.getElementById("newRoomDesc").value="";
+
+
+  renderRooms();
+  renderHomeRooms();
+
+
+  alert("Oda oluşturuldu.");
+
+
+  enterRoom(room.id);
 
 }
 
-const rooms=getRooms();
-
-const room={
-
-id:"room_"+Date.now(),
-
-name:name,
-
-desc:desc||
-"Yeni sohbet odası",
-
-emoji:emoji,
-
-owner:currentUser?
-currentUser.uid:"",
-
-createdAt:new Date().toISOString()
-
-};
-
-rooms.push(room);
-
-saveRooms(rooms);
-
-document.getElementById("newRoomName").value="";
-document.getElementById("newRoomDesc").value="";
-
-renderRooms();
-renderHomeRooms();
-
-alert(
-"✅ Oda oluşturuldu.\n\nŞimdi aşağıdaki odalar listesinden odaya girebilirsin."
-);
-
-}
 
 function enterRoom(roomId){
 
-const rooms=getRooms();
+  const rooms=getRooms();
 
-const room=
-rooms.find(r=>r.id===roomId);
+  const room=rooms.find(r=>r.id===roomId);
 
-if(!room){
 
-alert("Oda bulunamadı.");
+  if(!room){
 
-return;
+    alert("Oda bulunamadı.");
+
+    return;
+
+  }
+
+
+  currentRoom=room;
+
+
+  document.getElementById("chatRoomTitle").textContent=
+    (room.emoji||"💬")+" "+room.name;
+
+
+  openPage("roomChatPage");
+
+
+  renderRoomChat();
 
 }
 
-currentRoom=room;
-
-document.getElementById("chatRoomTitle")
-.textContent=
-room.emoji+" "+room.name;
-
-document.getElementById("chatRoomOnline")
-.textContent=
-"🟢 Çevrimiçi • Sohbet odası";
-
-openPage("roomChatPage");
-
-renderRoomChat();
-
-}
 
 function getRoomMessages(roomId){
 
-return JSON.parse(
-localStorage.getItem(
-"powerchatt_room_"+roomId
-)||"[]"
-);
+  try{
+
+    const data=localStorage.getItem("powerchatt_room_"+roomId);
+
+    if(data){
+
+      const messages=JSON.parse(data);
+
+      if(Array.isArray(messages))return messages;
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+  return [];
 
 }
+
 
 function saveRoomMessages(roomId,messages){
 
-localStorage.setItem(
-"powerchatt_room_"+roomId,
-JSON.stringify(messages)
-);
+  localStorage.setItem(
+    "powerchatt_room_"+roomId,
+    JSON.stringify(messages)
+  );
 
 }
+
 
 function renderRoomChat(){
 
-if(!currentRoom)return;
+  if(!currentRoom)return;
 
-const box=
-document.getElementById("chatBox");
 
-const messages=
-getRoomMessages(currentRoom.id);
+  const box=document.getElementById("chatBox");
 
-if(!messages.length){
+  if(!box)return;
 
-box.innerHTML=`
 
-<div class="empty">
+  const messages=getRoomMessages(currentRoom.id);
 
-<div style="font-size:45px">
-${currentRoom.emoji}
-</div>
 
-<div style="font-weight:bold;margin-top:8px">
-${escapeHTML(currentRoom.name)}
-</div>
+  box.innerHTML="";
 
-<div style="margin-top:6px">
-Bu odada henüz mesaj yok.
-</div>
 
-<div style="margin-top:6px">
-İlk mesajı sen gönder!
-</div>
+  if(messages.length===0){
 
-</div>
+    const welcome=document.createElement("div");
 
-`;
+    welcome.style.textAlign="center";
+    welcome.style.color="#888";
+    welcome.style.padding="35px 10px";
 
-return;
+    welcome.innerHTML=
+      "👋 <b>"+escapeHTML(currentRoom.name)+"</b><br><br>"+
+      "Bu odada ilk mesajı sen gönder.";
+
+    box.appendChild(welcome);
+
+    return;
+
+  }
+
+
+  messages.forEach(message=>{
+
+    const row=document.createElement("div");
+
+    row.className=
+      "messageRow "+
+      (message.uid===getCurrentUid()?"me":"");
+
+
+    const bubble=document.createElement("div");
+
+    bubble.className="messageBubble";
+
+
+    const sender=document.createElement("div");
+
+    sender.className="messageSender";
+
+    sender.textContent=
+      message.uid===getCurrentUid()
+        ? "Sen"
+        : (message.name||"Kullanıcı");
+
+
+    const text=document.createElement("div");
+
+    text.textContent=message.text;
+
+
+    bubble.appendChild(sender);
+    bubble.appendChild(text);
+
+    row.appendChild(bubble);
+
+    box.appendChild(row);
+
+  });
+
+
+  box.scrollTop=box.scrollHeight;
 
 }
 
-box.innerHTML=
-messages.map(m=>`
-
-<div class="chatMessage ${
-m.uid===currentUser?.uid?"me":""
-}">
-
-<div class="bubble">
-
-<div class="bubbleName">
-${escapeHTML(m.name)}
-</div>
-
-<div>
-${escapeHTML(m.text)}
-</div>
-
-</div>
-
-</div>
-
-`).join("");
-
-box.scrollTop=box.scrollHeight;
-
-}
 
 function sendRoomMessage(){
 
-if(!currentRoom||!currentUser){
+  if(!currentRoom||!currentUser)return;
 
-alert("Odaya giriş yapman gerekiyor.");
 
-return;
+  const input=document.getElementById("roomMessageInput");
 
-}
+  const text=input.value.trim();
 
-const input=
-document.getElementById("roomMessageInput");
 
-const text=input.value.trim();
+  if(!text)return;
 
-if(!text)return;
 
-const messages=
-getRoomMessages(currentRoom.id);
+  const messages=getRoomMessages(currentRoom.id);
 
-const name=
-currentUser.displayName||
-"Power Chatt Kullanıcısı";
 
-messages.push({
+  messages.push({
 
-uid:currentUser.uid,
-name:name,
-text:text,
-time:new Date().toISOString()
+    uid:currentUser.uid,
 
-});
+    name:currentUser.displayName||
+      currentUser.email||
+      "Power Chatt Kullanıcısı",
 
-saveRoomMessages(
-currentRoom.id,
-messages
-);
+    text:text,
 
-input.value="";
+    createdAt:new Date().toISOString()
 
-renderRoomChat();
+  });
+
+
+  saveRoomMessages(currentRoom.id,messages);
+
+
+  input.value="";
+
+
+  renderRoomChat();
 
 }
 
-function openPrivateChat(name){
 
-privatePerson=name;
-
-document.getElementById("privateTitle")
-.textContent="💬 "+name;
-
-openPage("privateChatPage");
-
-renderPrivateChat();
-
-}
-
-function privateKey(){
-
-return"powerchatt_private_"+
-(currentUser?currentUser.uid:"guest")+
-"_"+privatePerson;
-
-}
-
-function getPrivateMessages(){
-
-return JSON.parse(
-localStorage.getItem(privateKey())||
-"[]"
-);
-
-}
-
-function savePrivateMessages(messages){
-
-localStorage.setItem(
-privateKey(),
-JSON.stringify(messages)
-);
-
-}
-
-function renderPrivateChat(){
-
-const box=
-document.getElementById("privateChatBox");
-
-const messages=
-getPrivateMessages();
-
-if(!messages.length){
-
-box.innerHTML=
-'<div class="empty">Henüz mesaj yok. İlk mesajı gönder!</div>';
-
-return;
-
-}
-
-box.innerHTML=
-messages.map(m=>`
-
-<div class="chatMessage ${m.me?"me":""}">
-
-<div class="bubble">
-${escapeHTML(m.text)}
-</div>
-
-</div>
-
-`).join("");
-
-box.scrollTop=box.scrollHeight;
-
-}
-
-function sendPrivateMessage(){
-
-const input=
-document.getElementById("privateInput");
-
-const text=input.value.trim();
-
-if(!text)return;
-
-const messages=
-getPrivateMessages();
-
-messages.push({
-
-text:text,
-me:true,
-time:new Date().toISOString()
-
-});
-
-savePrivateMessages(messages);
-
-input.value="";
-
-renderPrivateChat();
-
-setTimeout(()=>{
-
-const reply=
-getPrivateMessages();
-
-reply.push({
-
-text:"Merhaba 👋 Mesajını aldım.",
-me:false,
-time:new Date().toISOString()
-
-});
-
-savePrivateMessages(reply);
-
-renderPrivateChat();
-
-},700);
-
-}
+/* =========================
+   MEMORIES
+========================= */
 
 async function addMemory(){
 
-if(!currentUser)return;
+  if(!currentUser){
 
-const text=
-document.getElementById("memoryText")
-.value.trim();
+    alert("Önce giriş yap.");
 
-const file=
-document.getElementById("memoryImage")
-.files[0];
+    return;
 
-if(!text&&!file){
+  }
 
-alert("Bir yazı veya fotoğraf ekle.");
 
-return;
+  const text=document.getElementById("memoryText").value.trim();
+
+  const file=document.getElementById("memoryImage").files[0];
+
+
+  if(!text&&!file){
+
+    alert("Bir yazı veya fotoğraf ekle.");
+
+    return;
+
+  }
+
+
+  try{
+
+    let imageData="";
+
+
+    if(file){
+
+      imageData=await compressImage(file);
+
+    }
+
+
+    await db.collection("memories").add({
+
+      uid:currentUser.uid,
+
+      text:text,
+
+      image:imageData,
+
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+
+    document.getElementById("memoryText").value="";
+    document.getElementById("memoryImage").value="";
+
+
+    alert("Anın paylaşıldı.");
+
+    loadMemories();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Anı paylaşılırken hata oluştu: "+error.message);
+
+  }
 
 }
 
-let image="";
-
-if(file){
-
-image=await compressImage(file);
-
-}
-
-try{
-
-await db.collection("memories").add({
-
-uid:currentUser.uid,
-
-name:
-currentUser.displayName||
-"Power Chatt Kullanıcısı",
-
-text:text,
-
-image:image,
-
-createdAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-});
-
-document.getElementById("memoryText")
-.value="";
-
-document.getElementById("memoryImage")
-.value="";
-
-loadMemories();
-
-alert("Anın paylaşıldı.");
-
-}catch(error){
-
-alert("Anı paylaşılırken hata oluştu.");
-
-}
-
-}
 
 function compressImage(file){
 
-return new Promise(resolve=>{
+  return new Promise((resolve,reject)=>{
 
-const reader=new FileReader();
+    const reader=new FileReader();
 
-reader.onload=e=>{
 
-const img=new Image();
+    reader.onload=function(event){
 
-img.onload=()=>{
+      const img=new Image();
 
-const max=900;
 
-let w=img.width;
-let h=img.height;
+      img.onload=function(){
 
-if(w>max){
+        const canvas=document.createElement("canvas");
 
-h=h*max/w;
-w=max;
+        const maxWidth=900;
 
-}
+        const scale=Math.min(
+          1,
+          maxWidth/img.width
+        );
 
-if(h>max){
 
-w=w*max/h;
-h=max;
+        canvas.width=Math.round(img.width*scale);
+        canvas.height=Math.round(img.height*scale);
 
-}
 
-const canvas=
-document.createElement("canvas");
+        const ctx=canvas.getContext("2d");
 
-canvas.width=w;
-canvas.height=h;
+        ctx.drawImage(
+          img,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
 
-const ctx=canvas.getContext("2d");
 
-ctx.drawImage(
-img,
-0,
-0,
-w,
-h
-);
+        resolve(
+          canvas.toDataURL(
+            "image/jpeg",
+            .65
+          )
+        );
 
-resolve(
-canvas.toDataURL(
-"image/jpeg",
-.72
-)
-);
+      };
 
-};
 
-img.src=e.target.result;
+      img.onerror=reject;
 
-};
+      img.src=event.target.result;
 
-reader.readAsDataURL(file);
+    };
 
-});
+
+    reader.onerror=reject;
+
+    reader.readAsDataURL(file);
+
+  });
 
 }
+
 
 async function loadMemories(){
 
-if(!currentUser)return;
+  const box=document.getElementById("memoryList");
 
-const list=
-document.getElementById("memoryList");
+  if(!box)return;
 
-try{
 
-const snap=
-await db.collection("memories")
-.orderBy("createdAt","desc")
-.limit(30)
-.get();
+  box.innerHTML=
+    "<div style='color:#777;'>Anılar yükleniyor...</div>";
 
-if(snap.empty){
 
-list.innerHTML=
-'<div class="empty">Henüz paylaşılmış anı yok.</div>';
+  try{
 
-return;
+    const snapshot=await db
+      .collection("memories")
+      .orderBy("createdAt","desc")
+      .limit(30)
+      .get();
 
-}
 
-list.innerHTML="";
+    box.innerHTML="";
 
-snap.forEach(doc=>{
 
-const d=doc.data();
+    if(snapshot.empty){
 
-const div=
-document.createElement("div");
+      box.innerHTML=
+        "<div style='background:white;padding:20px;border-radius:18px;color:#777;'>Henüz anı yok.</div>";
 
-div.className="memory";
+      return;
 
-let html=`
+    }
 
-<b>
-${escapeHTML(
-d.name||"Power Chatt Kullanıcısı"
-)}
-</b>
 
-<div style="margin-top:8px">
-${escapeHTML(d.text||"")}
-</div>
+    snapshot.forEach(doc=>{
 
-`;
+      const data=doc.data();
 
-if(d.image){
 
-html+=`
-<img src="${d.image}" alt="Anı">
-`;
+      const card=document.createElement("div");
 
-}
+      card.className="memoryCard";
 
-if(d.uid===currentUser.uid){
 
-html+=`
-<button
-class="deleteBtn"
-onclick="deleteMemory('${doc.id}')">
+      if(data.image){
 
-Anıyı Sil
+        const img=document.createElement("img");
 
-</button>
-`;
+        img.src=data.image;
 
-}
+        card.appendChild(img);
 
-div.innerHTML=html;
+      }
 
-list.appendChild(div);
 
-});
+      if(data.text){
 
-}catch(error){
+        const text=document.createElement("div");
 
-list.innerHTML=
-'<div class="empty">Anılar yüklenemedi.</div>';
+        text.className="memoryText";
 
-}
+        text.textContent=data.text;
+
+        card.appendChild(text);
+
+      }
+
+
+      box.appendChild(card);
+
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML=
+      "<div style='background:white;padding:20px;border-radius:18px;'>Anılar yüklenemedi.</div>";
+
+  }
 
 }
 
-async function deleteMemory(id){
 
-if(!confirm("Bu anıyı silmek istiyor musun?"))
-return;
+/* =========================
+   PROFILE
+========================= */
 
-try{
+async function loadProfile(){
 
-await db.collection("memories")
-.doc(id)
-.delete();
+  if(!currentUser)return;
 
-loadMemories();
 
-}catch(error){
+  try{
 
-alert("Silinemedi.");
+    const snap=await db
+      .collection("users")
+      .doc(currentUser.uid)
+      .get();
+
+
+    const data=snap.exists?snap.data():{};
+
+
+    const name=
+      data.isim||
+      currentUser.displayName||
+      "Power Chatt Kullanıcısı";
+
+
+    const username=
+      data.kullaniciAdi||
+      data["kullanıcı adı"]||
+      "powerchatt";
+
+
+    document.getElementById("profileName").textContent=name;
+
+    document.getElementById("profileUsername").textContent=
+      "@"+username;
+
+
+    document.getElementById("welcomeText").textContent=
+      name+", Power Chatt'e hoş geldin.";
+
+
+    document.getElementById("followersCount").textContent=
+      data.followers||
+      data["takipçiler"]||
+      0;
+
+
+    document.getElementById("followingCount").textContent=
+      data.following||
+      data["takip etme"]||
+      0;
+
+
+    document.getElementById("friendsCount").textContent=
+      data.friends||
+      data["Arkadaşlar"]||
+      0;
+
+
+    const avatar=
+      data.avatar||
+      data.photo||
+      currentUser.photoURL||
+      "";
+
+
+    const avatarBox=document.getElementById("profileAvatar");
+
+
+    if(avatar){
+
+      avatarBox.innerHTML=
+        "<img src='"+avatar+"' style='width:100%;height:100%;object-fit:cover;border-radius:50%;'>";
+
+    }else{
+
+      avatarBox.textContent=
+        name.charAt(0).toUpperCase();
+
+    }
+
+
+    updateCoins();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
 
 }
 
+
+function fillEditProfile(){
+
+  loadProfile().then(async()=>{
+
+    if(!currentUser)return;
+
+
+    const snap=await db
+      .collection("users")
+      .doc(currentUser.uid)
+      .get();
+
+
+    const data=snap.exists?snap.data():{};
+
+
+    document.getElementById("editName").value=
+      data.isim||
+      currentUser.displayName||
+      "";
+
+
+    document.getElementById("editUsername").value=
+      data.kullaniciAdi||
+      data["kullanıcı adı"]||
+      "";
+
+
+    document.getElementById("editBio").value=
+      data.bio||
+      "";
+
+  });
+
 }
+
 
 async function saveProfile(){
 
-if(!currentUser)return;
+  if(!currentUser)return;
 
-const name=
-document.getElementById("editName")
-.value.trim();
 
-const username=
-document.getElementById("editUsername")
-.value.trim();
+  const name=document.getElementById("editName").value.trim();
 
-const bio=
-document.getElementById("editBio")
-.value.trim();
+  const username=document.getElementById("editUsername").value.trim();
 
-const file=
-document.getElementById("editPhoto")
-.files[0];
+  const bio=document.getElementById("editBio").value.trim();
 
-if(!name||!username){
+  const file=document.getElementById("editAvatar").files[0];
 
-alert("Ad ve kullanıcı adı boş olamaz.");
 
-return;
+  if(!name||!username){
 
-}
+    alert("Ad ve kullanıcı adı boş olamaz.");
 
-let photo="";
+    return;
 
-if(file){
+  }
 
-photo=await compressImage(file);
 
-}
+  try{
 
-const data={
+    let avatar="";
 
-isim:name,
 
-kullaniciAdi:username,
+    if(file){
 
-"kullanıcı adı":username,
+      avatar=await compressImage(file);
 
-bio:bio,
+    }
 
-updatedAt:
-firebase.firestore.FieldValue.serverTimestamp()
 
-};
+    const updateData={
 
-if(photo){
+      isim:name,
 
-data.avatar=photo;
-data.photo=photo;
+      kullaniciAdi:username,
 
-}
+      "kullanıcı adı":username,
 
-try{
+      bio:bio,
 
-await db.collection("users")
-.doc(currentUser.uid)
-.set(data,{merge:true});
+      guncellendi:firebase.firestore.FieldValue.serverTimestamp(),
 
-await loadProfile();
+      "güncellendi":firebase.firestore.FieldValue.serverTimestamp()
 
-alert("Profil güncellendi.");
+    };
 
-openPage("profilePage");
 
-}catch(error){
+    if(avatar){
 
-alert("Profil kaydedilemedi.");
+      updateData.avatar=avatar;
+      updateData.photo=avatar;
 
-}
+    }
 
-}
 
-async function addCoins(amount){
+    await db
+      .collection("users")
+      .doc(currentUser.uid)
+      .set(
+        updateData,
+        {merge:true}
+      );
 
-if(!currentUser)return;
 
-const ref=
-db.collection("users")
-.doc(currentUser.uid);
+    alert("Profil güncellendi.");
 
-try{
+    loadProfile();
 
-const snap=await ref.get();
+    openPage("profilePage");
 
-const old=
-snap.exists?
-(snap.data().coins||
-snap.data()["madeni paralar"]||
-0):0;
+  }catch(error){
 
-const total=
-Number(old)+Number(amount);
+    console.error(error);
 
-await ref.set({
+    alert("Profil güncellenemedi: "+error.message);
 
-coins:total,
-
-"madeni paralar":total,
-
-updatedAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-},{merge:true});
-
-updateCoins();
-
-alert(
-amount+
-" coin demo olarak eklendi."
-);
-
-}catch(error){
-
-alert("Coin eklenemedi.");
+  }
 
 }
 
+
+/* =========================
+   COINS
+========================= */
+
+async function getUserData(){
+
+  if(!currentUser)return {};
+
+  const snap=await db
+    .collection("users")
+    .doc(currentUser.uid)
+    .get();
+
+  return snap.exists?snap.data():{};
+
 }
+
 
 async function updateCoins(){
 
-if(!currentUser)return;
+  if(!currentUser)return;
 
-try{
 
-const snap=
-await db.collection("users")
-.doc(currentUser.uid)
-.get();
+  try{
 
-if(!snap.exists)return;
+    const data=await getUserData();
 
-const d=snap.data();
 
-const coins=
-d.coins||
-d["madeni paralar"]||
-0;
+    const coins=
+      Number(data.coins||
+      data["madeni paralar"]||
+      0);
 
-const diamonds=
-d.diamonds||0;
 
-const coinEl=
-document.getElementById("coinBalance");
+    const coinBox=document.getElementById("coinBalance");
 
-const diamondEl=
-document.getElementById("diamondBalance");
+    if(coinBox){
 
-if(coinEl)
-coinEl.textContent=coins;
+      coinBox.textContent=
+        coins.toLocaleString("tr-TR")+" Coin";
 
-if(diamondEl)
-diamondEl.textContent=diamonds;
+    }
 
-}catch(e){}
 
-}
+    const diamondBox=document.getElementById("diamondBalance");
 
-async function addDiamonds(amount){
+    if(diamondBox){
 
-if(!currentUser)return;
+      diamondBox.textContent=
+        (Number(localStorage.getItem("powerchatt_diamonds")||0))
+          .toLocaleString("tr-TR");
 
-const ref=
-db.collection("users")
-.doc(currentUser.uid);
+    }
 
-try{
+  }catch(error){
 
-const snap=await ref.get();
+    console.error(error);
 
-const old=
-snap.exists?
-(snap.data().diamonds||0):0;
-
-const total=
-Number(old)+Number(amount);
-
-await ref.set({
-
-diamonds:total,
-
-updatedAt:
-firebase.firestore.FieldValue.serverTimestamp()
-
-},{merge:true});
-
-updateCoins();
-
-alert(
-amount+
-" elmas demo olarak eklendi."
-);
-
-}catch(error){
-
-alert("Elmas eklenemedi.");
+  }
 
 }
 
-}
 
-function claimTask(button){
+async function addTestCoins(amount){
 
-button.textContent="✓ Tamamlandı";
-button.disabled=true;
+  if(!currentUser)return;
 
-alert("Görev tamamlandı.");
 
-}
+  try{
 
-function createGroup(){
+    const ref=db.collection("users").doc(currentUser.uid);
 
-const name=
-prompt("Grup adı:");
+    const data=await getUserData();
 
-if(!name)return;
 
-const groups=
-JSON.parse(
-localStorage.getItem(
-"powerchatt_groups"
-)||"[]"
-);
+    const oldCoins=
+      Number(data.coins||
+      data["madeni paralar"]||
+      0);
 
-groups.push({
 
-name:name,
+    const newCoins=oldCoins+Number(amount);
 
-created:new Date().toISOString()
 
-});
+    await ref.set({
 
-localStorage.setItem(
-"powerchatt_groups",
-JSON.stringify(groups)
-);
+      coins:newCoins,
 
-renderGroups();
+      "madeni paralar":newCoins,
 
-}
+      guncellendi:firebase.firestore.FieldValue.serverTimestamp(),
 
-function renderGroups(){
+      "güncellendi":firebase.firestore.FieldValue.serverTimestamp()
 
-const box=
-document.getElementById("groupList");
+    },{merge:true});
 
-if(!box)return;
 
-const groups=
-JSON.parse(
-localStorage.getItem(
-"powerchatt_groups"
-)||"[]"
-);
+    updateCoins();
 
-if(!groups.length){
+    alert(amount+" test coin eklendi.");
 
-box.innerHTML=
-'<div class="empty">Henüz grup oluşturulmadı.</div>';
+  }catch(error){
 
-return;
+    console.error(error);
+
+    alert("Coin eklenemedi: "+error.message);
+
+  }
 
 }
 
-box.innerHTML=
-groups.map(g=>`
 
-<div class="infoCard">
+function addTestDiamonds(amount){
 
-<h3>
-👥 ${escapeHTML(g.name)}
-</h3>
+  const old=Number(
+    localStorage.getItem("powerchatt_diamonds")||0
+  );
 
-<p>
-Grup hazır.
-</p>
 
-</div>
+  localStorage.setItem(
+    "powerchatt_diamonds",
+    String(old+amount)
+  );
 
-`).join("");
 
-}
+  updateCoins();
 
-function demoGame(name){
-
-alert(
-name+
-" demo alanı açıldı. Gerçek oyun sistemi daha sonra bağlanacak."
-);
+  alert(amount+" test elmas eklendi.");
 
 }
 
-function toggleSetting(el){
 
-el.classList.toggle("on");
+/* =========================
+   PRIVATE MESSAGES
+========================= */
+
+function getConversations(){
+
+  try{
+
+    const data=localStorage.getItem(
+      "powerchatt_conversations"
+    );
+
+    if(data){
+
+      return JSON.parse(data);
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+
+  return [
+
+    {
+      name:"Ayşe",
+      last:"Merhaba 👋",
+      time:"Şimdi"
+    },
+
+    {
+      name:"Mert",
+      last:"Nasılsın?",
+      time:"Bugün"
+    },
+
+    {
+      name:"Elif",
+      last:"Görüşürüz.",
+      time:"Bugün"
+    }
+
+  ];
+
+}
+
+
+function saveConversations(list){
+
+  localStorage.setItem(
+    "powerchatt_conversations",
+    JSON.stringify(list)
+  );
 
 }
 
-function toggleNight(el){
 
-el.classList.toggle("on");
+function renderConversations(){
 
-if(el.classList.contains("on")){
+  const box=document.getElementById("conversationList");
 
-document.body.style.background="#181820";
-document.body.style.color="#fff";
+  if(!box)return;
 
-}else{
 
-document.body.style.background="#f5f6fa";
-document.body.style.color="#222";
+  const list=getConversations();
+
+
+  box.innerHTML="";
+
+
+  list.forEach(item=>{
+
+    const row=document.createElement("div");
+
+    row.className="conversation";
+
+
+    const avatar=document.createElement("div");
+
+    avatar.className="avatar";
+
+    avatar.textContent=
+      item.name.charAt(0).toUpperCase();
+
+
+    const info=document.createElement("div");
+
+    info.className="userInfo";
+
+
+    const name=document.createElement("div");
+
+    name.className="userName";
+
+    name.textContent=item.name;
+
+
+    const last=document.createElement("div");
+
+    last.className="userStatus";
+
+    last.textContent=item.last||"";
+
+
+    info.appendChild(name);
+    info.appendChild(last);
+
+
+    row.appendChild(avatar);
+    row.appendChild(info);
+
+
+    row.onclick=function(){
+
+      startPrivateChat(item.name);
+
+    };
+
+
+    box.appendChild(row);
+
+  });
 
 }
 
-}
 
-async function resetPassword(){
+function startPrivateChat(name){
 
-if(!currentUser||
-!currentUser.email){
+  currentPrivateUser=name;
 
-alert("E-posta hesabı bulunamadı.");
 
-return;
+  document.getElementById(
+    "privateChatTitle"
+  ).textContent=name;
 
-}
 
-try{
+  openPage("privateChatPage");
 
-await auth.sendPasswordResetEmail(
-currentUser.email
-);
 
-alert(
-"Şifre sıfırlama e-postası gönderildi."
-);
-
-}catch(error){
-
-alert(firebaseError(error));
+  renderPrivateChat();
 
 }
 
+
+function getPrivateMessages(name){
+
+  const key=
+    "powerchatt_private_"+name;
+
+
+  try{
+
+    const data=localStorage.getItem(key);
+
+    if(data){
+
+      return JSON.parse(data);
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+
+  return [];
+
 }
+
+
+function savePrivateMessages(name,messages){
+
+  localStorage.setItem(
+    "powerchatt_private_"+name,
+    JSON.stringify(messages)
+  );
+
+}
+
+
+function renderPrivateChat(){
+
+  if(!currentPrivateUser)return;
+
+
+  const box=document.getElementById(
+    "privateChatBox"
+  );
+
+
+  const messages=
+    getPrivateMessages(currentPrivateUser);
+
+
+  box.innerHTML="";
+
+
+  if(!messages.length){
+
+    box.innerHTML=
+      "<div style='text-align:center;color:#888;padding:40px;'>"+
+      currentPrivateUser+
+      " ile sohbeti başlat.</div>";
+
+    return;
+
+  }
+
+
+  messages.forEach(message=>{
+
+    const row=document.createElement("div");
+
+    row.className=
+      "messageRow "+
+      (message.me?"me":"");
+
+
+    const bubble=document.createElement("div");
+
+    bubble.className="messageBubble";
+
+    bubble.textContent=message.text;
+
+
+    row.appendChild(bubble);
+
+    box.appendChild(row);
+
+  });
+
+
+  box.scrollTop=box.scrollHeight;
+
+}
+
+
+function sendPrivateMessage(){
+
+  if(!currentPrivateUser)return;
+
+
+  const input=document.getElementById(
+    "privateMessageInput"
+  );
+
+
+  const text=input.value.trim();
+
+
+  if(!text)return;
+
+
+  const messages=
+    getPrivateMessages(currentPrivateUser);
+
+
+  messages.push({
+
+    text:text,
+
+    me:true,
+
+    createdAt:new Date().toISOString()
+
+  });
+
+
+  savePrivateMessages(
+    currentPrivateUser,
+    messages
+  );
+
+
+  input.value="";
+
+
+  renderPrivateChat();
+
+
+  setTimeout(()=>{
+
+    const updated=
+      getPrivateMessages(currentPrivateUser);
+
+
+    updated.push({
+
+      text:"Mesajını aldım 😊",
+
+      me:false,
+
+      createdAt:new Date().toISOString()
+
+    });
+
+
+    savePrivateMessages(
+      currentPrivateUser,
+      updated
+    );
+
+
+    renderPrivateChat();
+
+  },700);
+
+}
+
+
+/* =========================
+   GROUP
+========================= */
+
+function createDemoGroup(){
+
+  alert("Grup oluşturma sistemi hazır. Gerçek çok kullanıcılı grup sistemi sonraki aşamada Firebase'e bağlanacak.");
+
+}
+
+
+/* =========================
+   GAMES
+========================= */
+
+function playGame(name){
+
+  alert(
+    name+
+    " şu anda DEMO modunda. Gerçek para/coin sistemi henüz aktif değil."
+  );
+
+}
+
+
+/* =========================
+   SUPPORT
+========================= */
 
 function sendSupport(){
 
-const text=
-document.getElementById("supportText")
-.value.trim();
+  const text=document
+    .getElementById("supportText")
+    .value
+    .trim();
 
-if(!text){
 
-alert("Destek mesajını yaz.");
+  if(!text){
 
-return;
+    alert("Mesajını yaz.");
+
+    return;
+
+  }
+
+
+  const list=JSON.parse(
+    localStorage.getItem(
+      "powerchatt_support"
+    )||"[]"
+  );
+
+
+  list.push({
+
+    uid:getCurrentUid(),
+
+    text:text,
+
+    date:new Date().toISOString()
+
+  });
+
+
+  localStorage.setItem(
+    "powerchatt_support",
+    JSON.stringify(list)
+  );
+
+
+  document.getElementById("supportText").value="";
+
+
+  alert("Destek talebin alındı.");
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+async function resetPassword(){
+
+  if(!currentUser||!currentUser.email){
+
+    alert("E-posta adresi bulunamadı.");
+
+    return;
+
+  }
+
+
+  try{
+
+    await auth.sendPasswordResetEmail(
+      currentUser.email
+    );
+
+
+    alert(
+      "Şifre sıfırlama e-postası gönderildi."
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "E-posta gönderilemedi: "+
+      error.message
+    );
+
+  }
 
 }
 
-const tickets=
-JSON.parse(
-localStorage.getItem(
-"powerchatt_support"
-)||"[]"
-);
 
-tickets.push({
-
-uid:currentUser?
-currentUser.uid:"",
-
-text:text,
-
-time:new Date().toISOString()
-
-});
-
-localStorage.setItem(
-"powerchatt_support",
-JSON.stringify(tickets)
-);
-
-document.getElementById("supportText")
-.value="";
-
-document.getElementById("supportResult")
-.innerHTML=`
-
-<div class="infoCard">
-
-<h3>✅ Talebin alındı</h3>
-
-<p>
-Destek mesajın kaydedildi.
-</p>
-
-</div>
-
-`;
-
-}
+/* =========================
+   SEARCH
+========================= */
 
 function searchEverything(){
 
-const q=
-document.getElementById("globalSearch")
-.value.trim()
-.toLowerCase();
+  const input=document
+    .getElementById("searchInput");
 
-if(!q){
 
-return;
+  const query=input.value
+    .trim()
+    .toLowerCase();
+
+
+  const box=document
+    .getElementById("searchResults");
+
+
+  if(!query){
+
+    box.innerHTML=
+      "<div style='color:#777;'>Aramak istediğin kullanıcı veya odayı yaz.</div>";
+
+    return;
+
+  }
+
+
+  const results=[];
+
+
+  const users=[
+    "Ayşe",
+    "Mert",
+    "Elif",
+    "Kerem",
+    "Selin"
+  ];
+
+
+  users.forEach(name=>{
+
+    if(name.toLowerCase().includes(query)){
+
+      results.push({
+
+        type:"user",
+
+        name:name
+
+      });
+
+    }
+
+  });
+
+
+  getRooms().forEach(room=>{
+
+    if(
+      room.name.toLowerCase().includes(query)||
+      (room.desc||"").toLowerCase().includes(query)
+    ){
+
+      results.push({
+
+        type:"room",
+
+        name:room.name,
+
+        roomId:room.id
+
+      });
+
+    }
+
+  });
+
+
+  box.innerHTML="";
+
+
+  if(!results.length){
+
+    box.innerHTML=
+      "<div style='background:white;padding:20px;border-radius:18px;color:#777;'>Sonuç bulunamadı.</div>";
+
+    return;
+
+  }
+
+
+  results.forEach(result=>{
+
+    const row=document.createElement("div");
+
+    row.className="userCard";
+
+
+    const avatar=document.createElement("div");
+
+    avatar.className="avatar";
+
+    avatar.textContent=
+      result.type==="room"
+        ?"🏠"
+        :result.name.charAt(0);
+
+
+    const info=document.createElement("div");
+
+    info.className="userInfo";
+
+
+    const name=document.createElement("div");
+
+    name.className="userName";
+
+    name.textContent=result.name;
+
+
+    const status=document.createElement("div");
+
+    status.className="userStatus";
+
+    status.textContent=
+      result.type==="room"
+        ?"Sohbet odası"
+        :"Kullanıcı";
+
+
+    info.appendChild(name);
+    info.appendChild(status);
+
+
+    const button=document.createElement("button");
+
+    button.className="smallBtn";
+
+    button.type="button";
+
+
+    if(result.type==="room"){
+
+      button.textContent="Odaya Gir";
+
+      button.onclick=function(){
+
+        enterRoom(result.roomId);
+
+      };
+
+    }else{
+
+      button.textContent="Mesaj";
+
+      button.onclick=function(){
+
+        startPrivateChat(result.name);
+
+      };
+
+    }
+
+
+    row.appendChild(avatar);
+    row.appendChild(info);
+    row.appendChild(button);
+
+
+    box.appendChild(row);
+
+  });
 
 }
 
-openPage("searchPage");
 
-const rooms=
-getRooms().filter(r=>
-r.name.toLowerCase().includes(q)||
-(r.desc||"").toLowerCase().includes(q)
-);
-
-const users=
-["Ayşe","Mert","Elif","Kerem","Selin"]
-.filter(x=>
-x.toLowerCase().includes(q)
-);
-
-let html="";
-
-rooms.forEach(r=>{
-
-html+=roomHTML(r);
-
-});
-
-users.forEach(u=>{
-
-html+=`
-
-<div class="userCard">
-
-<div class="avatar">👤</div>
-
-<div class="userInfo">
-
-<div class="userName">
-${escapeHTML(u)}
-</div>
-
-<div class="userStatus">
-Kullanıcı
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-document.getElementById("searchResults")
-.innerHTML=
-html||
-'<div class="empty">Sonuç bulunamadı.</div>';
-
-}
-
-function escapeHTML(text){
-
-const div=
-document.createElement("div");
-
-div.textContent=text??"";
-
-return div.innerHTML;
-
-}
+/* =========================
+   LOGOUT
+========================= */
 
 async function logout(){
 
-if(confirm("Çıkış yapmak istiyor musun?")){
+  try{
 
-await auth.signOut();
+    await auth.signOut();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
 
 }
 
+
+/* =========================
+   HELPERS
+========================= */
+
+function getCurrentUid(){
+
+  return currentUser
+    ?currentUser.uid
+    :"guest";
+
 }
 
-renderGroups();
-renderRooms();
-renderHomeRooms();
+
+/* =========================
+   STARTUP
+========================= */
+
+window.addEventListener("load",()=>{
+
+  try{
+
+    getRooms();
+
+    renderRooms();
+
+    renderHomeRooms();
+
+    renderConversations();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+});
 
 </script>
 
