@@ -368,6 +368,10 @@ button{
   justify-content:center;
   font-size:30px;
   font-weight:800;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  overflow:hidden;
 }
 
 .profile-name{
@@ -394,6 +398,32 @@ button{
   border-radius:12px;
   margin-top:14px;
   font-weight:700;
+}
+
+.photo-help{
+  color:#888;
+  font-size:12px;
+  line-height:1.5;
+  margin:4px 0 12px;
+  text-align:center;
+}
+
+.photo-preview{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  margin:0 auto 12px;
+  background:#6847dc;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  font-weight:800;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  overflow:hidden;
 }
 
 .stats{
@@ -743,88 +773,58 @@ textarea.input{
   <div class="users">
 
     <div class="user-card">
-
       <div class="avatar">A</div>
-
       <div class="user-info">
         <div class="user-name">Ayşe</div>
         <div class="user-status">● Çevrimiçi</div>
       </div>
-
-      <button
-        class="chat-btn"
-        onclick="mesajAc('Ayşe')">
+      <button class="chat-btn" onclick="mesajAc('Ayşe')">
         Sohbet
       </button>
-
     </div>
 
     <div class="user-card">
-
       <div class="avatar">M</div>
-
       <div class="user-info">
         <div class="user-name">Mert</div>
         <div class="user-status">● Çevrimiçi</div>
       </div>
-
-      <button
-        class="chat-btn"
-        onclick="mesajAc('Mert')">
+      <button class="chat-btn" onclick="mesajAc('Mert')">
         Sohbet
       </button>
-
     </div>
 
     <div class="user-card">
-
       <div class="avatar">E</div>
-
       <div class="user-info">
         <div class="user-name">Elif</div>
         <div class="user-status">● Çevrimiçi</div>
       </div>
-
-      <button
-        class="chat-btn"
-        onclick="mesajAc('Elif')">
+      <button class="chat-btn" onclick="mesajAc('Elif')">
         Sohbet
       </button>
-
     </div>
 
     <div class="user-card">
-
       <div class="avatar">K</div>
-
       <div class="user-info">
         <div class="user-name">Kerem</div>
         <div class="user-status">● Çevrimiçi</div>
       </div>
-
-      <button
-        class="chat-btn"
-        onclick="mesajAc('Kerem')">
+      <button class="chat-btn" onclick="mesajAc('Kerem')">
         Sohbet
       </button>
-
     </div>
 
     <div class="user-card">
-
       <div class="avatar">S</div>
-
       <div class="user-info">
         <div class="user-name">Selin</div>
         <div class="user-status">● Çevrimiçi</div>
       </div>
-
-      <button
-        class="chat-btn"
-        onclick="mesajAc('Selin')">
+      <button class="chat-btn" onclick="mesajAc('Selin')">
         Sohbet
       </button>
-
     </div>
 
   </div>
@@ -996,7 +996,6 @@ textarea.input{
   <div class="coin-box">
 
     <div>
-
       <div class="coin-title">
         Coin bakiyesi
       </div>
@@ -1004,7 +1003,6 @@ textarea.input{
       <div class="coin-value" id="coinValue">
         0 🪙
       </div>
-
     </div>
 
     <button
@@ -1020,25 +1018,19 @@ textarea.input{
 
     <h3>Oyunlar</h3>
 
-    <button
-      class="menu-item"
-      onclick="oyunAc('Rocket Game')">
+    <button class="menu-item" onclick="oyunAc('Rocket Game')">
       <span>🚀</span>
       <strong>Rocket Game</strong>
       <span class="menu-arrow">›</span>
     </button>
 
-    <button
-      class="menu-item"
-      onclick="oyunAc('Jackpot')">
+    <button class="menu-item" onclick="oyunAc('Jackpot')">
       <span>🎰</span>
       <strong>Jackpot</strong>
       <span class="menu-arrow">›</span>
     </button>
 
-    <button
-      class="menu-item"
-      onclick="oyunAc('Şans Oyunu')">
+    <button class="menu-item" onclick="oyunAc('Şans Oyunu')">
       <span>🎲</span>
       <strong>Şans Oyunu</strong>
       <span class="menu-arrow">›</span>
@@ -1051,25 +1043,19 @@ textarea.input{
 
     <h3>Hesabım</h3>
 
-    <button
-      class="menu-item"
-      onclick="profilDuzenle()">
+    <button class="menu-item" onclick="profilDuzenle()">
       <span>👤</span>
       <strong>Profilim</strong>
       <span class="menu-arrow">›</span>
     </button>
 
-    <button
-      class="menu-item"
-      onclick="arkadaslarAc()">
+    <button class="menu-item" onclick="arkadaslarAc()">
       <span>👥</span>
       <strong>Arkadaşlarım</strong>
       <span class="menu-arrow">›</span>
     </button>
 
-    <button
-      class="menu-item"
-      onclick="takipAc()">
+    <button class="menu-item" onclick="takipAc()">
       <span>❤️</span>
       <strong>Takip Ettiklerim</strong>
       <span class="menu-arrow">›</span>
@@ -1082,25 +1068,19 @@ textarea.input{
 
     <h3>Ayarlar</h3>
 
-    <button
-      class="menu-item"
-      onclick="ayarlarAc()">
+    <button class="menu-item" onclick="ayarlarAc()">
       <span>⚙️</span>
       <strong>Ayarlar</strong>
       <span class="menu-arrow">›</span>
     </button>
 
-    <button
-      class="menu-item"
-      onclick="gizlilikAc()">
+    <button class="menu-item" onclick="gizlilikAc()">
       <span>🔐</span>
       <strong>Gizlilik ve Güvenlik</strong>
       <span class="menu-arrow">›</span>
     </button>
 
-    <button
-      class="menu-item"
-      onclick="bildirimAc()">
+    <button class="menu-item" onclick="bildirimAc()">
       <span>🔔</span>
       <strong>Bildirimler</strong>
       <span class="menu-arrow">›</span>
@@ -1113,17 +1093,13 @@ textarea.input{
 
     <h3>Güvenlik</h3>
 
-    <button
-      class="menu-item"
-      onclick="engelliAc()">
+    <button class="menu-item" onclick="engelliAc()">
       <span>🚫</span>
       <strong>Engellenen Kullanıcılar</strong>
       <span class="menu-arrow">›</span>
     </button>
 
-    <button
-      class="menu-item"
-      onclick="sikayetAc()">
+    <button class="menu-item" onclick="sikayetAc()">
       <span>⚠️</span>
       <strong>Bildirim / Şikayet</strong>
       <span class="menu-arrow">›</span>
@@ -1136,25 +1112,19 @@ textarea.input{
 
     <h3>Destek</h3>
 
-    <button
-      class="menu-item"
-      onclick="yardimAc()">
+    <button class="menu-item" onclick="yardimAc()">
       <span>❓</span>
       <strong>Yardım</strong>
       <span class="menu-arrow">›</span>
     </button>
 
-    <button
-      class="menu-item"
-      onclick="kosullarAc()">
+    <button class="menu-item" onclick="kosullarAc()">
       <span>📄</span>
       <strong>Kullanım Koşulları</strong>
       <span class="menu-arrow">›</span>
     </button>
 
-    <button
-      class="menu-item"
-      onclick="gizlilikPolitikasiAc()">
+    <button class="menu-item" onclick="gizlilikPolitikasiAc()">
       <span>🛡️</span>
       <strong>Gizlilik Politikası</strong>
       <span class="menu-arrow">›</span>
@@ -1265,7 +1235,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
-
 const db = firebase.firestore();
 
 const googleProvider =
@@ -1277,6 +1246,9 @@ const googleProvider =
 ========================= */
 
 let kayitModuAktif = false;
+
+/* PROFİL FOTOĞRAFI */
+let secilenProfilFotografi = "";
 
 
 /* =========================
@@ -1431,6 +1403,16 @@ async function kullaniciProfiliOlustur(
 
   };
 
+  /*
+    ÖNEMLİ:
+    Mevcut profil fotoğrafını silmiyoruz.
+    Fotoğraf daha önce kayıtlıysa korunuyor.
+  */
+
+  if(mevcutData.profilePhoto){
+    data.profilePhoto = mevcutData.profilePhoto;
+  }
+
   if(!mevcut.exists){
 
     data.createdAt =
@@ -1517,9 +1499,32 @@ async function gercekProfiliYukle(user){
     document.getElementById("profileEmail")
       .innerText = email;
 
-    document.getElementById("profileAvatar")
-      .innerText =
-      name.charAt(0).toUpperCase();
+
+    /* PROFİL FOTOĞRAFI */
+
+    const avatar =
+      document.getElementById("profileAvatar");
+
+    if(data.profilePhoto){
+
+      avatar.innerText = "";
+
+      avatar.style.backgroundImage =
+        'url("' + data.profilePhoto + '")';
+
+      avatar.style.backgroundSize = "cover";
+
+      avatar.style.backgroundPosition = "center";
+
+    }else{
+
+      avatar.innerText =
+        name.charAt(0).toUpperCase();
+
+      avatar.style.backgroundImage = "none";
+
+    }
+
 
     document.getElementById("coinValue")
       .innerText =
@@ -1667,7 +1672,10 @@ async function hesapIslemi(){
 
   }catch(error){
 
-    console.error("E-POSTA GİRİŞ HATASI:",error);
+    console.error(
+      "E-POSTA GİRİŞ HATASI:",
+      error
+    );
 
     errorBox.innerText =
       "Hata kodu: " +
@@ -1682,7 +1690,6 @@ async function hesapIslemi(){
 
 /* =========================
    GOOGLE GİRİŞ
-   GERÇEK HATA KODUNU GÖSTERİR
 ========================= */
 
 async function googleGiris(){
@@ -1916,6 +1923,157 @@ function selectNav(element,sayfa){
 
 
 /* =========================
+   PROFİL FOTOĞRAFI SEÇ
+   STORAGE YOK
+========================= */
+
+function profilFotografiSec(event){
+
+  const file =
+    event.target.files &&
+    event.target.files[0];
+
+  if(!file){
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+
+    alert(
+      "Lütfen bir resim dosyası seç."
+    );
+
+    return;
+
+  }
+
+
+  const reader =
+    new FileReader();
+
+  reader.onload =
+    function(e){
+
+      const img =
+        new Image();
+
+      img.onload =
+        function(){
+
+          /*
+            Fotoğrafı maksimum 300x300 yapıyoruz.
+            Böylece Firestore dokümanı gereksiz
+            şekilde büyümüyor.
+          */
+
+          const maxSize = 300;
+
+          let width =
+            img.width;
+
+          let height =
+            img.height;
+
+          if(width > height){
+
+            if(width > maxSize){
+
+              height =
+                Math.round(
+                  height *
+                  maxSize /
+                  width
+                );
+
+              width =
+                maxSize;
+
+            }
+
+          }else{
+
+            if(height > maxSize){
+
+              width =
+                Math.round(
+                  width *
+                  maxSize /
+                  height
+                );
+
+              height =
+                maxSize;
+
+            }
+
+          }
+
+
+          const canvas =
+            document.createElement("canvas");
+
+          canvas.width = width;
+          canvas.height = height;
+
+
+          const ctx =
+            canvas.getContext("2d");
+
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+          );
+
+
+          /*
+            JPEG olarak sıkıştırıyoruz.
+          */
+
+          secilenProfilFotografi =
+            canvas.toDataURL(
+              "image/jpeg",
+              0.70
+            );
+
+
+          /*
+            Önizleme
+          */
+
+          const preview =
+            document.getElementById(
+              "photoPreview"
+            );
+
+          if(preview){
+
+            preview.innerText = "";
+
+            preview.style.backgroundImage =
+              'url("' +
+              secilenProfilFotografi +
+              '")';
+
+          }
+
+        };
+
+
+      img.src =
+        e.target.result;
+
+    };
+
+
+  reader.readAsDataURL(file);
+
+}
+
+
+/* =========================
    PROFİL DÜZENLE
 ========================= */
 
@@ -1937,6 +2095,9 @@ async function profilDuzenle(){
     localStorage.getItem("power_username") ||
     "";
 
+  let mevcutFoto = "";
+
+
   try{
 
     const snap =
@@ -1946,13 +2107,17 @@ async function profilDuzenle(){
 
     if(snap.exists){
 
-      const data = snap.data();
+      const data =
+        snap.data();
 
       name =
         data.name || name;
 
       username =
         data.username || username;
+
+      mevcutFoto =
+        data.profilePhoto || "";
 
     }
 
@@ -1962,9 +2127,52 @@ async function profilDuzenle(){
 
   }
 
+
+  /*
+    Yeni fotoğraf seçilmediyse mevcut fotoğraf
+    korunacak.
+  */
+
+  secilenProfilFotografi =
+    mevcutFoto;
+
+
+  const previewStyle =
+    mevcutFoto
+      ? 'background-image:url("' +
+        mevcutFoto +
+        '");'
+      : '';
+
+
+  const previewText =
+    mevcutFoto
+      ? ''
+      : name.charAt(0).toUpperCase();
+
+
   modalAc(
     "Profili Düzenle",
     `
+      <div
+        class="photo-preview"
+        id="photoPreview"
+        style="${previewStyle}">
+        ${guvenliHTML(previewText)}
+      </div>
+
+      <div class="photo-help">
+        Profil fotoğrafını seç.
+        Fotoğraf otomatik olarak küçültülür.
+      </div>
+
+      <input
+        id="editPhoto"
+        class="input"
+        type="file"
+        accept="image/*"
+        onchange="profilFotografiSec(event)">
+
       <input
         id="editName"
         class="input"
@@ -2017,17 +2225,50 @@ async function profilKaydet(){
 
   if(!user){
 
-    alert("Önce giriş yapmalısın.");
+    alert(
+      "Önce giriş yapmalısın."
+    );
 
     return;
 
   }
 
+
   try{
+
+    /*
+      Fotoğraf seçilmediyse mevcut fotoğrafı
+      Firestore'dan koruyoruz.
+    */
+
+    let profilePhoto =
+      secilenProfilFotografi || "";
+
+
+    if(!profilePhoto){
+
+      const mevcutSnap =
+        await db.collection("users")
+          .doc(user.uid)
+          .get();
+
+      if(mevcutSnap.exists){
+
+        const mevcutData =
+          mevcutSnap.data();
+
+        profilePhoto =
+          mevcutData.profilePhoto || "";
+
+      }
+
+    }
+
 
     await user.updateProfile({
       displayName:name
     });
+
 
     await db.collection("users")
       .doc(user.uid)
@@ -2041,6 +2282,8 @@ async function profilKaydet(){
 
         email:user.email || "",
 
+        profilePhoto:profilePhoto,
+
         updatedAt:
           firebase.firestore.FieldValue
             .serverTimestamp()
@@ -2048,6 +2291,7 @@ async function profilKaydet(){
       },{
         merge:true
       });
+
 
     localStorage.setItem(
       "power_name",
@@ -2059,17 +2303,37 @@ async function profilKaydet(){
       username
     );
 
-    await gercekProfiliYukle(user);
+
+    /*
+      Profil ekranını yeniden yükle
+    */
+
+    await gercekProfiliYukle(
+      user
+    );
+
+
+    /*
+      Fotoğraf değişkenini temizle
+    */
+
+    secilenProfilFotografi = "";
+
 
     modalKapat();
 
+
     alert(
-      "Profilin Firebase'e kaydedildi."
+      "Profilin başarıyla kaydedildi."
     );
+
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "PROFİL KAYDETME HATASI:",
+      error
+    );
 
     alert(
       "Profil kaydedilemedi:\n" +
@@ -2147,7 +2411,7 @@ function aniPaylas(){
 
       <button
         class="primary-btn"
-        onclick="modalKapat();alert('Anı sistemi sonraki aşamada Firebase Storage ile bağlanacak.')">
+        onclick="modalKapat();alert('Anı sistemi sonraki aşamada Firebase ile bağlanacak.')">
         Paylaş
       </button>
     `
@@ -2504,7 +2768,10 @@ function firebaseHata(error){
 
 function firebaseHataGoster(mesaj,error){
 
-  console.error(mesaj,error);
+  console.error(
+    mesaj,
+    error
+  );
 
 }
 
